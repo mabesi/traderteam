@@ -1,5 +1,4 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
-<p align="center"><img src="https://adminlte.io/img/favicon.png"> AdminLTE</p>
+<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"> - <img height="50px" src="https://adminlte.io/img/favicon.png"> <span style="font-size: 20px;font-weight:bold;">AdminLTE</span></p>
 
 ## About Laravel
 
