@@ -4,6 +4,7 @@
   <link rel="stylesheet" href="{{ asset("/adminlte2/plugins/iCheck/square/blue.css") }}">
 @endpush
 
+
 @section('content')
 <body class="hold-transition register-page">
 <div class="register-box">
