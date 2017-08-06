@@ -9,29 +9,54 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="{{ route('home') }}">Laravel <b>Admin</b>LTE</a>
   </div>
 
   <div class="register-box-body">
     <p class="login-box-msg">Register a new membership</p>
 
-    <form action="../../index.html" method="post">
-      <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Full name">
+    <form action="{{ route('register') }}" method="post">
+      
+      {{ csrf_field() }}
+
+      <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }} has-feedback">
+        <input id="name" type="text" class="form-control" placeholder="Full name" name="name" value="{{ old('name') }}" required>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
+
+        @if ($errors->has('name'))
+            <span class="help-block">
+                <strong>{{ $errors->first('name') }}</strong>
+            </span>
+        @endif
       </div>
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+
+      <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} has-feedback">
+        <input id="email" type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+
+        @if ($errors->has('email'))
+            <span class="help-block">
+                <strong>{{ $errors->first('email') }}</strong>
+            </span>
+        @endif
       </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+
+      <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} has-feedback">
+        <input id="password" type="password" class="form-control" placeholder="Password" name="password" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+
+        @if ($errors->has('password'))
+            <span class="help-block">
+                <strong>{{ $errors->first('password') }}</strong>
+            </span>
+        @endif
       </div>
+
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Retype password">
+        <input id="password-confirm" type="password" class="form-control" placeholder="Retype password" name="password_confirmation" required>
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
+
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
