@@ -1,0 +1,29 @@
+#rowlogo {
+  background-color: darkslategray;
+  padding: 5px;
+}
+
+div {
+  border: 0px solid silver;
+}
+
+div.thumbnail {
+  min-height: 360px;
+}
+
+#home-banner {
+  margin-top: 1px;
+  margin-bottom: 10px;
+}
+
+#footer {
+  color: white;
+  font-size: 1.2em;
+  background-color: gray;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+div > p {
+  font-size: 1.1em;
+}
