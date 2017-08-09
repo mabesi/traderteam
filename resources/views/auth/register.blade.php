@@ -9,14 +9,14 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="{{ route('home') }}">Laravel <b>Admin</b>LTE</a>
+    <a href="{{ route('home') }}">{{ config('app.name', 'Laravel <b>Admin</b>LTE') }}</a>
   </div>
 
   <div class="register-box-body">
     <p class="login-box-msg">Register a new membership</p>
 
     <form action="{{ route('register') }}" method="post">
-      
+
       {{ csrf_field() }}
 
       <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }} has-feedback">

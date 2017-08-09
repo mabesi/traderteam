@@ -7,7 +7,7 @@
 @section('content')
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{ route('home') }}">Laravel <b>Admin</b>LTE</a>
+    <a href="{{ route('home') }}">{{ config('app.name', 'Laravel <b>Admin</b>LTE') }}</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

@@ -1,6 +1,10 @@
+body {
+  color: dimgray;
+}
+
 #rowlogo {
   background-color: darkslategray;
-  padding: 5px;
+  padding: 2px;
 }
 
 div {
@@ -8,7 +12,7 @@ div {
 }
 
 div.thumbnail {
-  min-height: 360px;
+  min-height: 365px;
 }
 
 #home-banner {
@@ -20,10 +24,41 @@ div.thumbnail {
   color: white;
   font-size: 1.2em;
   background-color: gray;
-  padding: 10px;
+  padding: 20px;
   margin-top: 10px;
 }
 
 div > p {
   font-size: 1.1em;
+}
+
+h2 {
+  margin-top: 10px;
+  font-size: 4em;
+  color: darkslategray;
+}
+
+#missao {
+  margin-top: 20px;
+  border: 2px solid green;
+  border-radius: 10px 60px;
+  background-color: #CECE9E;
+  padding: 15px;
+}
+
+.panel {
+  border-radius: 0 0 0 30px ;
+}
+
+.panel-heading {
+  font-weight: bolder;
+  font-size: 1.2em;
+}
+
+ul.nav > li > a {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: darkslategray;
+  background-color: #A8BAA9;
+  padding: 12px;
 }
