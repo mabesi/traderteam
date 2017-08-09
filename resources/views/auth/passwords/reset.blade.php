@@ -5,6 +5,7 @@
 @endpush
 
 @section('content')
+<body class="hold-transition login-page">
 <div class="container">
   <div class="row">
     <div class="page-header">

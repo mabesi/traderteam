@@ -1,10 +1,11 @@
-@extends('layouts.panel')
+@extends('layouts.blank')
 
 @push('css')
   <link rel="stylesheet" href="{{ asset("/adminlte2/plugins/iCheck/square/blue.css") }}">
 @endpush
 
 @section('content')
+<body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
     <a href="{{ route('home') }}">{{ config('app.name', 'Laravel <b>Admin</b>LTE') }}</a>
