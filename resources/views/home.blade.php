@@ -103,14 +103,15 @@
     <div class="col-sm-8  text-justify">
       <h2>Sobre o TraderTeam</h2>
       <p>O <strong>TraderTeam</strong> é uma comunidade formada por investidores, não profissionais, com ideais convergentes no que se refere a investimentos de renda variável e aprendizado colaborativo.
-      <p>Nosso público alvo são pessoas que operam no mercado financeiro com base em análise técnica, nas modalidades Day Trade ou Swing Trade, que possuem um ou mais estratégias de operação, e que desejam aperfeiçoar seu aprendizado constantemente por meio de trabalho em grupo.</p>
+      <p>Nosso público alvo são pessoas que operam no mercado financeiro com base em análise técnica, na modalidade Swing Trade, que possuem uma ou mais estratégias de operação, e que desejam aperfeiçoar seu aprendizado constantemente por meio de trabalho em grupo.</p>
 
       <p>Técnicas utilizadas pelos membros da comunidade para evoluir no aprendizado e alcançar os resultados:</p>
       <ul>
         <li>Descrever por escrito as regras do método utilizado para entrar em uma operação;</li>
         <li>Registrar e divulgar a operação visualizada em uma forma padronizada pelo time;</li>
         <li>Registrar e divulgar o resultado da operação compartilhada, em percentuais;</li>
-        <li>Revisão periódica das operações realizadas, da evolução financeira e do método utilizado pelos membros do time.</li>
+        <li>Revisão periódica das operações realizadas, da evolução financeira e do método utilizado pelos membros do time; e</li>
+        <li>Participação ativa através de comentários com críticas, dúvidas e sugestões em análises publicadas.</li>
       </ul>
 
     </div>
@@ -131,13 +132,13 @@
           <div class="panel panel-danger">
             <div class="panel-heading  text-center">MISSÃO</div>
             <div class="panel-body text-justify">
-              Aperfeiçoar constantemente o modo de operação e as estratégias de análise para day trade e swing trade de cada um dos membros da comunidade.
+              Aperfeiçoar constantemente o modo de operação e as estratégias de análise para Swing Trade de cada um dos membros da comunidade.
             </div>
           </div>
           <div class="panel panel-info">
             <div class="panel-heading  text-center">VISÃO</div>
             <div class="panel-body text-justify">
-              Ser um time de swing-traders e day-traders que desenvolve a disciplina e o aprendizado necessário para alcançar lucros constantes a longo prazo no mercado financeiro de ações à vista.
+              Ser um time de Swing-Traders que desenvolve a disciplina e o aprendizado necessário para alcançar lucros constantes a longo prazo no mercado financeiro de ações à vista.
             </div>
           </div>
         </div>
