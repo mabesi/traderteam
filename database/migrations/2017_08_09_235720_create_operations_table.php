@@ -19,6 +19,7 @@ class CreateOperationsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('strategy_id')->unsigned();
             $table->foreign('strategy_id')->references('id')->on('strategies');
+            $table->string('gtime',1);
             $table->string('stock',50);
             $table->string('buyorsell',1);
             $table->string('longorshort',1);
