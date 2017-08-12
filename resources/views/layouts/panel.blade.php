@@ -57,7 +57,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 
-<body class="hold-transition skin-green sidebar-mini sidebar-collapse">
+<body class="hold-transition skin-green sidebar-mini">
 <div class="wrapper">
 @include('layouts.menu')
 @include('layouts.sidebar')

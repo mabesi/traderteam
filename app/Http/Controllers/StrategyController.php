@@ -3,17 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Profile;
 
-class ProfileController extends Controller
+class StrategyController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,18 +14,12 @@ class ProfileController extends Controller
     public function index()
     {
       $data = [
-        'viewname' => 'Meu Perfil',
-        'viewtitle' => 'Meu Perfil',
+        'viewname' => 'Estratégia',
+        'viewtitle' => 'Estratégia',
         'errors' => null,
-        'profile' =>  Profile::where('user_id', Auth::user()->id)->first(),
       ];
 
-        if ($data['profile']==Null){
-          $data['warnings'] = ['Você ainda não criou o seu perfil. Aproveite para fazer isso agora...'];
-          return view('newprofile', $data);
-        } else {
-          return view('profile', $data);
-        }
+        return view('strategy', $data);
     }
 
     /**

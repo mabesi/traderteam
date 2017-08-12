@@ -1,6 +1,7 @@
 @extends('layouts.panel')
 
 @push('css')
+<link rel="stylesheet" href="{{ asset('/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 @endpush
 
 @section('content')
@@ -104,12 +105,12 @@
         <div class="col-md-8">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#strategies" data-toggle="tab">Estratégias</a></li>
+              <li><a href="#strategies" data-toggle="tab">Estratégias</a></li>
               <li><a href="#operations" data-toggle="tab">Operações</a></li>
-              <li><a href="#settings" data-toggle="tab">Configurações</a></li>
+              <li class="active"><a href="#settings" data-toggle="tab">Configurações</a></li>
             </ul>
             <div class="tab-content">
-              <div class="active tab-pane" id="strategies">
+              <div class="tab-pane" id="strategies">
                 @foreach (Auth::user()->strategies as $strategy)
                 <div class="post">
                   <h3>{{ $strategy->title }}</h3>
@@ -215,58 +216,136 @@
               </div>
               <!-- /.tab-pane -->
 
-              <div class="tab-pane" id="settings">
-                <form class="form-horizontal">
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Name</label>
-
-                    <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputName" placeholder="Name">
-                    </div>
+              <div class="active tab-pane" id="settings">
+                <div class="box box-primary">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Informações do Perfil</h3>
                   </div>
-                  <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                  <form class="form-horizontal">
+                    <div class="form-group">
+                      <label for="mybirthdate" class="col-sm-3 control-label">Data de Nascimento</label>
 
-                    <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Name</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Name">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
-
-                    <div class="col-sm-10">
-                      <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                        </label>
+                      <div class="col-sm-9">
+                        <input type="date" name="mybirthdate" class="form-control" id="mybirthdate" value="{{ date('d/m/Y',strtotime($profile->birthdate)) }}" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-danger">Submit</button>
+
+                    <div class="form-group">
+                      <label for="occupation" class="col-sm-3 control-label">Ocupação</label>
+
+                      <div class="col-sm-9">
+                        <input type="text" value="{{ old('occupation',$profile->occupation) }}" name="occupation" class="form-control" id="occupation">
+                      </div>
                     </div>
+                    <div class="form-group">
+                      <label for="city" class="col-sm-3 control-label">Cidade</label>
+
+                      <div class="col-sm-9">
+                        <input type="text" name="city" class="form-control" id="city" value="{{ $profile->city }}">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="state" class="col-sm-3 control-label">Estado</label>
+
+                      <div class="col-sm-3">
+                        <input type="text" name="state" class="form-control" id="state" value="{{ $profile->state }}">
+                      </div>
+                      <label for="country" class="col-sm-3 control-label">País</label>
+
+                      <div class="col-sm-3">
+                        <input type="text" name="country" class="form-control" id="country" value="{{ $profile->country }}">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="mydescription" class="col-sm-3 control-label">Minha Descrição</label>
+
+                      <div class="col-sm-9">
+                        <textarea class="textarea form-control" name="mydescription" id="mydescription" >{!! $profile->description !!}</textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="site" class="col-sm-3 control-label">Site</label>
+
+                      <div class="col-sm-9">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-globe"></i>
+                          </span>
+                          <input class="form-control" id="site" name="site" type="url"  value="{{ $profile->site }}">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="facebook" class="col-sm-3 control-label">Facebook</label>
+
+                      <div class="col-sm-9">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-facebook"></i>
+                          </span>
+                          <input class="form-control" id="facebook" name="facebook" type="url"  value="{{ $profile->facebook }}">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="twitter" class="col-sm-3 control-label">Twitter</label>
+
+                      <div class="col-sm-9">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="fa fa-twitter"></i>
+                          </span>
+                          <input class="form-control" id="twitter" name="twitter" type="url" value="{{ $profile->twitter }}">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="box box-danger">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Alterar Senha</h3>
                   </div>
-                </form>
+                  <form class="form-horizontal">
+                    <div class="form-group">
+                      <label for="password" class="col-sm-3 control-label">Senha Atual</label>
+
+                      <div class="col-sm-9">
+                        <input type="password" name="password" class="form-control" id="password">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="confirmPassword" class="col-sm-3 control-label">Nova Senha</label>
+
+                      <div class="col-sm-9">
+                        <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="confirmPassword" class="col-sm-3 control-label">Confirme a Senha</label>
+
+                      <div class="col-sm-9">
+                        <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" class="btn btn-danger">Enviar</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+
               </div>
               <!-- /.tab-pane -->
             </div>
@@ -281,4 +360,14 @@
 @endsection
 
 @push('scripts')
+<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.js") }}"></script>
+<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.date.extensions.js") }}"></script>
+<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.extensions.js") }}"></script>
+<script src="{{ asset("/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js") }}"></script>
+<script>
+  $(function () {
+    $('.textarea').wysihtml5();
+    $('[data-mask]').inputmask();
+  });
+</script>
 @endpush

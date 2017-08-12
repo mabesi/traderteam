@@ -8,18 +8,18 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="{{ route('home') }}">{{ config('app.name', 'Laravel <b>Admin</b>LTE') }}</a>
+    <a href="{{ route('home') }}"><img class="img-responsive" src="{{ asset('/img/logo.png') }}" alt="{{ config('app.name', 'Laravel <b>Admin</b>LTE') }}" /></a>
   </div>
 
   <div class="register-box-body">
-    <p class="login-box-msg">Register a new membership</p>
+    <p class="login-box-msg">Preencha os campos para se registrar</p>
 
     <form action="{{ route('register') }}" method="post">
 
       {{ csrf_field() }}
 
       <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }} has-feedback">
-        <input id="name" type="text" class="form-control" placeholder="Full name" name="name" value="{{ old('name') }}" required>
+        <input id="name" type="text" class="form-control" placeholder="Nome + Sobrenome" name="name" value="{{ old('name') }}" required>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
 
         @if ($errors->has('name'))
@@ -41,7 +41,7 @@
       </div>
 
       <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} has-feedback">
-        <input id="password" type="password" class="form-control" placeholder="Password" name="password" required>
+        <input id="password" type="password" class="form-control" placeholder="Senha" name="password" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 
         @if ($errors->has('password'))
@@ -52,7 +52,7 @@
       </div>
 
       <div class="form-group has-feedback">
-        <input id="password-confirm" type="password" class="form-control" placeholder="Retype password" name="password_confirmation" required>
+        <input id="password-confirm" type="password" class="form-control" placeholder="Repita a senha" name="password_confirmation" required>
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
 
@@ -60,27 +60,19 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> I agree to the <a href="#">terms</a>
+              <input type="checkbox"> Eu concordo com os <a href="{{ url('/terms') }}" target="_blank">termos</a>
             </label>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
 
-    <div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
-        Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
-        Google+</a>
-    </div>
-
-    <a href="login.html" class="text-center">I already have a membership</a>
+    <a href="{{ route('login') }}" class="text-center">Já tenho uma conta. Quero me logar.</a>
   </div>
   <!-- /.form-box -->
 </div>
