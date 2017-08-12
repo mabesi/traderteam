@@ -17,7 +17,7 @@ class CreateStrategiesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('title',50);
+            $table->string('title',100);
             $table->text('description');
             $table->string('indicators');
             $table->timestamps();

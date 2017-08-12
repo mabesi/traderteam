@@ -19,8 +19,7 @@ class CreateProfilesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedTinyInteger('level');
             $table->boolean('enabled')->default(True);
-            $table->string('avatar',50);
-            $table->string('ocupation',50);
+            $table->string('occupation',50);
             $table->date('birthdate');
             $table->string('city',60);
             $table->string('state',50);

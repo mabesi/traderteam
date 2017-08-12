@@ -23,10 +23,10 @@
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
+              <span class="label label-success">2</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
+              <li class="header">Você tem 2 novas mensagens</li>
               <li>
                 <!-- inner menu: contains the messages -->
                 <ul class="menu">
@@ -34,22 +34,38 @@
                     <a href="#">
                       <div class="pull-left">
                         <!-- User Image -->
-                        <img src="{{ asset("/adminlte2/dist/img/user2-160x160.jpg") }}" class="img-circle" alt="User Image">
+                        <img src="{{ asset("/img/avatar/suporte02.png") }}" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
-                        Support Team
+                        Suporte TraderTeam
                         <small><i class="fa fa-clock-o"></i> 5 mins</small>
                       </h4>
                       <!-- The message -->
-                      <p>Why not buy a new awesome theme?</p>
+                      <p>Sua solicitação foi atendida.</p>
+                    </a>
+                  </li>
+                  <!-- end message -->
+                  <li><!-- start message -->
+                    <a href="#">
+                      <div class="pull-left">
+                        <!-- User Image -->
+                        <img src="{{ asset("/img/avatar/avatar01.png") }}" class="img-circle" alt="User Image">
+                      </div>
+                      <!-- Message title and timestamp -->
+                      <h4>
+                        Fulano de Tal
+                        <small><i class="fa fa-clock-o"></i> 20 mins</small>
+                      </h4>
+                      <!-- The message -->
+                      <p>Bizú de nova estratégia.</p>
                     </a>
                   </li>
                   <!-- end message -->
                 </ul>
                 <!-- /.menu -->
               </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
+              <li class="footer"><a href="#">Ir para caixa de entrada</a></li>
             </ul>
           </li>
           <!-- /.messages-menu -->
@@ -118,53 +134,42 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="{{ asset("/adminlte2/dist/img/user2-160x160.jpg") }}" class="user-image" alt="User Image">
+              <img src="{{ asset("/img/avatar/1.jpg") }}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="{{ asset("/adminlte2/dist/img/user2-160x160.jpg") }}" class="img-circle" alt="User Image">
+                <img src="{{ asset("/img/avatar/1.jpg") }}" class="img-circle" alt="User Image">
 
                 <p>
                   {{ Auth::user()->name }}
-                  <small>Member since Nov. 2012</small>
+                  <small>Membro desde {{ Auth::user()->memberSince() }}</small>
                 </p>
               </li>
-              <!-- Menu Body -->
+              <!-- Menu Body
               <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
+
               </li>
+              -->
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
+                  <div class="pull-left">
+                    <a href="{{ url('/profile') }}" class="btn btn-default btn-flat">Meu Perfil</a>
+                  </div>
+                  <div class="pull-right">
 
-                  <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
-                      onclick="event.preventDefault();
-                      document.getElementById('logout-form').submit();">
-                      Logout
-                  </a>
+                    <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
 
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                      {{ csrf_field() }}
-                  </form>
-
-                </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                  </div>
               </li>
             </ul>
           </li>

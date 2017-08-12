@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'type',
+        'name', 'email', 'password', 'type', 'avatar',
     ];
 
     /**
@@ -61,4 +62,27 @@ class User extends Authenticatable
     {
       return $this->belongsToMany('App\User','followers','follower_id','user_id');
     }
+
+    public function getAvatar($class="img-circle",$alt="Foto do Perfil")
+    {
+      $img = "<img src='".asset("/img/avatar/".$this->avatar)."'";
+      $img .=" class='$class' alt='$alt' />";
+
+      return $img;
+    }
+
+    public function memberSince()
+    {
+      $created = date_create(Auth::user()->created_at);
+      return date_format($created,"M Y");
+    }
+
+    public function memberTime()
+    {
+      $created = date_create(Auth::user()->created_at);
+      $now = date_create('Y-m-d H:i:s',time());
+
+      return date_format(date_diff($created,$now),'%h horas %i minutos');
+    }
+
 }
