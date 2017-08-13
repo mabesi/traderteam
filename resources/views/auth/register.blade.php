@@ -61,7 +61,7 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> Eu concordo com os <a href="{{ url('/terms') }}" target="_blank">termos</a>
+              <input type="checkbox" required> Eu concordo com os <a href="{{ url('/terms') }}" target="_blank">termos</a>
             </label>
           </div>
         </div>

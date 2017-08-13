@@ -19,6 +19,7 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/terms', 'HomeController@terms')->name('terms');
 
 //Route::middleware('auth')->group(function(){});
 

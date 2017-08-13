@@ -47,7 +47,7 @@
               </li>
               <li role="presentation" >
                 <a href="#missao" class="text-left">
-                  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Missão, Visão e Valores
+                  <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> Missão, Visão e Valores
                 </a>
               </li>
               <li role="presentation" >
@@ -57,7 +57,12 @@
               </li>
               <li role="presentation" >
                 <a href="#privacidade" class="text-left">
-                  <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Política de Privacidade
+                  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Política de Privacidade
+                </a>
+              </li>
+              <li role="presentation" >
+                <a href="{{ route('terms') }}" class="text-left" target="_blank">
+                  <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Termos de Serviço
                 </a>
               </li>
               <li role="presentation" >

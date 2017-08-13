@@ -56,9 +56,9 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <strong><i class="fa fa-birthday-cake margin-r-5"></i> 41 Anos</strong>
+              <strong><i class="fa fa-birthday-cake margin-r-5"></i> {{ humanPastTime($profile->birthdate) }}</strong>
               <p class="text-muted">
-                Aniversário em 16 de janeiro
+                Aniversário em {{ birthday($profile->birthdate,true) }}
               </p>
 
               <strong><i class="fa fa-briefcase margin-r-5"></i> Ocupação</strong>

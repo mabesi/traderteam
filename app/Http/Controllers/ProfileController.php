@@ -43,7 +43,15 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+      $profile = new Profile;
+
+
+
+              $flight = new Flight;
+
+              $flight->name = $request->name;
+
+              $flight->save();
     }
 
     /**

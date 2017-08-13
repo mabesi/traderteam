@@ -73,16 +73,12 @@ class User extends Authenticatable
 
     public function memberSince()
     {
-      $created = date_create(Auth::user()->created_at);
-      return date_format($created,"M Y");
+      return monthOfYear(Auth::user()->created_at);
     }
 
     public function memberTime()
     {
-      $created = date_create(Auth::user()->created_at);
-      $now = date_create('Y-m-d H:i:s',time());
-
-      return date_format(date_diff($created,$now),'%h horas %i minutos');
+      return humanPastTime(Auth::user()->created_at);
     }
 
 }
