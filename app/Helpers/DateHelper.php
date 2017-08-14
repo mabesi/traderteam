@@ -1,7 +1,7 @@
 <?php
 
 if (! function_exists('humanPastTime')) {
-  function humanPastTime($dateTime)
+  function humanPastTime($dateTime,$popularTime=false)
   {
     /**
     *  % - Literal %
@@ -23,7 +23,13 @@ if (! function_exists('humanPastTime')) {
     */
 
     $pastDateTime = new DateTime($dateTime);
+    $yearPastDateTime = (int) $pastDateTime->format('Y');
+    $monthPastDateTime = (int) $pastDateTime->format('m');
+
     $now = new DateTime();
+    $yearNow = (int) $now->format('Y');
+    $monthNow = (int) $now->format('m');
+
     $interval = $now->diff($pastDateTime);
 
     $years = (int) $interval->format('%y');
@@ -38,11 +44,17 @@ if (! function_exists('humanPastTime')) {
       if ($years > 1){
         return $years.' anos';
       } else {
-        $humanInterval = $years.' ano';
+        if ($popularTime) {
+          if ($yearNow == $yearPastDateTime + 1) {
+            return 'Ano passado';
+          }
+        } else {
+          $humanInterval = $years.' ano';
+        }
       }
 
       if ($months > 0) {
-        $humanInterval .= ' e '.$months.($months==1)?' mês':' meses';
+        $humanInterval .= ' e '.$months.' '.($months==1?'mês':'meses');
       }
 
       return $humanInterval;
@@ -52,18 +64,32 @@ if (! function_exists('humanPastTime')) {
       if ($months > 1){
         return $months.' meses';
       } else {
-        $humanInterval = $months.' mês';
+        if ($popularTime) {
+          if ($monthNow == $monthPastDateTime + 1 || $monthNow == $monthPastDateTime - 11) {
+            return 'Mês passado';
+          }
+        } else {
+          $humanInterval = $months.' mês';
+        }
       }
 
       if ($days > 0) {
-        $humanInterval .= ' e '.$days.($days==1)?' dia':' dias';
+        $humanInterval .= ' e '.$days.' '.($days==1?'dia':'dias');
       }
 
       return $humanInterval;
 
     } elseif ($days > 0) {
 
-      return $days.($days==1)?' dia':' dias';
+      if ($popularTime) {
+        if ($days == 1) {
+          return 'Ontem';
+        } elseif ($days == 2) {
+          return 'Anteontem';
+        } else {
+          return $days.' '.($days==1?'dia':'dias');
+        }
+      }
 
     } elseif ($hours > 0) {
 
@@ -74,7 +100,7 @@ if (! function_exists('humanPastTime')) {
       }
 
       if ($minutes > 0) {
-        $humanInterval .= ' e '.$minutes.($minutes==1)?' minuto':' minutos';
+        $humanInterval .= ' e '.$minutes.' '.($minutes>1?'minutos':'minuto');
       }
 
       return $humanInterval;
@@ -82,9 +108,9 @@ if (! function_exists('humanPastTime')) {
     } else {
 
       if ($minutes > 0) {
-        return $minutes.($minutes==1)?' minuto':' minutos';
+        return $minutes.' '.($minutes>1?'minutos':'minuto');
       } else {
-        return $seconds.($seconds==1)?' segundo':' segundos';
+        return $seconds.' '.($seconds>1?'segundos':'segundo');
       }
 
     }
