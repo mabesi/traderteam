@@ -13,7 +13,7 @@
           <div class="box box-primary">
             <div class="box-body box-profile">
 
-              {!! Auth::user()->getAvatar('profile-user-img img-responsive img-circle',Auth::user()->name) !!}
+              {!! getUserAvatar('profile-user-img img-responsive img-circle',Auth::user()->name) !!}
 
               <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
 
@@ -68,7 +68,7 @@
 
               <strong><i class="fa fa-map-marker margin-r-5"></i> Localização</strong>
               <p class="text-muted">
-                {{ $profile->city.', '.$profile->state.' - '.$profile->country }}
+                {{ $profile->city.(isset($profile->state)?', ':'').$profile->state.(isset($profile->country)?' - ':'').$profile->country }}
               </p>
 
               <strong><i class="fa fa-commenting margin-r-5"></i> Quem Sou Eu?</strong>
@@ -91,7 +91,7 @@
                 {!! $profile->twitter !!}
               </p>
 
-              <strong><i class="fa fa-money margin-r-5"></i> Capital de Investimento</strong> <small><i>(Confidencial - Só você pode ver!)</i></small>
+              <strong><i class="fa fa-money margin-r-5"></i> Capital de Investimento</strong> <small><i>(Valor simulado para estatística)</i></small>
               <p class="text-muted text-justify">
                 {!! 'R$ '.$profile->capital !!}
               </p>
@@ -105,9 +105,9 @@
         <div class="col-md-8">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li><a href="#strategies" data-toggle="tab">Estratégias</a></li>
+              <li class="active"><a href="#strategies" data-toggle="tab">Estratégias</a></li>
               <li><a href="#operations" data-toggle="tab">Operações</a></li>
-              <li class="active"><a href="#settings" data-toggle="tab">Configurações</a></li>
+              <li><a href="#settings" data-toggle="tab">Configurações</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane" id="strategies">
@@ -216,99 +216,14 @@
               </div>
               <!-- /.tab-pane -->
 
-              <div class="active tab-pane" id="settings">
+              <div class="tab-pane active" id="settings">
                 <div class="box box-primary">
                   <div class="box-header with-border">
                     <h3 class="box-title">Informações do Perfil</h3>
                   </div>
-                  <form class="form-horizontal">
-                    <div class="form-group">
-                      <label for="mybirthdate" class="col-sm-3 control-label">Data de Nascimento</label>
 
-                      <div class="col-sm-9">
-                        <input type="date" name="mybirthdate" class="form-control" id="mybirthdate" value="{{ date('d/m/Y',strtotime($profile->birthdate)) }}" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
-                      </div>
-                    </div>
+                  @include('layouts.formprofile')
 
-                    <div class="form-group">
-                      <label for="occupation" class="col-sm-3 control-label">Ocupação</label>
-
-                      <div class="col-sm-9">
-                        <input type="text" value="{{ old('occupation',$profile->occupation) }}" name="occupation" class="form-control" id="occupation">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="city" class="col-sm-3 control-label">Cidade</label>
-
-                      <div class="col-sm-9">
-                        <input type="text" name="city" class="form-control" id="city" value="{{ $profile->city }}">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="state" class="col-sm-3 control-label">Estado</label>
-
-                      <div class="col-sm-3">
-                        <input type="text" name="state" class="form-control" id="state" value="{{ $profile->state }}">
-                      </div>
-                      <label for="country" class="col-sm-3 control-label">País</label>
-
-                      <div class="col-sm-3">
-                        <input type="text" name="country" class="form-control" id="country" value="{{ $profile->country }}">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="mydescription" class="col-sm-3 control-label">Minha Descrição</label>
-
-                      <div class="col-sm-9">
-                        <textarea class="textarea form-control" name="mydescription" id="mydescription" >{!! $profile->description !!}</textarea>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="site" class="col-sm-3 control-label">Site</label>
-
-                      <div class="col-sm-9">
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <i class="fa fa-globe"></i>
-                          </span>
-                          <input class="form-control" id="site" name="site" type="url"  value="{{ $profile->site }}">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="facebook" class="col-sm-3 control-label">Facebook</label>
-
-                      <div class="col-sm-9">
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <i class="fa fa-facebook"></i>
-                          </span>
-                          <input class="form-control" id="facebook" name="facebook" type="url"  value="{{ $profile->facebook }}">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="twitter" class="col-sm-3 control-label">Twitter</label>
-
-                      <div class="col-sm-9">
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <i class="fa fa-twitter"></i>
-                          </span>
-                          <input class="form-control" id="twitter" name="twitter" type="url" value="{{ $profile->twitter }}">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                      </div>
-                    </div>
-                  </form>
                 </div>
 
                 <div class="box box-danger">

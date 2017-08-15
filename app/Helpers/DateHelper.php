@@ -81,14 +81,18 @@ if (! function_exists('humanPastTime')) {
 
     } elseif ($days > 0) {
 
+      //return "Chegou aqui...";
+
       if ($popularTime) {
         if ($days == 1) {
           return 'Ontem';
         } elseif ($days == 2) {
           return 'Anteontem';
         } else {
-          return $days.' '.($days==1?'dia':'dias');
+          return $days.' dias';
         }
+      } else {
+        return $days.' '.($days==1?'dia':'dias');
       }
 
     } elseif ($hours > 0) {
@@ -238,6 +242,27 @@ function getDaysTo($date)
     $currentDate = date('Y-m-d');
     $date = date('Y-m-d',$date);
     return daysBetweenDates($currentDate,$date);
+}
+
+function getMysqlDateFromBR($date)
+{
+    $arrayDate = explode('/',$date);
+    $day = $arrayDate[0];
+    $month = $arrayDate[1];
+    $year = $arrayDate[2];
+
+    return $year.'-'.$month.'-'.$day;
+}
+
+function getBRDateFromMysql($date)
+{
+
+  $arrayDate = explode('-',$date);
+  $year = $arrayDate[0];
+  $month = $arrayDate[1];
+  $day = $arrayDate[2];
+
+  return $day.'/'.$month.'/'.$year;
 }
 
 function getMysqlDate($date)

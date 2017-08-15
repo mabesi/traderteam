@@ -7,7 +7,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="image text-center img-responsive">
-          <img src="{{ asset("/img/bullbear.png") }}" alt="Bull X Bear">
+          <img src="{{ asset("/img/logo-mini.png") }}" alt="TraderTeam Logo Mini">
         </div>
       </div>
 

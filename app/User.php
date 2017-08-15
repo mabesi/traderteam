@@ -65,10 +65,7 @@ class User extends Authenticatable
 
     public function getAvatar($class="img-circle",$alt="Foto do Perfil")
     {
-      $img = "<img src='".asset("/img/avatar/".$this->avatar)."'";
-      $img .=" class='$class' alt='$alt' />";
-
-      return $img;
+      return getUserAvatar($class,$alt);
     }
 
     public function memberSince()
