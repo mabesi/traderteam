@@ -20,5 +20,10 @@ class Strategy extends Model
     public function operations()
     {
       return $this->hasMany('App\Operation');
-    }    
+    }
+
+    public function indicators()
+    {
+      return $this->belongsToMany('App\Indicator');
+    }
 }
