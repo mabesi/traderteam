@@ -1,9 +1,5 @@
 @extends('layouts.panel')
 
-@push('css')
-<link rel="stylesheet" href="{{ asset('/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
-@endpush
-
 @section('content')
 
       <div class="row">
@@ -110,10 +106,10 @@
               <li><a href="#settings" data-toggle="tab">Configurações</a></li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane" id="strategies">
+              <div class="tab-pane active" id="strategies">
                 @foreach (Auth::user()->strategies as $strategy)
                 <div class="post">
-                  <h3>{{ $strategy->title }}</h3>
+                  <h3><a href="{{ url('strategy/'.$strategy->id) }}">{{ $strategy->title }}</a></h3>
                   <p>{!! $strategy->description !!}</p>
                   <p><strong>Indicadores:</strong> {{ $strategy->indicators }}</p>
                 </div>
@@ -216,7 +212,7 @@
               </div>
               <!-- /.tab-pane -->
 
-              <div class="tab-pane active" id="settings">
+              <div class="tab-pane" id="settings">
                 <div class="box box-primary">
                   <div class="box-header with-border">
                     <h3 class="box-title">Informações do Perfil</h3>
@@ -273,16 +269,3 @@
       <!-- /.row -->
 
 @endsection
-
-@push('scripts')
-<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.js") }}"></script>
-<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.date.extensions.js") }}"></script>
-<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.extensions.js") }}"></script>
-<script src="{{ asset("/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js") }}"></script>
-<script>
-  $(function () {
-    $('.textarea').wysihtml5();
-    $('[data-mask]').inputmask();
-  });
-</script>
-@endpush

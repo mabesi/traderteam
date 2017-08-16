@@ -20,3 +20,12 @@ if (! function_exists('special_ucwords')) {
     return implode(' ', $return);
   }
 }
+
+function strContains($strComplete,$str)
+{
+  if (strpos($strComplete,$str)===False){
+    return false;
+  } else {
+    return true;
+  }
+}

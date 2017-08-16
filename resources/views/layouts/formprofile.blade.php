@@ -1,10 +1,24 @@
+@push('css')
+<link rel="stylesheet" href="{{ asset('/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+@endpush
+
 <form class="form-horizontal" action="{{ url('/profile'.(isset($profile->id)?'/'.$profile->id:'')) }}" method="POST" enctype="multipart/form-data">
 
-  {{ csrf_field() }}
+{{ csrf_field() }}
 
 @if (isset($profile->id))
   <input type="hidden" name="_method" value="PUT">
 @endif
+
+<div class="form-group">
+  <div class="col-sm-3">
+  </div>
+  <div class="col-sm-9">
+    <p class="text-muted">
+      Todas as informações do perfil são opcionais.
+    </p>
+  </div>
+</div>
 
   <div class="form-group">
     <label for="avatar" class="col-sm-3 control-label">Imagem do Perfil</label>
@@ -49,7 +63,7 @@
     <label for="country" class="col-sm-3 control-label">País</label>
 
     <div class="col-sm-3">
-      <input type="text" name="country" class="form-control" id="country" value="{{ old('country',isset($profile->country)?$profile->country:Null) }}">
+      <input type="text" name="country" class="form-control" id="country" value="{{ old('country',isset($profile->country)?$profile->country:BR) }}" >
     </div>
   </div>
   <div class="form-group">
@@ -68,7 +82,7 @@
         <span class="input-group-addon">
           <i class="fa fa-globe"></i>
         </span>
-        <input class="form-control" id="site" name="site" type="url"  value="{{ old('site',isset($profile->site)?$profile->site:Null) }}">
+        <input class="form-control" id="site" name="site" type="url"  value="{{ old('site',isset($profile->site)?$profile->site:Null) }}" placeholder="http://www.nomedoseusite.com.br" >
       </div>
     </div>
   </div>
@@ -81,7 +95,7 @@
         <span class="input-group-addon">
           <i class="fa fa-facebook"></i>
         </span>
-        <input class="form-control" id="facebook" name="facebook" type="url"  value="{{ old('facebook',isset($profile->facebook)?$profile->facebook:Null) }}">
+        <input class="form-control" id="facebook" name="facebook" type="url"  value="{{ old('facebook',isset($profile->facebook)?$profile->facebook:Null) }}" placeholder="https://www.facebook.com/seunomedeusuario" >
       </div>
     </div>
   </div>
@@ -94,7 +108,7 @@
         <span class="input-group-addon">
           <i class="fa fa-twitter"></i>
         </span>
-        <input class="form-control" id="twitter" name="twitter" type="url" value="{{ old('twitter',isset($profile->twitter)?$profile->twitter:Null) }}">
+        <input class="form-control" id="twitter" name="twitter" type="url" value="{{ old('twitter',isset($profile->twitter)?$profile->twitter:Null) }}" placeholder="https://twitter.com/seunomedeusuario" >
       </div>
     </div>
   </div>
@@ -105,3 +119,17 @@
     </div>
   </div>
 </form>
+
+@push('scripts')
+<script src="{{ asset("/js/img-helper.js") }}"></script>
+<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.js") }}"></script>
+<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.date.extensions.js") }}"></script>
+<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.extensions.js") }}"></script>
+<script src="{{ asset("/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js") }}"></script>
+<script>
+  $(function () {
+    $('.textarea').wysihtml5();
+    $('[data-mask]').inputmask();
+  });
+</script>
+@endpush

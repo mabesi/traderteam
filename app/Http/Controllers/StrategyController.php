@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Strategy;
 
 class StrategyController extends Controller
 {
+
+    private $indicators = [
+      'Volume','MMA','MME','MACD','BB','ATR','ADL','ADX','Williams',
+      'Momentum','Estocástico','Fibonacci','Keltner','HiLo','SAR','Aroon',
+      'IMD','OHLC','Candlestick','Heikin-Ashi','Renko','TRIX',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,12 +23,12 @@ class StrategyController extends Controller
     public function index()
     {
       $data = [
-        'viewname' => 'Estratégia',
-        'viewtitle' => 'Estratégia',
+        'viewname' => 'Minhas Estratégias',
+        'viewtitle' => 'Minhas Estratégias',
         'errors' => null,
       ];
 
-        return view('strategy', $data);
+        return view('mystrategies', $data);
     }
 
     /**
@@ -29,7 +38,16 @@ class StrategyController extends Controller
      */
     public function create()
     {
-        //
+      $data = [
+        'viewname' => 'Nova Estratégia',
+        'viewtitle' => 'Nova Estratégia',
+        'errors' => null,
+        'indicators' => $this->indicators,
+      ];
+
+      sort($data['indicators']);
+
+      return view('strategy', $data);
     }
 
     /**
@@ -40,7 +58,18 @@ class StrategyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $strategy = new Strategy;
+
+      $strategy->user_id = getUserId();
+      $strategy->title = $request->title;
+      $strategy->description = $request->description;
+      $strategy->indicators = implode(',',$request->indicators);
+
+      //dd($strategy);
+
+      $strategy->save();
+
+      return redirect('strategy/'.$strategy->id);
     }
 
     /**
@@ -51,7 +80,19 @@ class StrategyController extends Controller
      */
     public function show($id)
     {
-        //
+      $strategy = Strategy::find($id);
+
+      $data = [
+        'viewname' => 'Estratégia',
+        'viewtitle' => 'Estratégia',
+        'errors' => null,
+        'indicators' => $this->indicators,
+        'strategy' => $strategy,
+      ];
+
+      sort($data['indicators']);
+
+      return view('strategy', $data);
     }
 
     /**
@@ -74,7 +115,15 @@ class StrategyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $strategy = Strategy::find($id);
+
+      $strategy->title = $request->title;
+      $strategy->description = $request->description;
+      $strategy->indicators = implode(',',$request->indicators);
+
+      $strategy->save();
+
+      return redirect('strategy/'.$strategy->id);
     }
 
     /**

@@ -37,8 +37,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Nova Estratégia</a></li>
-            <li><a href="#">Minhas Estratégias</a></li>
+            <li><a href="{{ url('strategy/create') }}">Nova Estratégia</a></li>
+            <li><a href="{{ url('strategy') }}">Minhas Estratégias</a></li>
             <li><a href="#">Regras</a></li>
             <li><a href="#">Indicadores</a></li>
           </ul>
