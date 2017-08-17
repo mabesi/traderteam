@@ -101,22 +101,14 @@
         <div class="col-md-8">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#strategies" data-toggle="tab">Estratégias</a></li>
-              <li><a href="#operations" data-toggle="tab">Operações</a></li>
+              <li class="active"><a href="#operations" data-toggle="tab">Operações</a></li>
+              <li><a href="#strategies" data-toggle="tab">Estratégias</a></li>
               <li><a href="#settings" data-toggle="tab">Configurações</a></li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="strategies">
-                @foreach (Auth::user()->strategies as $strategy)
-                <div class="post">
-                  <h3><a href="{{ url('strategy/'.$strategy->id) }}">{{ $strategy->title }}</a></h3>
-                  <p>{!! $strategy->description !!}</p>
-                  <p><strong>Indicadores:</strong> {{ $strategy->indicators }}</p>
-                </div>
-                @endforeach
-              </div>
+
               <!-- /.tab-pane -->
-              <div class="tab-pane" id="operations">
+              <div class="tab-pane active" id="operations">
                 <!-- The timeline -->
                 <ul class="timeline timeline-inverse">
                   <!-- timeline time label -->
@@ -211,6 +203,16 @@
                 </ul>
               </div>
               <!-- /.tab-pane -->
+
+              <div class="tab-pane" id="strategies">
+                @foreach (Auth::user()->strategies as $strategy)
+                <div class="post">
+                  <h3><a href="{{ url('strategy/'.$strategy->id) }}">{{ $strategy->title }}</a></h3>
+                  <p>{!! $strategy->description !!}</p>
+                  <p><strong>Indicadores:</strong> {{ $strategy->indicators }}</p>
+                </div>
+                @endforeach
+              </div>
 
               <div class="tab-pane" id="settings">
                 <div class="box box-primary">
