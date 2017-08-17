@@ -28,3 +28,4 @@ Route::get('/terms', 'HomeController@terms')->name('terms');
 
 Route::resource('profile', 'ProfileController');
 Route::resource('strategy', 'StrategyController');
+Route::resource('indicator', 'IndicatorController');

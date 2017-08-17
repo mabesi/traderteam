@@ -40,7 +40,7 @@
             <li><a href="{{ url('strategy/create') }}">Nova Estratégia</a></li>
             <li><a href="{{ url('strategy') }}">Minhas Estratégias</a></li>
             <li><a href="#">Regras</a></li>
-            <li><a href="#">Indicadores</a></li>
+            <li><a href="{{ url('indicator') }}">Indicadores</a></li>
           </ul>
         </li>
 

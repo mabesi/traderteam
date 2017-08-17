@@ -22,6 +22,16 @@ function getUserAvatarName()
   return Auth::user()->avatar;
 }
 
+function indicatorType($type){
+  $types = [
+    'T' => 'Tendência',
+    'V' => 'Volume',
+    'O' => 'Oscilador',
+  ];
+
+  return $types[$type];
+}
+
 function getUserAvatar($class="img-circle",$alt="Foto do Perfil")
 {
   $src = asset("/storage/avatar/".Auth::user()->avatar);

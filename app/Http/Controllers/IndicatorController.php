@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Indicator;
 use Illuminate\Http\Request;
+use App\Indicator;
+use App\User;
+use Illuminate\Support\Facades\Storage;
 
 class IndicatorController extends Controller
 {
@@ -14,7 +16,18 @@ class IndicatorController extends Controller
      */
     public function index()
     {
-        //
+      $indicators = Indicator::all();
+
+      $data = [
+        'viewname' => 'Indicadores',
+        'viewtitle' => 'Indicadores Técnicos',
+        'errors' => null,
+        'indicators' => $indicators,
+      ];
+
+      //dd($data['indicators']);
+
+      return view('indicators', $data);
     }
 
     /**
@@ -24,7 +37,13 @@ class IndicatorController extends Controller
      */
     public function create()
     {
-        //
+      $data = [
+        'viewname' => 'Novo Indicador',
+        'viewtitle' => 'Novo Indicador',
+        'errors' => null,
+      ];
+
+      return view('indicator', $data);
     }
 
     /**
@@ -35,7 +54,29 @@ class IndicatorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $indicator = new Indicator;
+
+      $indicator->name = $request->name;
+      $indicator->acronym = $request->acronym;
+      $indicator->description = $request->description;
+      $indicator->type = $request->type;
+
+      if ($request->hasFile('image')){
+
+        if ($request->file('image')->isValid()) {
+
+          $image = $request->file('image');
+          $imageName = strtolower($indicator->acronym.'.'.$image->getClientOriginalExtension());
+          $indicator->image = $imageName;
+          $pathImage = $image->storeAs('indicators', $imageName, 'public');
+
+        }
+      }
+
+      $indicator->save();
+
+      //return redirect('indicator/'.$indicator->id.'/edit');
+      return redirect('indicator');
     }
 
     /**
@@ -57,7 +98,14 @@ class IndicatorController extends Controller
      */
     public function edit(Indicator $indicator)
     {
-        //
+      $data = [
+        'viewname' => 'Novo Indicador',
+        'viewtitle' => 'Novo Indicador',
+        'errors' => null,
+        'indicator' => $indicator,
+      ];
+
+      return view('indicator', $data);
     }
 
     /**
@@ -69,7 +117,32 @@ class IndicatorController extends Controller
      */
     public function update(Request $request, Indicator $indicator)
     {
-        //
+      $indicator->name = $request->name;
+      $indicator->acronym = $request->acronym;
+      $indicator->description = $request->description;
+      $indicator->type = $request->type;
+
+      $oldImage = 'indicators/'.$indicator->image;
+
+      if ($request->hasFile('image')){
+
+        if ($request->file('image')->isValid()) {
+
+          $image = $request->file('image');
+          $imageName = strtolower($indicator->acronym.'.'.$image->getClientOriginalExtension());
+          $indicator->image = $imageName;
+          $pathImage = $image->storeAs('indicators', $imageName, 'public');
+
+          if ($pathImage != $oldImage && $oldImage != 'indicators/indicators.png'){
+            Storage::disk('public')->delete($oldImage);
+          }
+        }
+      }
+
+      $indicator->save();
+
+      //return redirect('indicator/'.$indicator->id.'/edit');
+      return redirect('indicator');
     }
 
     /**
@@ -80,6 +153,6 @@ class IndicatorController extends Controller
      */
     public function destroy(Indicator $indicator)
     {
-        //
+        dd($indicator);
     }
 }

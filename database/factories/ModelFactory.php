@@ -35,3 +35,14 @@ $factory->define(App\Strategy::class, function (Faker\Generator $faker) {
         'indicators' => implode($faker->randomElements(['MACD','MME','MMA','RSI','BB','FRACTAL','WILLIANS','ADF','OBV','A/D'],3),' '),
     ];
 });
+
+$factory->define(App\Indicator::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->sentence(3),
+        'acronym' => $faker->word(),
+        'description' => $faker->paragraph(),
+        'type' => $faker->randomElement(['T','V','O']),
+        'image' => 'indicators.png',
+    ];
+});
