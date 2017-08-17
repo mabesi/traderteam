@@ -136,4 +136,15 @@ class StrategyController extends Controller
     {
         //
     }
+
+    public function rules()
+    {
+      $data = [
+        'viewname' => 'Regras',
+        'viewtitle' => 'Regras',
+        'errors' => null,
+      ];
+
+      return view('strategyrules', $data);      
+    }
 }

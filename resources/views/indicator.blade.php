@@ -36,7 +36,7 @@
           <label for="name" class="col-sm-3 control-label">Indicador *</label>
 
           <div class="col-sm-9">
-            <input type="text" value="{{ old('name',isset($indicator->name)?$indicator->name:Null) }}" name="name" class="form-control" id="title" placeholder="Nome do Indicador">
+            <input type="text" value="{{ old('name',isset($indicator->name)?$indicator->name:Null) }}" name="name" class="form-control" id="title" placeholder="Nome do Indicador (Ex: Exponencial Moving Average)">
           </div>
         </div>
 
@@ -44,7 +44,7 @@
           <label for="acronym" class="col-sm-3 control-label">Sigla *</label>
 
           <div class="col-sm-9">
-            <input type="text" value="{{ old('acronym',isset($indicator->acronym)?$indicator->acronym:Null) }}" name="acronym" class="form-control" id="acronym" placeholder="Sigla/Acrônimo do Indicador">
+            <input type="text" value="{{ old('acronym',isset($indicator->acronym)?$indicator->acronym:Null) }}" name="acronym" class="form-control" id="acronym" placeholder="Sigla/Acrônimo do Indicador (Ex: EMA)">
           </div>
         </div>
 
@@ -62,6 +62,12 @@
           <div class="col-sm-9">
             <div class="radio">
               <label>
+                <input id="typeO" name="type" value="O" type="radio" {{ ((isset($indicator->type)?$indicator->type:'')=='O'?'checked':'') }} >
+                Oscilador
+              </label>
+            </div>
+            <div class="radio">
+              <label>
                 <input id="typeT" name="type" value="T" type="radio" {{ ((isset($indicator->type)?$indicator->type:'')=='T'?'checked':'') }} >
                 Tendência
               </label>
@@ -74,8 +80,8 @@
             </div>
             <div class="radio">
               <label>
-                <input id="typeO" name="type" value="O" type="radio" {{ ((isset($indicator->type)?$indicator->type:'')=='O'?'checked':'') }} >
-                Oscilador
+                <input id="typeO" name="type" value="M" type="radio" {{ ((isset($indicator->type)?$indicator->type:'')=='M'?'checked':'') }} >
+                Misto
               </label>
             </div>
           </div>
@@ -84,12 +90,12 @@
         <div class="form-group">
           <label for="avatar" class="col-sm-3 control-label">Imagem do Perfil</label>
 
-          <div class="col-sm-5">
+          <div class="col-sm-6">
             <input id="image" name="image" class="btn btn-primary" type="file" accept="image/png,image/jpeg"  onchange="readURL(this,'imagepreview')">
             <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 200KB.</p>
           </div>
-          <div class="col-sm-4">
-            <img id="imagepreview" class="img-responsive pad" src="{{ asset('/storage/indicators/'.(isset($indicator->image)?$indicator->image:'../../img/loremipsum-rect.jpg'))}}" />
+          <div class="col-sm-3">
+            <img id="imagepreview" class="img-responsive pad" src="{{ asset('/storage/indicators/'.(isset($indicator->image)?$indicator->image:'../../img/loading.gif'))}}" />
           </div>
         </div>
 

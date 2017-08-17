@@ -14,7 +14,7 @@
           @foreach ($indicators as $indicator)
           <div class="post">
             <div class="row">
-              <div class="col-sm-8">
+              <div class="col-sm-9">
                 <h3><a>{{ $indicator->name.' ('.$indicator->acronym.')' }}</a>
 
                    <form class="form pull-right form-delete" method="POST" action="{{ url('indicator/'.$indicator->id) }}" >
@@ -28,7 +28,7 @@
                 <p>{!! $indicator->description !!}</p>
 
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 {!! $indicator->getImage() !!}
               </div>
             </div>

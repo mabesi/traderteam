@@ -63,7 +63,7 @@
     <label for="country" class="col-sm-3 control-label">País</label>
 
     <div class="col-sm-3">
-      <input type="text" name="country" class="form-control" id="country" value="{{ old('country',isset($profile->country)?$profile->country:BR) }}" >
+      <input type="text" name="country" class="form-control" id="country" value="{{ old('country',isset($profile->country)?$profile->country:'BR') }}" >
     </div>
   </div>
   <div class="form-group">
