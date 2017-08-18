@@ -22,11 +22,11 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/terms', 'HomeController@terms')->name('terms');
 
-//Route::middleware('auth')->group(function(){});
-
-//Route::get('/profile', 'ProfileController@index')->middleware('auth');
-
-Route::resource('profile', 'ProfileController');
-Route::resource('strategy', 'StrategyController');
-Route::get('strategy-rules', 'StrategyController@rules');
-Route::resource('indicator', 'IndicatorController');
+Route::middleware('auth')->group(function(){
+  Route::resource('profile', 'ProfileController');
+  Route::resource('strategy', 'StrategyController');
+  Route::resource('indicator', 'IndicatorController');
+  Route::resource('operation', 'OperationController');
+  Route::get('strategy-rules', 'StrategyController@rules');
+  Route::get('operation-rules', 'OperationController@rules');
+});

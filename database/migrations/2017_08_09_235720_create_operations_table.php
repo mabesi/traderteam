@@ -22,7 +22,7 @@ class CreateOperationsTable extends Migration
             $table->string('gtime',1);
             $table->string('stock',50);
             $table->string('buyorsell',1);
-            $table->string('longorshort',1);
+            $table->string('realorsimulated',1);
             $table->decimal('preventry',10,2);
             $table->decimal('prevtarget',10,2);
             $table->decimal('prevstop',10,2);

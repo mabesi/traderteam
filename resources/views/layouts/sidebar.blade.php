@@ -51,9 +51,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Nova Operação</a></li>
-            <li><a href="#">Minhas Operações</a></li>
-            <li><a href="#">Regras</a></li>
+            <li><a href="{{ url('operation/create') }}">Nova Operação</a></li>
+            <li><a href="{{ url('operation') }}">Minhas Operações</a></li>
+            <li><a href="{{ url('operation-rules') }}">Regras para Registro</a></li>
           </ul>
         </li>
 

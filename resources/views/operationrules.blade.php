@@ -7,7 +7,7 @@
 
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Estratégias de Operação - Regras de Definição</h3>
+              <h3 class="box-title">Operações Swing Trade - Regras para; Registro</h3>
             </div>
 
             <div class="post pad">
