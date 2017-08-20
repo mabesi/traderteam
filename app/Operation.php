@@ -27,4 +27,9 @@ class Operation extends Model
   {
     return $this->hasMany('App\Comment');
   }
+
+  public function likers()
+  {
+    return $this->belongsToMany('App\User');
+  }
 }

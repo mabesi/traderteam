@@ -13,6 +13,6 @@ class StrategiesTableSeeder extends Seeder
     public function run()
     {
         Strategy::truncate();
-        factory(App\Strategy::class, 30)->create();
+        factory(App\Strategy::class, 50)->create();
     }
 }

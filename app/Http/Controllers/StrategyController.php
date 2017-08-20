@@ -65,8 +65,6 @@ class StrategyController extends Controller
       $strategy->description = $request->description;
       $strategy->indicators = implode(',',$request->indicators);
 
-      //dd($strategy);
-
       $strategy->save();
 
       return redirect('strategy/'.$strategy->id);
@@ -145,6 +143,6 @@ class StrategyController extends Controller
         'errors' => null,
       ];
 
-      return view('strategyrules', $data);      
+      return view('strategyrules', $data);
     }
 }

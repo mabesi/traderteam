@@ -26,18 +26,16 @@ class CreateOperationsTable extends Migration
             $table->decimal('preventry',10,2);
             $table->decimal('prevtarget',10,2);
             $table->decimal('prevstop',10,2);
-            $table->decimal('realentry',10,2);
-            $table->decimal('realexit',10,2);
-            $table->date('entrydate');
-            $table->date('exitdate');
             $table->text('preanalysis');
-            $table->string('preimage1',50);
-            $table->string('preimage2',50);
-            $table->text('postanalysis');
-            $table->string('postimage1',50);
-            $table->string('postimage2',50);
-            $table->text('lessonslearned');
-            $table->string('status',1);
+            $table->string('preimage',100);
+            $table->decimal('realentry',10,2)->nullable();
+            $table->decimal('realexit',10,2)->nullable();
+            $table->date('entrydate')->nullable();
+            $table->date('exitdate')->nullable();
+            $table->text('postanalysis')->nullable();
+            $table->string('postimage',100)->nullable();
+            // N: Nova; A: Alterada; C: Cancelada; I: Iniciada; S: Stopada; F: Finalizada;
+            $table->string('status',1)->default('N');
             $table->timestamps();
         });
     }

@@ -4,4 +4,8 @@ $( document ).ready(function() {
       return confirm('Confirma a exclusão dos dados?');
     });
 
+    $('.imagepreview').change(function(){
+      readURL(this);
+    });
+
 });

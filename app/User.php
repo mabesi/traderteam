@@ -63,6 +63,11 @@ class User extends Authenticatable
       return $this->belongsToMany('App\User','followers','follower_id','user_id');
     }
 
+    public function operationsLiked()
+    {
+      return $this->belongsToMany('App\Operation');
+    }
+
     public function getAvatar($class="img-circle",$alt="Foto do Perfil")
     {
       return getUserAvatar($class,$alt);

@@ -29,7 +29,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Strategy::class, function (Faker\Generator $faker) {
 
     return [
-        'user_id' => rand(1,20),
+        'user_id' => rand(1,10),
         'title' => $faker->sentence(3),
         'description' => $faker->paragraph(),
         'indicators' => implode($faker->randomElements(['MACD','MME','MMA','RSI','BB','FRACTAL','WILLIANS','ADF','OBV','A/D'],3),' '),
@@ -42,7 +42,7 @@ $factory->define(App\Indicator::class, function (Faker\Generator $faker) {
         'name' => $faker->sentence(3),
         'acronym' => $faker->word(),
         'description' => $faker->paragraph(),
-        'type' => $faker->randomElement(['T','V','O']),
-        'image' => 'indicators.png',
+        'type' => $faker->randomElement(['T','V','O','M']),
+        'image' => 'loading.gif',
     ];
 });

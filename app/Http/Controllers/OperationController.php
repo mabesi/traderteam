@@ -49,7 +49,22 @@ class OperationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $operation->image = saveImage($request,'image','indicators',$operation->acronym,$operation->image,'loaging.gif');
+
+        $operation = new Indicator;
+
+        $operation->name = $request->name;
+        $operation->acronym = $request->acronym;
+        $operation->description = $request->description;
+        $operation->type = $request->type;
+
+        $operation->image = saveImage($request,'image','indicators',$operation->acronym);
+
+        $operation->save();
+
+        //return redirect('indicator/'.$indicator->id.'/edit');
+        return redirect('indicator');
+
     }
 
     /**

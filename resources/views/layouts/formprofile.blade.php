@@ -24,11 +24,13 @@
     <label for="avatar" class="col-sm-3 control-label">Imagem do Perfil</label>
 
     <div class="col-sm-5">
-      <input id="avatar" name="avatar" class="btn btn-primary" type="file" accept="image/png,image/jpeg"  onchange="readURL(this,'avatarpreview')">
+      <input id="avatar" name="avatar" class="btn btn-primary imagepreview" type="file"
+       accept="image/png,image/jpeg" >
       <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 200KB.</p>
     </div>
     <div class="col-sm-4">
-      <img id="avatarpreview" class="profile-user-img img-responsive img-circle" src="{{ asset('/storage/avatar/'.getUserAvatarName())}}" />
+      <img class="profile-user-img img-responsive img-circle avatar"
+       src="{{ asset('/storage/avatar/'.getUserAvatarName())}}" />
     </div>
   </div>
 
@@ -121,6 +123,7 @@
 </form>
 
 @push('scripts')
+<script src="{{ asset("/js/form-helper.js") }}"></script>
 <script src="{{ asset("/js/img-helper.js") }}"></script>
 <script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.js") }}"></script>
 <script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.date.extensions.js") }}"></script>

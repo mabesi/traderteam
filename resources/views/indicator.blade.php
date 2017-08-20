@@ -52,7 +52,9 @@
           <label for="description" class="col-sm-3 control-label">Descrição *</label>
 
           <div class="col-sm-9">
-            <textarea class="textarea form-control" name="description" id="description" >{!! old('description',isset($indicator->description)?$indicator->description:Null) !!}</textarea>
+            <textarea class="textarea form-control" name="description" id="description" >
+      				{!! old('description',isset($indicator->description)?$indicator->description:Null) !!}
+      			</textarea>
           </div>
         </div>
 
@@ -88,14 +90,20 @@
         </div>
 
         <div class="form-group">
-          <label for="avatar" class="col-sm-3 control-label">Imagem do Perfil</label>
+          <label for="avatar" class="col-sm-3 control-label">Imagem do Indicador</label>
 
           <div class="col-sm-6">
-            <input id="image" name="image" class="btn btn-primary" type="file" accept="image/png,image/jpeg"  onchange="readURL(this,'imagepreview')">
-            <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 200KB.</p>
+            <input id="image01" name="image" class="btn btn-primary imagepreview" type="file"
+             accept="image/png,image/jpeg" >
+            <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
           </div>
+
           <div class="col-sm-3">
-            <img id="imagepreview" class="img-responsive pad" src="{{ asset('/storage/indicators/'.(isset($indicator->image)?$indicator->image:'../../img/loading.gif'))}}" />
+            <a href="#" class="azoom">
+              <img class="img-responsive pad image01"
+               src="{{ asset('/storage/indicators/'.
+                   (isset($indicator->image)?$indicator->image:'../../img/loading.gif'))}}" />
+            </a>
           </div>
         </div>
 
@@ -115,9 +123,12 @@
 </div>
 <!-- /.row -->
 
+@include('layouts.imagemodal')
+
 @endsection
 
 @push('scripts')
+<script src="{{ asset("/js/form-helper.js") }}"></script>
 <script src="{{ asset("/js/img-helper.js") }}"></script>
 <script src="{{ asset("/adminlte2/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.pt-BR.js") }}"></script>
 <script src="{{ asset("/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js") }}"></script>

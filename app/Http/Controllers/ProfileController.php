@@ -59,21 +59,13 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
       $profile = new Profile;
+
       $user = User::find(getUserId());
-
-      $oldAvatar = 'avatar/'.getUserAvatarName();
-
-      if ($request->hasFile('avatar')){
-        if ($request->file('avatar')->isValid()) {
-          $avatar = $request->file('avatar');
-          $avatarName = strtolower(getUserId().'.'.$avatar->getClientOriginalExtension());
-          $pathAvatar = $avatar->storeAs('avatar', $avatarName, 'public');
-          if ($pathAvatar != $oldAvatar && $oldAvatar != 'avatar/default.png'){
-            $user->avatar = $avatarName;
-            $user->save();
-            Storage::disk('public')->delete($oldAvatar);
-          }
-        }
+      ($request,$fieldName,$dir,$imageName,$oldName=Null,$default=Null)
+      $avatarName = saveImage($request,'avatar','avatar',getUserId());
+      if ($avatarName != false){
+        $user->avatar = $avatarName;
+        $user->save();
       }
 
       $profile->user_id = getUserId();
@@ -136,22 +128,12 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
       $profile = Profile::find($id);
-      //dd($profile);
+
       $user = User::find(getUserId());
-
-      $oldAvatar = 'avatar/'.getUserAvatarName();
-
-      if ($request->hasFile('avatar')){
-        if ($request->file('avatar')->isValid()) {
-          $avatar = $request->file('avatar');
-          $avatarName = strtolower(getUserId().'.'.$avatar->getClientOriginalExtension());
-          $pathAvatar = $avatar->storeAs('avatar', $avatarName, 'public');
-          if ($pathAvatar != $oldAvatar && $oldAvatar != 'avatar/default.png'){
-            $user->avatar = $avatarName;
-            $user->save();
-            Storage::disk('public')->delete($oldAvatar);
-          }
-        }
+      $avatarName = saveImage($request,'avatar','avatar',getUserId(),getUserAvatarName(),'default.png');
+      if ($avatarName != false){
+        $user->avatar = $avatarName;
+        $user->save();
       }
 
       $profile->occupation = $request->occupation;

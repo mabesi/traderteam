@@ -35,7 +35,6 @@ function indicatorType($type){
 function getUserAvatar($class="img-circle",$alt="Foto do Perfil")
 {
   $src = asset("/storage/avatar/".Auth::user()->avatar);
-
   return getHtmlImage($src,$class,$alt);
 }
 

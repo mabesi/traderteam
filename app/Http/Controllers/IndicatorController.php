@@ -61,17 +61,7 @@ class IndicatorController extends Controller
       $indicator->description = $request->description;
       $indicator->type = $request->type;
 
-      if ($request->hasFile('image')){
-
-        if ($request->file('image')->isValid()) {
-
-          $image = $request->file('image');
-          $imageName = strtolower($indicator->acronym.'.'.$image->getClientOriginalExtension());
-          $indicator->image = $imageName;
-          $pathImage = $image->storeAs('indicators', $imageName, 'public');
-
-        }
-      }
+      $indicator->image = saveImage($request,'image','indicators',$indicator->acronym);
 
       $indicator->save();
 
@@ -122,22 +112,7 @@ class IndicatorController extends Controller
       $indicator->description = $request->description;
       $indicator->type = $request->type;
 
-      $oldImage = 'indicators/'.$indicator->image;
-
-      if ($request->hasFile('image')){
-
-        if ($request->file('image')->isValid()) {
-
-          $image = $request->file('image');
-          $imageName = strtolower($indicator->acronym.'.'.$image->getClientOriginalExtension());
-          $indicator->image = $imageName;
-          $pathImage = $image->storeAs('indicators', $imageName, 'public');
-
-          if ($pathImage != $oldImage && $oldImage != 'indicators/indicators.png'){
-            Storage::disk('public')->delete($oldImage);
-          }
-        }
-      }
+      $indicator->image = saveImage($request,'image','indicators',$indicator->acronym,$indicator->image,'loaging.gif');
 
       $indicator->save();
 
