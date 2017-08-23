@@ -89,8 +89,8 @@ class IndicatorController extends Controller
     public function edit(Indicator $indicator)
     {
       $data = [
-        'viewname' => 'Novo Indicador',
-        'viewtitle' => 'Novo Indicador',
+        'viewname' => 'Editar Indicador',
+        'viewtitle' => 'Editar Indicador',
         'errors' => null,
         'indicator' => $indicator,
       ];

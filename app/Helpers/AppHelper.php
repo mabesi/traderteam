@@ -74,3 +74,17 @@ function getHtmlImage($src,$class=Null,$alt=Null,$id=Null,$title=Null,$width=Nul
 
   return $img;
 }
+
+function operationStatus($status)
+{
+  $statusList = [
+    'C' => 'CONCEPÇÃO',
+    'N' => 'NOVA',
+    'A' => 'ALTERADA',
+    'I' => 'INICIADA',
+    'S' => 'STOPADA',
+    'F' => 'FINALIZADA',
+  ];
+
+  return $statusList[$status];
+}

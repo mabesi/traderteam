@@ -150,16 +150,16 @@
 
                    <div class="col-sm-9">
                      <input type="number" step=".01" name="preventry" class="form-control" id="preventry"
-                      value="{{ old('preventry',isset($operation->preventry)?$operation->preventry:Null) }}" >
+                      value="{{ old('preventry',isset($operation->preventry)?number_format($operation->preventry,2):Null) }}" >
                    </div>
                  </div>
 
                  <div class="form-group">
-                   <label for="prevexit" class="col-sm-3 control-label">Preço de Saída *</label>
+                   <label for="prevtarget" class="col-sm-3 control-label">Preço do Alvo *</label>
 
                    <div class="col-sm-9">
-                     <input type="number" step=".01" name="prevexit" class="form-control" id="prevexit"
-                      value="{{ old('prevexit',isset($operation->prevexit)?$operation->prevexit:Null) }}" >
+                     <input type="number" step=".01" name="prevtarget" class="form-control" id="prevtarget"
+                      value="{{ old('prevtarget',isset($operation->prevtarget)?number_format($operation->prevtarget,2):Null) }}" >
                    </div>
                  </div>
 
@@ -168,7 +168,7 @@
 
                    <div class="col-sm-9">
                      <input type="number" step=".01" name="prevstop" class="form-control" id="prevstop"
-                      value="{{ old('prevstop',isset($operation->prevstop)?$operation->prevstop:Null) }}" >
+                      value="{{ old('prevstop',isset($operation->prevstop)?number_format($operation->prevstop,2):Null) }}" >
                    </div>
                  </div>
 
@@ -224,7 +224,7 @@
                   <label for="status" class="col-sm-3 control-label"><br>Status</label>
 
                   <div class="col-sm-9">
-                    <h1 id="status">{{ (isset($operationstatus)?$operationstatus:'CONCEPÇÃO') }}</h1>
+                    <h1 id="status">{{ (isset($operation->status)?operationStatus($operation->status):'CONCEPÇÃO') }}</h1>
                   </div>
                 </div>
 
@@ -250,9 +250,9 @@
 
                       <div class="form-group">
                         <div class="row">
-                          <label for="previmage01" class="col-md-3 control-label">Gráfico 1</label>
+                          <label for="preimage01" class="col-md-3 control-label">Gráfico 1</label>
                           <div class="col-md-9">
-                            <input id="previmage01" name="previmage01" class="btn btn-danger imagepreview" type="file"
+                            <input id="preimage01" name="preimage01" class="btn btn-danger imagepreview" type="file"
                              accept="image/png,image/jpeg" >
                             <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
                           </div>
@@ -261,9 +261,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <a href="#" class="azoom" title="Clique para aumentar!">
-                              <img class="img-max pad previmage01"
-                               src="{{ asset('/storage/indicators/'.
-                                   (isset($indicator->image)?$indicator->image:'../../img/loading.gif'))}}" />
+                              <img class="img-max pad preimage01"
+                               src="{{ asset('/storage/operations/'.
+                                   (isset($preimage01)?$operation->user_id.'/'.$preimage01:'../../img/loading.gif'))}}" />
                             </a>
                           </div>
                         </div>
@@ -273,11 +273,11 @@
                     <div class="col-md-6">
                       <div class="box">
                         <div class="box-header">
-                          <label for="prevanalysis01" class="control-label">Análise do Gráfico 1</label>
+                          <label for="preanalysis01" class="control-label">Análise do Gráfico 1</label>
                         </div>
                         <div class="box-body">
-                          <textarea class="textarea textarea-md form-control" name="prevanalysis01" id="prevanalysis01" rows="15">
-                            {!! old('prevanalysis01',isset($prevanalysis01)?$prevanalysis01:Null) !!}
+                          <textarea class="textarea textarea-md form-control" name="preanalysis01" id="preanalysis01" rows="15">
+                            {!! old('preanalysis01',isset($preanalysis01)?$preanalysis01:Null) !!}
                           </textarea>
                         </div>
                       </div>
@@ -289,10 +289,10 @@
 
                       <div class="form-group">
                         <div class="row">
-                          <label for="previmage02" class="col-md-3 control-label">Gráfico 2</label>
+                          <label for="preimage02" class="col-md-3 control-label">Gráfico 2</label>
 
                           <div class="col-md-9">
-                            <input id="previmage02" name="previmage01" class="btn btn-danger imagepreview" type="file"
+                            <input id="preimage02" name="preimage02" class="btn btn-danger imagepreview" type="file"
                              accept="image/png,image/jpeg" >
                             <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
                           </div>
@@ -301,9 +301,9 @@
                         <div class="row">
                           <div class="col-md-12">
                             <a href="#" class="azoom" title="Clique para aumentar!">
-                              <img class="img-max pad previmage02"
-                               src="{{ asset('/storage/indicators/'.
-                                   (isset($indicator->image)?$indicator->image:'../../img/loading.gif'))}}" />
+                              <img class="img-max pad preimage02"
+                               src="{{ asset('/storage/operations/'.
+                                   (isset($preimage02)?$operation->user_id.'/'.$preimage02:'../../img/loading.gif'))}}" />
                             </a>
                           </div>
                         </div>
@@ -313,11 +313,11 @@
                     <div class="col-md-6">
                       <div class="box">
                         <div class="box-header">
-                          <label for="prevanalysis02" class="control-label">Análise do Gráfico 2</label>
+                          <label for="preanalysis02" class="control-label">Análise do Gráfico 2</label>
                         </div>
                         <div class="box-body">
-                          <textarea class="textarea textarea-md form-control" name="prevanalysis02" id="prevanalysis02" rows="15">
-                            {!! old('prevanalysis02',isset($prevanalysis02)?$prevanalysis02:Null) !!}
+                          <textarea class="textarea textarea-md form-control" name="preanalysis02" id="preanalysis02" rows="15">
+                            {!! old('preanalysis02',isset($preanalysis02)?$preanalysis02:Null) !!}
                           </textarea>
                         </div>
                       </div>
@@ -353,8 +353,8 @@
                       <div class="col-md-12">
                         <a href="#" class="azoom" title="Clique para aumentar!">
                           <img class="img-max pad postimage01"
-                           src="{{ asset('/storage/indicators/'.
-                               (isset($indicator->image)?$indicator->image:'../../img/loading.gif'))}}" />
+                           src="{{ asset('/storage/operations/'.
+                               (isset($postimage01)?$operation->user_id.'/'.$postimage01:'../../img/loading.gif'))}}" />
                         </a>
                       </div>
                     </div>
@@ -393,8 +393,8 @@
                       <div class="col-md-12">
                         <a href="#" class="azoom" title="Clique para aumentar!">
                           <img class="img-max pad postimage02"
-                           src="{{ asset('/storage/indicators/'.
-                               (isset($indicator->image)?$indicator->image:'../../img/loading.gif'))}}" />
+                           src="{{ asset('/storage/operations/'.
+                               (isset($postimage02)?$operation->user_id.'/'.$postimage02:'../../img/loading.gif'))}}" />
                         </a>
                       </div>
                     </div>
