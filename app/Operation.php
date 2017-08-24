@@ -8,9 +8,8 @@ class Operation extends Model
 {
   protected $fillable = [
       'user_id', 'strategy_id', 'stock', 'gtime', 'buyorsell', 'realorsimulated',
-      'preventry', 'prevtarget', 'prevstop', 'realentry', 'realexit',
-      'entrydate', 'exitdate', 'preanalysis', 'preimage',
-      'postanalysis', 'postimage',
+      'preventry', 'prevtarget', 'prevstop', 'realentry', 'realexit','currentstop',
+      'entrydate', 'exitdate', 'preanalysis', 'preimage', 'postanalysis', 'postimage',
   ];
 
   public function user()

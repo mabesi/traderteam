@@ -50,7 +50,8 @@
                    <label for="strategy" class="col-sm-3 control-label">Estratégia *</label>
 
                    <div class="col-sm-9">
-                     <select id="strategy" name="strategy" class="form-control" data-placeholder="Informe qual a estratégia utilizada" style="width: 100%;">
+                     <select id="strategy" name="strategy" class="form-control" data-placeholder="Informe qual a estratégia utilizada"
+                      style="width: 100%;" {{ lockOperationFields('strategy',$status) }} >
                        <option value=""></option>
                        @foreach ($strategies as $strategy)
                          <option
@@ -69,7 +70,8 @@
                    <div class="col-sm-9">
                      <input type="text" name="stock" class="form-control" id="stock"
                       value="{{ old('stock',isset($operation->stock)?$operation->stock:Null) }}"
-                      placeholder="Sigla do Ativo (Ex: PETR4, VALE5, ITUB4)">
+                      placeholder="Sigla do Ativo (Ex: PETR4, VALE5, ITUB4)"
+                      {{ lockOperationFields('stock',$status) }} >
                    </div>
                  </div>
 
@@ -80,12 +82,14 @@
                      <div class="radio">
                        <label>
                          <input id="typeC" name="buyorsell" value="C" type="radio"
-                          {{ ((isset($operation->buyorsell)?$operation->buyorsell:'C')=='C'?'checked':'') }} >
+                          {{ ((isset($operation->buyorsell)?$operation->buyorsell:'C')=='C'?'checked':'') }}
+                          {{ lockOperationFields('buyorsell',$status) }} >
                          Compra &nbsp;&nbsp;
                        </label>
                        <label>
                          <input id="typeV" name="buyorsell" value="V" type="radio"
-                          {{ ((isset($operation->buyorsell)?$operation->buyorsell:'')=='V'?'checked':'') }} >
+                          {{ ((isset($operation->buyorsell)?$operation->buyorsell:'')=='V'?'checked':'') }}
+                          {{ lockOperationFields('buyorsell',$status) }} >
                          Venda &nbsp;&nbsp;
                        </label>
                      </div>
@@ -99,12 +103,14 @@
                      <div class="radio">
                        <label>
                          <input id="typeR" name="realorsimulated" value="R" type="radio"
-                          {{ ((isset($operation->realorsimulated)?$operation->realorsimulated:'R')=='R'?'checked':'') }} >
+                          {{ ((isset($operation->realorsimulated)?$operation->realorsimulated:'R')=='R'?'checked':'') }}
+                          {{ lockOperationFields('realorsimulated',$status) }} >
                          Real &nbsp;&nbsp;
                        </label>
                        <label>
                          <input id="typeS" name="realorsimulated" value="S" type="radio"
-                          {{ ((isset($operation->realorsimulated)?$operation->realorsimulated:'')=='S'?'checked':'') }} >
+                          {{ ((isset($operation->realorsimulated)?$operation->realorsimulated:'')=='S'?'checked':'') }}
+                          {{ lockOperationFields('realorsimulated',$status) }} >
                          Simulada &nbsp;&nbsp;
                        </label>
                      </div>
@@ -118,27 +124,32 @@
                      <div class="radio">
                        <label>
                          <input id="type1" name="gtime" value="1" type="radio"
-                          {{ ((isset($operation->gtime)?$operation->gtime:'')=='1'?'checked':'') }} >
+                          {{ ((isset($operation->gtime)?$operation->gtime:'')=='1'?'checked':'') }}
+                          {{ lockOperationFields('gtime',$status) }} >
                          1 Hora &nbsp;&nbsp;
                        </label>
                        <label>
                          <input id="type4" name="gtime" value="4" type="radio"
-                          {{ ((isset($operation->gtime)?$operation->gtime:'')=='4'?'checked':'') }} >
+                          {{ ((isset($operation->gtime)?$operation->gtime:'')=='4'?'checked':'') }}
+                          {{ lockOperationFields('gtime',$status) }} >
                          4 Horas &nbsp;&nbsp;
                        </label>
                        <label>
                          <input id="typeD" name="gtime" value="D" type="radio"
-                          {{ ((isset($operation->gtime)?$operation->gtime:'D')=='D'?'checked':'') }} >
+                          {{ ((isset($operation->gtime)?$operation->gtime:'D')=='D'?'checked':'') }}
+                          {{ lockOperationFields('gtime',$status) }} >
                          Diário &nbsp;&nbsp;
                        </label>
                        <label>
                          <input id="typeS" name="gtime" value="S" type="radio"
-                          {{ ((isset($operation->gtime)?$operation->gtime:'')=='S'?'checked':'') }} >
+                          {{ ((isset($operation->gtime)?$operation->gtime:'')=='S'?'checked':'') }}
+                          {{ lockOperationFields('gtime',$status) }} >
                          Semanal &nbsp;&nbsp;
                        </label>
                        <label>
                          <input id="typeM" name="gtime" value="M" type="radio"
-                          {{ ((isset($operation->gtime)?$operation->gtime:'')=='M'?'checked':'') }} >
+                          {{ ((isset($operation->gtime)?$operation->gtime:'')=='M'?'checked':'') }}
+                          {{ lockOperationFields('gtime',$status) }} >
                          Mensal
                        </label>
                      </div>
@@ -150,7 +161,8 @@
 
                    <div class="col-sm-9">
                      <input type="number" step=".01" name="preventry" class="form-control" id="preventry"
-                      value="{{ old('preventry',isset($operation->preventry)?number_format($operation->preventry,2):Null) }}" >
+                      value="{{ old('preventry',isset($operation->preventry)?number_format($operation->preventry,2):Null) }}"
+                      {{ lockOperationFields('preventry',$status) }} >
                    </div>
                  </div>
 
@@ -159,7 +171,8 @@
 
                    <div class="col-sm-9">
                      <input type="number" step=".01" name="prevtarget" class="form-control" id="prevtarget"
-                      value="{{ old('prevtarget',isset($operation->prevtarget)?number_format($operation->prevtarget,2):Null) }}" >
+                      value="{{ old('prevtarget',isset($operation->prevtarget)?number_format($operation->prevtarget,2):Null) }}"
+                      {{ lockOperationFields('prevtarget',$status) }} >
                    </div>
                  </div>
 
@@ -168,7 +181,8 @@
 
                    <div class="col-sm-9">
                      <input type="number" step=".01" name="prevstop" class="form-control" id="prevstop"
-                      value="{{ old('prevstop',isset($operation->prevstop)?number_format($operation->prevstop,2):Null) }}" >
+                      value="{{ old('prevstop',isset($operation->prevstop)?number_format($operation->prevstop,2):Null) }}"
+                      {{ lockOperationFields('prevstop',$status) }} >
                    </div>
                  </div>
 
@@ -187,7 +201,8 @@
                   <div class="col-sm-9">
                     <input type="date" name="entrydate" class="form-control" id="entrydate"
                     value="{{ old('entrydate',isset($operation->entrydate)?getBRDateFromMysql($operation->entrydate):Null) }}"
-                    data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                    data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""
+                    {{ lockOperationFields('entrydate',$status) }} >
                   </div>
                 </div>
 
@@ -196,7 +211,18 @@
 
                   <div class="col-sm-9">
                     <input type="number" step=".01" name="realentry" class="form-control" id="realentry"
-                     value="{{ old('realentry',isset($operation->realentry)?$operation->realentry:Null) }}" >
+                     value="{{ old('realentry',isset($operation->realentry)?$operation->realentry:Null) }}"
+                     {{ lockOperationFields('realentry',$status) }} >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="currentstop" class="col-sm-3 control-label">Stop Atual</label>
+
+                  <div class="col-sm-9">
+                    <input type="number" step=".01" name="currentstop" class="form-control" id="currentstop"
+                      value="{{ old('currentstop',isset($operation->currentstop)?$operation->currentstop:Null) }}"
+                      {{ lockOperationFields('currentstop',$status) }} >
                   </div>
                 </div>
 
@@ -206,7 +232,8 @@
                   <div class="col-sm-9">
                     <input type="date" name="exitdate" class="form-control" id="exitdate"
                     value="{{ old('exitdate',isset($operation->exitdate)?getBRDateFromMysql($operation->exitdate):Null) }}"
-                    data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                    data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""
+                    {{ lockOperationFields('exitdate',$status) }} >
                   </div>
                 </div>
 
@@ -215,17 +242,20 @@
 
                   <div class="col-sm-9">
                     <input type="number" step=".01" name="realexit" class="form-control" id="realexit"
-                     value="{{ old('realexit',isset($operation->realexit)?$operation->realexit:Null) }}" >
+                     value="{{ old('realexit',isset($operation->realexit)?$operation->realexit:Null) }}"
+                     {{ lockOperationFields('realexit',$status) }} >
                   </div>
                 </div>
 
                 <div class="form-group">
                   <br>
-                  <label for="status" class="col-sm-3 control-label"><br>Status</label>
-
-                  <div class="col-sm-9">
-                    <h1 id="status">{{ (isset($operation->status)?operationStatus($operation->status):'CONCEPÇÃO') }}</h1>
-                  </div>
+                    <label for="status" class="col-sm-3 control-label"><br>Status</label>
+                    <div class="col-sm-9">
+                      <br />
+                      <button type="button" class="btn btn-lg btn-block btn-{{ statusClass($status) }} ">
+                        {{ (isset($operation->status)?operationStatus($operation->status):'CONCEPÇÃO') }}
+                      </button>
+                    </div>
                 </div>
 
 
@@ -253,7 +283,8 @@
                           <label for="preimage01" class="col-md-3 control-label">Gráfico 1</label>
                           <div class="col-md-9">
                             <input id="preimage01" name="preimage01" class="btn btn-danger imagepreview" type="file"
-                             accept="image/png,image/jpeg" >
+                             accept="image/png,image/jpeg"
+                             {{ lockOperationFields('preimage01',$status) }} >
                             <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
                           </div>
                         </div>
@@ -293,7 +324,8 @@
 
                           <div class="col-md-9">
                             <input id="preimage02" name="preimage02" class="btn btn-danger imagepreview" type="file"
-                             accept="image/png,image/jpeg" >
+                             accept="image/png,image/jpeg"
+                             {{ lockOperationFields('preimage02',$status) }} >
                             <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
                           </div>
                         </div>
@@ -344,7 +376,8 @@
                       <label for="postimage01" class="col-md-3 control-label">Gráfico 1</label>
                       <div class="col-md-9">
                         <input id="postimage01" name="postimage01" class="btn btn-success imagepreview" type="file"
-                         accept="image/png,image/jpeg" >
+                         accept="image/png,image/jpeg"
+                         {{ lockOperationFields('postimage01',$status) }} >
                         <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
                       </div>
                     </div>
@@ -367,7 +400,8 @@
                       <label for="postanalysis01" class="control-label">Análise do Gráfico 1</label>
                     </div>
                     <div class="box-body">
-                      <textarea class="textarea textarea-md form-control" name="postanalysis01" id="postanalysis01" rows="15">
+                      <textarea class="textarea textarea-md form-control" name="postanalysis01" id="postanalysis01" rows="15"
+                        {{ lockOperationFields('postanalysis01',$status) }} >
                         {!! old('postanalysis01',isset($postanalysis01)?$postanalysis01:Null) !!}
                       </textarea>
                     </div>
@@ -384,7 +418,8 @@
 
                       <div class="col-md-9">
                         <input id="postimage02" name="postimage02" class="btn btn-success imagepreview" type="file"
-                         accept="image/png,image/jpeg" >
+                         accept="image/png,image/jpeg"
+                         {{ lockOperationFields('postimage02',$status) }} >
                         <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
                       </div>
                     </div>
@@ -407,7 +442,8 @@
                       <label for="postanalysis02" class="control-label">Análise do Gráfico 2</label>
                     </div>
                     <div class="box-body">
-                      <textarea class="textarea textarea-md form-control" name="postanalysis02" id="postanalysis02">
+                      <textarea class="textarea textarea-md form-control" name="postanalysis02" id="postanalysis02"
+                        {{ lockOperationFields('postanalysis02',$status) }} >
                         {!! old('postanalysis02',isset($postanalysis02)?$postanalysis02:Null) !!}
                       </textarea>
                     </div>

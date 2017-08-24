@@ -82,9 +82,113 @@ function operationStatus($status)
     'N' => 'NOVA',
     'A' => 'ALTERADA',
     'I' => 'INICIADA',
+    'M' => 'STOP MOVIDO',
     'S' => 'STOPADA',
-    'F' => 'FINALIZADA',
+    'E' => 'ENCERRADA',
+    'T' => 'NO ALVO',
   ];
 
   return $statusList[$status];
+}
+
+function statusClass($status)
+{
+  $classList = [
+    'C' => 'secondary',
+    'N' => 'info',
+    'A' => 'warning',
+    'I' => 'primary',
+    'M' => 'warning',
+    'S' => 'danger',
+    'E' => 'primary',
+    'T' => 'success',
+  ];
+
+  return $classList[$status];
+}
+
+function disabledIfIsSet($variable)
+{
+  if (isset($$variable)){
+    return ' disabled';
+  } else {
+    return '';
+  }
+}
+
+function disabledIfNotIsSet($variable)
+{
+  if (!isset($$variable)){
+    return ' disabled';
+  } else {
+    return '';
+  }
+}
+
+function lockOperationFields($field,$status)
+{
+  switch ($status) {
+      case 'N':
+      case 'A':
+        $prevFields = '';
+        $startFields = '';
+        $stopField = ' disabled';
+        $endFields = ' disabled';
+        $postFields = ' disabled';
+          break;
+      case 'I':
+      case 'M':
+        $prevFields = ' disabled';
+        $startFields = ' disabled';
+        $stopField = '';
+        $endFields = '';
+        $postFields = ' disabled';
+          break;
+      case 'S':
+      case 'E':
+      case 'T':
+        $prevFields = ' disabled';
+        $startFields = ' disabled';
+        $stopField = ' disabled';
+        $endFields = ' disabled';
+        $postFields = '';
+          break;
+      default:
+        $prevFields = '';
+        $startFields = ' disabled';
+        $stopField = ' disabled';
+        $endFields = ' disabled';
+        $postFields = ' disabled';
+  }
+
+  $fieldStatus = [
+    'strategy' => $prevFields,
+    'stock' => $prevFields,
+    'buyorsell' => $prevFields,
+    'realorsimulated' => $prevFields,
+    'gtime' => $prevFields,
+    'preventry' => $prevFields,
+    'prevtarget' => $prevFields,
+    'prevstop' => $prevFields,
+
+    'entrydate' => $startFields,
+    'realentry' => $startFields,
+
+    'currentstop' => $stopField,
+
+    'exitdate' => $endFields,
+    'realexit' => $endFields,
+
+    'preimage01' => $prevFields,
+    'preanalysis01' => $prevFields,
+    'preimage02' => $prevFields,
+    'preanalysis02' => $prevFields,
+
+    'postimage01' => $postFields,
+    'postanalysis01' => $postFields,
+    'postimage02' => $postFields,
+    'postanalysis02' => $postFields,
+  ];
+
+  return $fieldStatus[$field];
 }

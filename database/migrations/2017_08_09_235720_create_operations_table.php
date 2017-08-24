@@ -29,6 +29,7 @@ class CreateOperationsTable extends Migration
             $table->text('preanalysis');
             $table->string('preimage',100);
             $table->decimal('realentry',10,2)->nullable();
+            $table->decimal('currentstop',10,2)->nullable();
             $table->decimal('realexit',10,2)->nullable();
             $table->date('entrydate')->nullable();
             $table->date('exitdate')->nullable();

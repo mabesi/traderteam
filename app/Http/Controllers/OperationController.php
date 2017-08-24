@@ -36,6 +36,7 @@ class OperationController extends Controller
         'viewtitle' => 'Nova Operação Swing Trade',
         'errors' => null,
         'strategies' => $strategies,
+        'status' => 'N',
       ];
 
       return view('operation', $data);
@@ -49,7 +50,6 @@ class OperationController extends Controller
      */
     public function store(Request $request)
     {
-
         $operation = new Operation;
 
         $operation->user_id = getUserId();
@@ -168,6 +168,7 @@ class OperationController extends Controller
         'viewtitle' => 'Editar Operação',
         'errors' => null,
         'operation' => $operation,
+        'status' => $operation->status,
         'preanalysis01' => $preanalysis01,
         'preanalysis02' => $preanalysis02,
         'postanalysis01' => $postanalysis01,
@@ -200,7 +201,109 @@ class OperationController extends Controller
      */
     public function update(Request $request, Operation $operation)
     {
-        //
+      if ($operation->status == 'N' || $operation->status == 'A' ){
+
+        $preimage = explode('|||',$operation->preimage);
+
+        $preanalysis01 = $request->preanalysis01;
+        $preanalysis02 = $request->preanalysis02;
+
+        $operation->preanalysis = $preanalysis01.'|||'.$preanalysis02;
+
+        $preimage01 = saveImage($request,'preimage01','operations/'.getUserId(),'preimage01',Null,Null);
+        if ($preimage01==False){
+          $preimage01 = $preimage[0];
+        }
+        $preimage02 = saveImage($request,'preimage02','operations/'.getUserId(),'preimage02',Null,Null);
+        if ($preimage02==False){
+          $preimage02 = $preimage[1];
+        }
+        $operation->preimage = $preimage01.'|||'.$preimage02;
+
+        if ($request->strategy != $operation->strategy_id ||
+            $request->stock != $operation->stock ||
+            $request->buyorsell != $operation->buyorsell ||
+            $request->realorsimulated != $operation->realorsimulated ||
+            $request->gtime != $operation->gtime ||
+            $request->preventry != (float) $operation->preventry ||
+            $request->prevtarget != (float) $operation->prevtarget ||
+            $request->prevstop != (float) $operation->prevstop
+            ){
+
+          $operation->strategy_id = $request->strategy;
+          $operation->stock = $request->stock;
+          $operation->buyorsell = $request->buyorsell;
+          $operation->realorsimulated = $request->realorsimulated;
+          $operation->gtime = $request->gtime;
+          $operation->buyorsell = $request->buyorsell;
+          $operation->realorsimulated = $request->realorsimulated;
+
+          $operation->preventry = (float) $request->preventry;
+          $operation->prevtarget = (float) $request->prevtarget;
+          $operation->prevstop = (float) $request->prevstop;
+          $operation->currentstop = $operation->prevstop;
+
+          $operation->status = 'A';
+
+        } elseif ($request->realentry){
+           if ($request->entrydate){
+             $operation->realentry = (float) $request->realentry;
+             $entrydate = getMysqlDateFromBR($request->entrydate);
+             $operation->entrydate = $entrydate;
+             $operation->currentstop = $operation->prevstop;
+             $operation->status = 'I';
+           }
+        }
+
+      } elseif ($operation->status == 'I' || $operation->status == 'M') {
+
+        if ($request->currentstop){
+          if ($operation->currentstop != (float) $request->currentstop){
+            $operation->currentstop = (float) $request->currentstop;
+            $operation->status = 'M';
+          }
+        }
+
+        if ($request->realexit){
+          if ($request->exitdate){
+            $operation->realexit = (float) $request->realexit;
+            $exitdate = getMysqlDateFromBR($request->exitdate);
+            $operation->exitdate = $exitdate;
+            if (($operation->buyorsell=='C' && $operation->realexit <= $operation->currentstop) ||
+                ($operation->buyorsell=='V' && $operation->realexit >= $operation->currentstop)
+              ) {
+              $operation->status = 'S';
+            } elseif (($operation->buyorsell=='C' && $operation->realexit >= $operation->currentstop) ||
+                  ($operation->buyorsell=='V' && $operation->realexit <= $operation->currentstop)
+                ) {
+                $operation->status = 'T';
+            } else {
+              $operation->status = 'E';
+            }
+          }
+        }
+
+      } elseif ($operation->status == 'E' || $operation->status == 'T' ) {
+
+        $postimage = explode('|||',$operation->postimage);
+
+        $postanalysis01 = $request->postanalysis01;
+        $postanalysis02 = $request->postanalysis02;
+        $operation->postanalysis = $postanalysis01.'|||'.$postanalysis02;
+
+        $postimage01 = saveImage($request,'postimage01','operations/'.getUserId(),'postimage01',Null,Null);
+        if ($postimage01==False){
+          $postimage01 = $postimage[0];
+        }
+        $postimage02 = saveImage($request,'postimage02','operations/'.getUserId(),'postimage02',Null,Null);
+        if ($postimage02==False){
+          $postimage02 = $postimage[1];
+        }
+        $operation->postimage = $postimage01.'|||'.$postimage02;
+      }
+
+      $operation->save();
+      return redirect('operation/'.$operation->id.'/edit');
     }
 
     /**
