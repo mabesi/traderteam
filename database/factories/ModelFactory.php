@@ -61,5 +61,7 @@ $factory->define(App\Operation::class, function (Faker\Generator $faker) {
         'prevstop' => $faker->randomFloat(2, 7, 9),
         'preanalysis' => '|||',
         'preimage' => '|||',
+        'postanalysis' => '|||',
+        'postimage' => '|||',
     ];
 });
