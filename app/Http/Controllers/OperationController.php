@@ -15,7 +15,13 @@ class OperationController extends Controller
      */
     public function index()
     {
-        //
+      $data = [
+        'viewname' => 'Minhas Operações',
+        'viewtitle' => 'Minhas Operações',
+        'errors' => null,
+      ];
+
+        return view('myoperations', $data);
     }
 
     /**
@@ -36,7 +42,7 @@ class OperationController extends Controller
         'viewtitle' => 'Nova Operação Swing Trade',
         'errors' => null,
         'strategies' => $strategies,
-        'status' => 'C',
+        'status' => 'P',
       ];
 
       return view('operation', $data);
@@ -283,7 +289,7 @@ class OperationController extends Controller
           }
         }
 
-      } elseif ($operation->status == 'E' || $operation->status == 'T' ) {
+      } elseif ($operation->status == 'C' || $operation->status == 'E' || $operation->status == 'T' ) {
 
         $postimage = explode('|||',$operation->postimage);
 

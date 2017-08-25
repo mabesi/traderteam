@@ -104,6 +104,14 @@
 
   </div>
 
+  <div class="row">
+    <div class="col-sm-12">
+
+    @include('layouts.tv-ticker')
+
+    </div>
+  </div>
+
   <div class="row" id="sobre">
     <div class="col-sm-8  text-justify">
       <h2>Sobre o TraderTeam</h2>
@@ -123,6 +131,9 @@
     <div class="col-sm-4 text-right">
       <br><br>
       <iframe frameborder="0" scrolling="no" height="255" width="304" allowtransparency="true" marginwidth="0" marginheight="0" src="https://sslindrates.forexprostools.com/index.php?force_lang=12&pairs_ids=166;27;172;175;176;177;168;170;178;179;&header-text-color=%23FFFFFF&curr-name-color=%230059b0&inner-text-color=%23000000&green-text-color=%232A8215&green-background=%23B7F4C2&green-background=%23B7F4C2&red-text-color=%23DC0001&red-background=%23FFE2E2&inner-border-color=%23CBCBCB&border-color=%23cbcbcb&bg1=%23F6F6F6&bg2=%23ffffff&open=hide&high=hide&low=hide&last_update=hide"></iframe><br /><span style="font-size: 11px;color: #333333;text-decoration: none;"> Índices Mundiais fornecidos por <a href="https://br.investing.com/" rel="nofollow" target="_blank" style="font-size: 11px;color: #06529D; font-weight: bold;" class="underline_link">Investing.com Brasil</a>.</span>
+
+
+
     </div>
   </div>
 

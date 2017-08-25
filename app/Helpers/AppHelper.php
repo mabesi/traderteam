@@ -78,7 +78,8 @@ function getHtmlImage($src,$class=Null,$alt=Null,$id=Null,$title=Null,$width=Nul
 function operationStatus($status)
 {
   $statusList = [
-    'C' => 'CONCEPÇÃO',
+    'P' => 'PLANEJAMENTO',
+    'C' => 'CANCELADA',
     'N' => 'NOVA',
     'A' => 'ALTERADA',
     'I' => 'INICIADA',
@@ -94,7 +95,8 @@ function operationStatus($status)
 function statusClass($status)
 {
   $classList = [
-    'C' => 'secondary',
+    'P' => 'secondary',
+    'C' => 'danger',
     'N' => 'info',
     'A' => 'warning',
     'I' => 'primary',
@@ -105,6 +107,15 @@ function statusClass($status)
   ];
 
   return $classList[$status];
+}
+
+function nbsp($qtd)
+{
+  $spaces = '';
+  for ($i=0;$i<$qtd;$i++){
+    $spaces .= '&nbsp;';
+  }
+  return $spaces;
 }
 
 function disabledIfIsSet($variable)
@@ -128,7 +139,7 @@ function disabledIfNotIsSet($variable)
 function lockOperationFields($field,$status)
 {
   switch ($status) {
-      case 'C':
+      case 'P':
         $prevFields = '';
         $startFields = ' disabled';
         $stopField = ' disabled';
@@ -151,6 +162,7 @@ function lockOperationFields($field,$status)
         $endFields = '';
         $postFields = ' disabled';
           break;
+      case 'C':
       case 'S':
       case 'E':
       case 'T':
