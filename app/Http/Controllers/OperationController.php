@@ -36,7 +36,7 @@ class OperationController extends Controller
         'viewtitle' => 'Nova Operação Swing Trade',
         'errors' => null,
         'strategies' => $strategies,
-        'status' => 'N',
+        'status' => 'C',
       ];
 
       return view('operation', $data);

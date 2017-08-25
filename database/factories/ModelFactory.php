@@ -46,3 +46,20 @@ $factory->define(App\Indicator::class, function (Faker\Generator $faker) {
         'image' => 'loading.gif',
     ];
 });
+
+$factory->define(App\Operation::class, function (Faker\Generator $faker) {
+
+    return [
+        'user_id' => rand(1,10),
+        'strategy_id' => rand(1,10),
+        'stock' => $faker->randomElement(['WINFUT','WDOFUT','PETR4','VALE5','ABEV3','BBAS3','ITUB4','USIM5','CMIG4','ELET6']),
+        'buyorsell' => 'C',
+        'realorsimulated' => $faker->randomElement(['R','S']),
+        'gtime' => 'D',
+        'preventry' => $faker->randomFloat(2, 10, 13),
+        'prevtarget' => $faker->randomFloat(2, 15, 20),
+        'prevstop' => $faker->randomFloat(2, 7, 9),
+        'preanalysis' => '|||',
+        'preimage' => '|||',
+    ];
+});

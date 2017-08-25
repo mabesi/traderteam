@@ -128,6 +128,13 @@ function disabledIfNotIsSet($variable)
 function lockOperationFields($field,$status)
 {
   switch ($status) {
+      case 'C':
+        $prevFields = '';
+        $startFields = ' disabled';
+        $stopField = ' disabled';
+        $endFields = ' disabled';
+        $postFields = ' disabled';
+          break;
       case 'N':
       case 'A':
         $prevFields = '';

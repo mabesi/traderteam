@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProfilesTableSeeder::class);
         $this->call(StrategiesTableSeeder::class);
         $this->call(IndicatorsTableSeeder::class);
+        $this->call(OperationsTableSeeder::class);
 
         DB::statement("SET foreign_key_checks=1");
     }

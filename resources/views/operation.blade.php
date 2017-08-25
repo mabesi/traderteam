@@ -253,7 +253,7 @@
                     <div class="col-sm-9">
                       <br />
                       <button type="button" class="btn btn-lg btn-block btn-{{ statusClass($status) }} ">
-                        {{ (isset($operation->status)?operationStatus($operation->status):'CONCEPÇÃO') }}
+                        {{ operationStatus($status) }}
                       </button>
                     </div>
                 </div>
