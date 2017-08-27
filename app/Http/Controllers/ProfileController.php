@@ -24,12 +24,17 @@ class ProfileController extends Controller
     public function index()
     {
       $profile = Profile::where('user_id', getUserId())->first();
+      $user = User::find(getUserId());
+      $strategies = $user->strategies;
+      $operations = $user->operations;
 
       $data = [
         'viewname' => 'Meu Perfil',
         'viewtitle' => 'Meu Perfil',
         'errors' => null,
         'profile' => $profile,
+        'strategies' => $strategies,
+        'operations' => $operations,
       ];
 
       if ($data['profile']==Null){

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Operation;
 use App\Strategy;
 use Illuminate\Http\Request;
@@ -15,9 +16,13 @@ class OperationController extends Controller
      */
     public function index()
     {
+      $user = User::find(getUserId());
+      $operations = $user->operations;
+
       $data = [
         'viewname' => 'Minhas Operações',
         'viewtitle' => 'Minhas Operações',
+        'operations' => $operations,
         'errors' => null,
       ];
 

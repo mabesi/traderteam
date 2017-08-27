@@ -22,9 +22,13 @@ class StrategyController extends Controller
      */
     public function index()
     {
+      $user = User::find(getUserId());
+      $strategies = $user->strategies;
+
       $data = [
         'viewname' => 'Minhas Estratégias',
         'viewtitle' => 'Minhas Estratégias',
+        'strategies' => $strategies,
         'errors' => null,
       ];
 

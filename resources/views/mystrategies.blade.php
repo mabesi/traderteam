@@ -10,13 +10,7 @@
               <h3 class="box-title">Estratégias de Operação</h3>
             </div>
 
-            @foreach (Auth::user()->strategies as $strategy)
-            <div class="post">
-              <h3><a href="{{ url('strategy/'.$strategy->id) }}">{{ $strategy->title }}</a></h3>
-              <p>{!! $strategy->description !!}</p>
-              <p><strong>Indicadores:</strong> {{ $strategy->indicators }}</p>
-            </div>
-            @endforeach
+            @include('layouts.strategy.list')
 
             <br />
           </div>
