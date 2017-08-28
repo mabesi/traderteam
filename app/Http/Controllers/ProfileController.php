@@ -31,7 +31,7 @@ class ProfileController extends Controller
       $data = [
         'viewname' => 'Meu Perfil',
         'viewtitle' => 'Meu Perfil',
-        'errors' => null,
+        'user' => $user,
         'profile' => $profile,
         'strategies' => $strategies,
         'operations' => $operations,
@@ -108,7 +108,29 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+      $profile = Profile::where('user_id', $id)->first();
+
+      if ($profile == Null){
+
+        return redirect('/')->with('errors', ['O perfil informado não existe!']);
+
+      } else {
+
+        $user = $profile->user;
+        $strategies = $user->strategies;
+        $operations = $user->operations;
+
+        $data = [
+          'viewname' => 'Perfil',
+          'viewtitle' => 'Perfil',
+          'user' => $user,
+          'profile' => $profile,
+          'strategies' => $strategies,
+          'operations' => $operations,
+        ];
+
+        return view('profile', $data);
+      }
     }
 
     /**

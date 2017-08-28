@@ -9,11 +9,11 @@
           <div class="box box-primary">
             <div class="box-body box-profile">
 
-              {!! getUserAvatar('profile-user-img img-responsive img-circle',Auth::user()->name) !!}
+              {!! getUserAvatar('profile-user-img img-responsive img-circle',Auth::user()->name,$user) !!}
 
-              <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
+              <h3 class="profile-username text-center">{{ $user->name }}</h3>
 
-              <p class="text-muted text-center">Membro desde {{ Auth::user()->memberSince() }}</p>
+              <p class="text-muted text-center">Membro desde {{ $user->memberSince() }}</p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">

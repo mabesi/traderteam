@@ -32,9 +32,9 @@ function indicatorType($type){
   return $types[$type];
 }
 
-function getUserAvatar($class="img-circle",$alt="Foto do Perfil")
+function getUserAvatar($class="img-circle",$alt="Foto do Perfil",$user=Null)
 {
-  $src = asset("/storage/avatar/".Auth::user()->avatar);
+  $src = asset("/storage/avatar/".($user==Null?Auth::user()->avatar:$user->avatar));
   return getHtmlImage($src,$class,$alt);
 }
 
