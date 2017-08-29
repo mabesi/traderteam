@@ -87,11 +87,6 @@
                 {!! $profile->twitter !!}
               </p>
 
-              <strong><i class="fa fa-money margin-r-5"></i> Capital de Investimento</strong> <small><i>(Valor simulado para estatística)</i></small>
-              <p class="text-muted text-justify">
-                {!! 'R$ '.$profile->capital !!}
-              </p>
-
             </div>
             <!-- /.box-body -->
           </div>

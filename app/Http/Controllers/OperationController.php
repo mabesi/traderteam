@@ -252,7 +252,6 @@ class OperationController extends Controller
           $operation->preventry = (float) $request->preventry;
           $operation->prevtarget = (float) $request->prevtarget;
           $operation->prevstop = (float) $request->prevstop;
-          $operation->currentstop = $operation->prevstop;
 
           $operation->status = 'A';
 

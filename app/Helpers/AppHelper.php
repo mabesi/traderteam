@@ -27,9 +27,20 @@ function indicatorType($type){
     'T' => 'Tendência',
     'V' => 'Volume',
     'O' => 'Oscilador',
+    'M' => 'Misto',
   ];
 
   return $types[$type];
+}
+
+function operationCapital()
+{
+  return 5000.00;
+}
+
+function investimentCapital()
+{
+  return 100000.00;
 }
 
 function getUserAvatar($class="img-circle",$alt="Foto do Perfil",$user=Null)

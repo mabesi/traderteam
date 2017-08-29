@@ -28,7 +28,6 @@ class CreateProfilesTable extends Migration
             $table->string('facebook',50)->nullable();
             $table->string('twitter',50)->nullable();
             $table->text('description')->nullable();
-            $table->decimal('capital',10,2);
             $table->unsignedTinyInteger('status');
             $table->timestamps();
         });

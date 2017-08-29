@@ -91,7 +91,6 @@ class ProfileController extends Controller
       $profile->twitter = $request->twitter;
       $profile->description = $request->mydescription;
 
-      $profile->capital = 100000.00;
       //Status: 0: , 1: , 2: , 3:
       $profile->status = 0;
 
