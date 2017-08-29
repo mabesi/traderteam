@@ -153,9 +153,9 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
       $profile = Profile::find($id);
-
-      $user = User::find(getUserId());
+      $user = User::find($profile->user->id);
       $avatarName = saveImage($request,'avatar','avatar',getUserId(),getUserAvatarName(),'default.png');
+
       if ($avatarName != false){
         $user->avatar = $avatarName;
         $user->save();

@@ -141,7 +141,51 @@ class OperationController extends Controller
      */
     public function show(Operation $operation)
     {
-        //
+      $preanalysis = explode('|||',$operation->preanalysis);
+      $preanalysis01 = $preanalysis[0];
+      $preanalysis02 = $preanalysis[1];
+
+      //dd($preanalysis);
+
+      $preimage = explode('|||',$operation->preimage);
+      $preimage01 = $preimage[0];
+      $preimage02 = $preimage[1];
+
+      $postanalysis = explode('|||',$operation->postanalysis);
+      $postanalysis01 = $postanalysis[0];
+      $postanalysis02 = $postanalysis[1];
+
+      $postimage = explode('|||',$operation->postimage);
+      $postimage01 = $postimage[0];
+      $postimage02 = $postimage[1];
+
+      $data = [
+        'viewname' => 'Sumário da Operação',
+        'viewtitle' => 'Sumário da Operação',
+        'errors' => null,
+        'operation' => $operation,
+        'status' => $operation->status,
+        'preanalysis01' => $preanalysis01,
+        'preanalysis02' => $preanalysis02,
+        'postanalysis01' => $postanalysis01,
+        'postanalysis02' => $postanalysis02,
+      ];
+
+      if ($preimage01 != ''){
+        $data['preimage01'] = $preimage01;
+      }
+      if ($preimage02 != ''){
+        $data['preimage02'] = $preimage02;
+      }
+      if ($postimage01 != ''){
+        $data['postimage01'] = $postimage01;
+      }
+      if ($postimage02 != ''){
+        $data['postimage02'] = $postimage02;
+      }
+
+      return view('operation.summary', $data);
+
     }
 
     /**

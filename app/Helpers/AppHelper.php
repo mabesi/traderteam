@@ -120,6 +120,19 @@ function statusClass($status)
   return $classList[$status];
 }
 
+function gtimeName($gtime)
+{
+  $gtimeList = [
+    '1' => '60 Minutos',
+    '4' => '4 Horas',
+    'D' => 'Diário',
+    'S' => 'Semanal',
+    'M' => 'Mensal',
+  ];
+
+  return $gtimeList[$gtime];
+}
+
 function nbsp($qtd)
 {
   $spaces = '';
