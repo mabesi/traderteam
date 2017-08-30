@@ -254,8 +254,11 @@ function getMysqlDateFromBR($date)
     return $year.'-'.$month.'-'.$day;
 }
 
-function getBRDateFromMysql($date)
+function getBRDateFromMysql($date=Null)
 {
+  if ($date==Null){
+    return '';
+  }
 
   $arrayDate = explode('-',$date);
   $year = $arrayDate[0];

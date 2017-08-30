@@ -86,6 +86,26 @@ function getHtmlImage($src,$class=Null,$alt=Null,$id=Null,$title=Null,$width=Nul
   return $img;
 }
 
+function operationBuyOrSell($type)
+{
+  $typeList = [
+    'C' => 'Compra',
+    'V' => 'Venda',
+  ];
+
+  return $typeList[$type];
+}
+
+function operationRealOrSimulated($type)
+{
+  $typeList = [
+    'R' => 'Real',
+    'S' => 'Simulada',
+  ];
+
+  return $typeList[$type];
+}
+
 function operationStatus($status)
 {
   $statusList = [

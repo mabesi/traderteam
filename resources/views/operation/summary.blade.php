@@ -10,172 +10,309 @@
   <div class="col-md-6">
 
     <div class="box">
+
       <div class="box-header">
         @include('operation.lineview')
       </div>
-    </div>
+
     <div class="box-body">
 
-      <div class="col-md-3 text-right">
-        <strong>Estratégia</strong>
-      </div>
-      <div class="col-md-9">
-        <a href="{{ url('strategy/'.$operation->strategy->id) }}">{{ $operation->strategy->title }}</a>
-      </div>
-
-      <div class="col-md-3 text-right">
-        <strong>Tempo Gráfico</strong>
-      </div>
-      <div class="col-md-9">
-        {{ gtimeName($operation->gtime) }}
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Operação</strong>
+        </div>
+        <div class="col-md-9">
+          {{ operationBuyOrSell($operation->buyorsell).' - '.operationRealOrSimulated($operation->realorsimulated) }}
+        </div>
       </div>
 
-      <div class="col-md-12 label bg-gray top-bottom-10 text-primary">
-          <h4>PREVISÃO DA OPERAÇÃO</h4>
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Criada a</strong>
+        </div>
+        <div class="col-md-9">
+          {{ humanPastTime($operation->created_at) }}
+        </div>
       </div>
 
-      <div class="col-md-4">
-        <div class="info-box">
-          <span class="info-box-icon bg-aqua">
-            <i class="fa fa-play-circle"></i>
-          </span>
-          <div class="info-box-content">
-            <span class="info-box-text">Entrada</span>
-            <span class="info-box-number">{{ $operation->preventry }}</span>
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Alterada a</strong>
+        </div>
+        <div class="col-md-9">
+          {{ humanPastTime($operation->updated_at) }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Estratégia</strong>
+        </div>
+        <div class="col-md-9">
+          <a href="{{ url('strategy/'.$operation->strategy->id) }}">{{ $operation->strategy->title }}</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Tempo Gráfico</strong>
+        </div>
+        <div class="col-md-9">
+          {{ gtimeName($operation->gtime) }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+
+          <div class="box box-solid top-10">
+            <div class="box-head">
+              <div class="col-xs-12 label text-blue top-bottom-5">
+                <h3>Previsão da Operação</h3>
+              </div>
+            </div>
+            <div class="box-body bg-gray">
+
+              <div class="col-xs-12">
+                <div class="info-box">
+                  <span class="info-box-icon bg-aqua">
+                    <i class="fa fa-play-circle"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Entrada</span>
+                    <span class="info-box-number">{{ $operation->preventry }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="info-box">
+                  <span class="info-box-icon bg-orange">
+                    <i class="fa fa-life-ring"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Stop</span>
+                    <span class="info-box-number">{{ $operation->prevstop }}</span>
+                    <span class="font-12">{{ $operation->prevRisk() }}%</span>
+                    <span class="font-12">{{ $operation->prevCapitalRisk() }}%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="info-box">
+                  <span class="info-box-icon bg-olive">
+                    <i class="fa fa-money"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Alvo</span>
+                    <span class="info-box-number">{{ $operation->prevtarget }}</span>
+                    <span class="font-12">{{ $operation->prevReturn() }}%</span>
+                    <span class="font-12">{{ $operation->prevCapitalReturn() }}%</span>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="info-box">
-          <span class="info-box-icon bg-olive">
-            <i class="fa fa-money"></i>
-          </span>
-          <div class="info-box-content">
-            <span class="info-box-text">Alvo</span>
-            <span class="info-box-number">{{ $operation->prevtarget }}</span>
-            <span class="info-box-text">{{ $operation->prevReturn() }}% - {{ $operation->prevCapitalReturn() }}%</span>
+        <div class="col-lg-6">
+
+          <div class="box box-solid top-10 bg-gray">
+            <div class="box-head">
+              <div class="col-xs-12 label text-blue top-bottom-5">
+                <h3>Registro da Operação</h3>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="col-xs-12">
+                <div class="info-box bg-blue">
+                  <span class="info-box-icon">
+                    <i class="fa fa-play-circle"></i>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text">Entrada</span>
+                    <span class="info-box-number">{{ $operation->realentry }}</span>
+                    <span class="info-box-text">{{ getBRDateFromMysql($operation->entrydate) }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+
+                @if ($operation->realexit == Null)
+                      <div class="info-box bg-red">
+                        <span class="info-box-icon">
+                          <i class="fa fa-life-ring"></i>
+                        </span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">Stop Atual</span>
+                          <span class="info-box-number">{{ $operation->currentstop }}</span>
+                        </div>
+                      </div>
+                @else
+                      <div class="info-box">
+                        <span class="info-box-icon bg-green">
+                          <i class="fa fa-money"></i>
+                        </span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">Saida {{ getBRDateFromMysql($operation->exitdate) }}</span>
+                          <span class="info-box-number">{{ $operation->realexit }}22,60</span>
+                          <span class="info-box-text">{{ $operation->prevReturn() }}% - {{ $operation->prevCapitalReturn() }}%</span>
+                        </div>
+                      </div>
+                @endif
+
+
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="info-box">
-          <span class="info-box-icon bg-orange">
-            <i class="fa fa-life-ring"></i>
-          </span>
-          <div class="info-box-content">
-            <span class="info-box-text">Stop</span>
-            <span class="info-box-number">{{ $operation->prevstop }}</span>
-            <span class="info-box-text">{{ $operation->prevRisk() }}% - {{ $operation->prevCapitalRisk() }}%</span>
-          </div>
+
         </div>
       </div>
 
-      <div class="label bg-gray col-md-12 top-bottom-10 text-primary">
-          <h4>REGISTRO DA OPERAÇÃO</h4>
-      </div>
 
-      <div class="col-md-6">
-        <div class="info-box">
-          <span class="info-box-icon bg-blue">
-            <i class="fa fa-play-circle"></i>
-          </span>
-          <div class="info-box-content">
-            <span class="info-box-text">Entrada</span>
-            <span class="info-box-number">{{ $operation->realentry }}12,20</span>
-            <span class="info-box-text">{{ $operation->entrydate }}</span>
-          </div>
-        </div>
-      </div>
-@if ($operation->realexit == Null)
-    <div class="col-md-6">
-      <div class="info-box">
-        <span class="info-box-icon bg-red">
-          <i class="fa fa-life-ring"></i>
-        </span>
-        <div class="info-box-content">
-          <span class="info-box-text">Stop Atual</span>
-          <span class="info-box-number">{{ $operation->currentstop }}8,50</span>
-        </div>
-      </div>
     </div>
-@else
-    <div class="col-md-6">
-      <div class="info-box">
-        <span class="info-box-icon bg-green">
-          <i class="fa fa-money"></i>
-        </span>
-        <div class="info-box-content">
-          <span class="info-box-text">Saida {{ $operation->exitdate }}</span>
-          <span class="info-box-number">{{ $operation->realexit }}22,60</span>
-          <span class="info-box-text">{{ $operation->prevReturn() }}% - {{ $operation->prevCapitalReturn() }}%</span>
+  </div>
+</div> <!-- fim col -->
+
+  <div class="col-md-6">
+
+      <div class="box box-solid">
+
+        <div class="box-header">
+          <h3 class="box-title">ANÁLISE ANTES DA OPERAÇÃO</h3>
         </div>
-      </div>
+
+          <div class="box-body">
+            <div id="accordion01" class="box-group">
+
+              <div class="panel box box-danger">
+                <div class="box-header with-border">
+                  <h4 class="box-title">
+                    <i class="fa fa-line-chart"></i>
+                    <a data-toggle="collapse" data-parent="#accordion01" href="#collapse01">
+                      Gráfico 01
+                    </a>
+                  </h4>
+                </div>
+
+                <div id="collapse01" class="panel-collapse collapse">
+                  <div class="box-body">
+                    <div>
+                      <a href="#" class="azoom" title="Clique para aumentar!">
+                        <img class="img-max pad preimage01"
+                        src="{{ asset('/storage/operations/'.
+                        (isset($preimage01)?$operation->user_id.'/'.$preimage01:'../../img/loading.gif'))}}" />
+                      </a>
+                    </div>
+                    <div>
+                      {!! (isset($preanalysis01)?$preanalysis01:Null) !!}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel box box-danger">
+                <div class="box-header with-border">
+                  <h4 class="box-title">
+                    <i class="fa fa-line-chart"></i>
+                    <a data-toggle="collapse" data-parent="#accordion01" href="#collapse02">
+                      Gráfico 02
+                    </a>
+                  </h4>
+                </div>
+
+                <div id="collapse02" class="panel-collapse collapse">
+                  <div class="box-body">
+                    <div>
+                      <a href="#" class="azoom" title="Clique para aumentar!">
+                        <img class="img-max pad preimage02"
+                        src="{{ asset('/storage/operations/'.
+                        (isset($preimage02)?$operation->user_id.'/'.$preimage02:'../../img/loading.gif'))}}" />
+                      </a>
+                    </div>
+                    <div>
+                      {!! (isset($preanalysis02)?$preanalysis02:Null) !!}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+        </div>
     </div>
+
+@if ($operation->realexit != Null)
+      <div class="box box-solid">
+        <div class="box-header">
+          <h3 class="box-title">ANÁLISE APÓS A OPERAÇÃO</h3>
+        </div>
+
+          <div class="box-body">
+            <div id="accordion02" class="box-group">
+
+              <div class="panel box box-success">
+                <div class="box-header with-border">
+                  <h4 class="box-title">
+                    <i class="fa fa-line-chart"></i>
+                    <a data-toggle="collapse" data-parent="#accordion02" href="#collapse03">
+                      Gráfico 01
+                    </a>
+                  </h4>
+                </div>
+
+                <div id="collapse03" class="panel-collapse collapse">
+                  <div class="box-body">
+                    <div>
+                      <a href="#" class="azoom" title="Clique para aumentar!">
+                        <img class="img-max pad postimage01"
+                        src="{{ asset('/storage/operations/'.
+                        (isset($postimage01)?$operation->user_id.'/'.$postimage01:'../../img/loading.gif'))}}" />
+                      </a>
+                    </div>
+                    <div>
+                      {!! (isset($postanalysis01)?$postanalysis01:Null) !!}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel box box-success">
+                <div class="box-header with-border">
+                  <h4 class="box-title">
+                    <i class="fa fa-line-chart"></i>
+                    <a data-toggle="collapse" data-parent="#accordion02" href="#collapse04">
+                      Gráfico 02
+                    </a>
+                  </h4>
+                </div>
+
+                <div id="collapse04" class="panel-collapse collapse">
+                  <div class="box-body">
+                    <div>
+                      <a href="#" class="azoom" title="Clique para aumentar!">
+                        <img class="img-max pad postimage02"
+                        src="{{ asset('/storage/operations/'.
+                        (isset($postimage02)?$operation->user_id.'/'.$postimage02:'../../img/loading.gif'))}}" />
+                      </a>
+                    </div>
+                    <div>
+                      {!! (isset($postanalysis02)?$postanalysis02:Null) !!}
+                    </div>
+                  </div>
+                </div>
+              </div>
 @endif
 
-
-
-
-
-      <div class="col-md-3 text-right">
-        <strong></strong>
-      </div>
-      <div class="col-md-9">
-
-      </div>
-
-      <div class="col-md-3 text-right">
-        <strong></strong>
-      </div>
-      <div class="col-md-9">
-
-      </div>
-
-      <div class="col-md-3 text-right">
-        <strong></strong>
-      </div>
-      <div class="col-md-9">
-
-      </div>
-
-      <div class="col-md-3 text-right">
-        <strong></strong>
-      </div>
-      <div class="col-md-9">
-
-      </div>
-
-      <div class="col-md-3 text-right">
-        <strong></strong>
-      </div>
-      <div class="col-md-9">
-
-      </div>
-
-      <div class="col-md-3 text-right">
-        <strong></strong>
-      </div>
-      <div class="col-md-9">
-
-      </div>
-
+            </div>
+        </div>
     </div>
 
+  </div> <!-- fim col -->
 
-  </div>
+</div><!-- fim row -->
 
-  <div class="col-md-6">
 
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6">
-
-  </div>
-  <div class="col-md-6">
-
-  </div>
-</div>
 @include('layouts.imagemodal')
 @endsection
 
