@@ -67,6 +67,7 @@ class OperationController extends Controller
 
         $operation->strategy_id = $request->strategy;
         $operation->stock = $request->stock;
+        $operation->amount = $request->amount;
         $operation->buyorsell = $request->buyorsell;
         $operation->realorsimulated = $request->realorsimulated;
         $operation->gtime = $request->gtime;
@@ -277,6 +278,7 @@ class OperationController extends Controller
 
         if ($request->strategy != $operation->strategy_id ||
             $request->stock != $operation->stock ||
+            $request->amount != $operation->amount ||
             $request->buyorsell != $operation->buyorsell ||
             $request->realorsimulated != $operation->realorsimulated ||
             $request->gtime != $operation->gtime ||
@@ -287,6 +289,7 @@ class OperationController extends Controller
 
           $operation->strategy_id = $request->strategy;
           $operation->stock = $request->stock;
+          $operation->amount = $request->amount;
           $operation->buyorsell = $request->buyorsell;
           $operation->realorsimulated = $request->realorsimulated;
           $operation->gtime = $request->gtime;
@@ -357,7 +360,7 @@ class OperationController extends Controller
       }
 
       $operation->save();
-      return redirect('operation/'.$operation->id.'/edit');
+      return redirect('operation/'.$operation->id);
     }
 
     /**

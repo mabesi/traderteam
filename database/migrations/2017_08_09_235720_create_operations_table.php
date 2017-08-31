@@ -21,6 +21,7 @@ class CreateOperationsTable extends Migration
             $table->foreign('strategy_id')->references('id')->on('strategies');
             $table->string('gtime',1);
             $table->string('stock',50);
+            $table->integer('amount')->unsigned();
             $table->string('buyorsell',1);
             $table->string('realorsimulated',1);
             $table->decimal('preventry',10,2);

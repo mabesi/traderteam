@@ -51,7 +51,7 @@
 
                    <div class="col-sm-9">
                      <select id="strategy" name="strategy" class="form-control" data-placeholder="Informe qual a estratégia utilizada"
-                      style="width: 100%;" {{ lockOperationFields('strategy',$status) }} >
+                      style="width: 100%;" {{ lockOperationFields('strategy',$status) }} required>
                        <option value=""></option>
                        @foreach ($strategies as $strategy)
                          <option
@@ -71,7 +71,17 @@
                      <input type="text" name="stock" class="form-control" id="stock"
                       value="{{ old('stock',isset($operation->stock)?$operation->stock:Null) }}"
                       placeholder="Sigla do Ativo (Ex: PETR4, VALE5, ITUB4)"
-                      {{ lockOperationFields('stock',$status) }} >
+                      {{ lockOperationFields('stock',$status) }} required>
+                   </div>
+                 </div>
+
+                 <div class="form-group">
+                   <label for="amount" class="col-sm-3 control-label">Quantidade *</label>
+
+                   <div class="col-sm-9">
+                     <input type="number" step="1" name="amount" class="form-control" id="amount"
+                      value="{{ old('amount',isset($operation->amount)?$operation->amount:Null) }}"
+                      {{ lockOperationFields('amount',$status) }} required>
                    </div>
                  </div>
 
@@ -83,7 +93,7 @@
                        <label>
                          <input id="typeC" name="buyorsell" value="C" type="radio"
                           {{ ((isset($operation->buyorsell)?$operation->buyorsell:'C')=='C'?'checked':'') }}
-                          {{ lockOperationFields('buyorsell',$status) }} >
+                          {{ lockOperationFields('buyorsell',$status) }} required>
                          Compra &nbsp;&nbsp;
                        </label>
                        <label>
@@ -104,7 +114,7 @@
                        <label>
                          <input id="typeR" name="realorsimulated" value="R" type="radio"
                           {{ ((isset($operation->realorsimulated)?$operation->realorsimulated:'R')=='R'?'checked':'') }}
-                          {{ lockOperationFields('realorsimulated',$status) }} >
+                          {{ lockOperationFields('realorsimulated',$status) }} required>
                          Real &nbsp;&nbsp;
                        </label>
                        <label>
@@ -125,7 +135,7 @@
                        <label>
                          <input id="type1" name="gtime" value="1" type="radio"
                           {{ ((isset($operation->gtime)?$operation->gtime:'')=='1'?'checked':'') }}
-                          {{ lockOperationFields('gtime',$status) }} >
+                          {{ lockOperationFields('gtime',$status) }} required>
                          1 Hora &nbsp;&nbsp;
                        </label>
                        <label>
@@ -162,7 +172,7 @@
                    <div class="col-sm-9">
                      <input type="number" step=".01" name="preventry" class="form-control" id="preventry"
                       value="{{ old('preventry',isset($operation->preventry)?number_format($operation->preventry,2):Null) }}"
-                      {{ lockOperationFields('preventry',$status) }} >
+                      {{ lockOperationFields('preventry',$status) }} required>
                    </div>
                  </div>
 
@@ -172,7 +182,7 @@
                    <div class="col-sm-9">
                      <input type="number" step=".01" name="prevtarget" class="form-control" id="prevtarget"
                       value="{{ old('prevtarget',isset($operation->prevtarget)?number_format($operation->prevtarget,2):Null) }}"
-                      {{ lockOperationFields('prevtarget',$status) }} >
+                      {{ lockOperationFields('prevtarget',$status) }} required>
                    </div>
                  </div>
 
@@ -182,7 +192,7 @@
                    <div class="col-sm-9">
                      <input type="number" step=".01" name="prevstop" class="form-control" id="prevstop"
                       value="{{ old('prevstop',isset($operation->prevstop)?number_format($operation->prevstop,2):Null) }}"
-                      {{ lockOperationFields('prevstop',$status) }} >
+                      {{ lockOperationFields('prevstop',$status) }} required>
                    </div>
                  </div>
 
@@ -283,7 +293,7 @@
                           <label for="preimage01" class="col-md-3 control-label">Gráfico 1</label>
                           <div class="col-md-9">
                             <input id="preimage01" name="preimage01" class="btn btn-danger imagepreview" type="file"
-                             accept="image/png,image/jpeg"
+                             accept="image/png,image/jpeg" max-size="512000"
                              {{ lockOperationFields('preimage01',$status) }} >
                             <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
                           </div>
@@ -324,7 +334,7 @@
 
                           <div class="col-md-9">
                             <input id="preimage02" name="preimage02" class="btn btn-danger imagepreview" type="file"
-                             accept="image/png,image/jpeg"
+                             accept="image/png,image/jpeg" max-size="512000"
                              {{ lockOperationFields('preimage02',$status) }} >
                             <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
                           </div>
@@ -376,7 +386,7 @@
                       <label for="postimage01" class="col-md-3 control-label">Gráfico 1</label>
                       <div class="col-md-9">
                         <input id="postimage01" name="postimage01" class="btn btn-success imagepreview" type="file"
-                         accept="image/png,image/jpeg"
+                         accept="image/png,image/jpeg" max-size="512000"
                          {{ lockOperationFields('postimage01',$status) }} >
                         <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
                       </div>
@@ -418,7 +428,7 @@
 
                       <div class="col-md-9">
                         <input id="postimage02" name="postimage02" class="btn btn-success imagepreview" type="file"
-                         accept="image/png,image/jpeg"
+                         accept="image/png,image/jpeg" max-size="512000"
                          {{ lockOperationFields('postimage02',$status) }} >
                         <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
                       </div>

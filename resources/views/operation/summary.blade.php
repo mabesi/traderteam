@@ -196,16 +196,16 @@
                   </h4>
                 </div>
 
-                <div id="collapse01" class="panel-collapse collapse">
+                <div id="collapse01" class="panel-collapse collapse in">
                   <div class="box-body">
-                    <div>
+                    <div class="col-lg-4">
                       <a href="#" class="azoom" title="Clique para aumentar!">
                         <img class="img-max pad preimage01"
                         src="{{ asset('/storage/operations/'.
                         (isset($preimage01)?$operation->user_id.'/'.$preimage01:'../../img/loading.gif'))}}" />
                       </a>
                     </div>
-                    <div>
+                    <div class="col-lg-8">
                       {!! (isset($preanalysis01)?$preanalysis01:Null) !!}
                     </div>
                   </div>

@@ -87,6 +87,11 @@
                 {!! $profile->twitter !!}
               </p>
 
+              <strong><i class="fa  fa-money margin-r-5"></i> Capital de Investimento</strong>
+              <p class="text-muted text-justify">
+                {{ formatCurrency($profile->capital) }}
+              </p>
+
             </div>
             <!-- /.box-body -->
           </div>

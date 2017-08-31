@@ -53,6 +53,7 @@ $factory->define(App\Operation::class, function (Faker\Generator $faker) {
         'user_id' => rand(1,10),
         'strategy_id' => rand(1,10),
         'stock' => $faker->randomElement(['WINFUT','WDOFUT','PETR4','VALE5','ABEV3','BBAS3','ITUB4','USIM5','CMIG4','ELET6']),
+        'amount' => $faker->randomElement([1000,500,800,600,300]),
         'buyorsell' => 'C',
         'realorsimulated' => $faker->randomElement(['R','S']),
         'gtime' => 'D',

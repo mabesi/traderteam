@@ -9,7 +9,7 @@ class Profile extends Model
   protected $fillable = [
       'user_id', 'level', 'enabled', 'occupation',
       'birthdate', 'city', 'state', 'country', 'site',
-      'facebook', 'twitter', 'description', 'status',
+      'facebook', 'twitter', 'description', 'capital', 'status',
   ];
 
   public function user()

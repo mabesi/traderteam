@@ -15,17 +15,17 @@
   </div>
   <div class="col-sm-9">
     <p class="text-muted">
-      Todas as informações do perfil são opcionais.
+      Com exceção da imagem do perfil, todas as informações são opcionais.
     </p>
   </div>
 </div>
 
   <div class="form-group">
-    <label for="avatar" class="col-sm-3 control-label">Imagem do Perfil</label>
+    <label for="avatar" class="col-sm-3 control-label">Imagem do Perfil *</label>
 
     <div class="col-sm-5">
       <input id="avatar" name="avatar" class="btn btn-primary imagepreview" type="file"
-       accept="image/png,image/jpeg" >
+       accept="image/png,image/jpeg" max-size="204800" required>
       <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 200KB.</p>
     </div>
     <div class="col-sm-4">
@@ -112,6 +112,20 @@
         </span>
         <input class="form-control" id="twitter" name="twitter" type="url" value="{{ old('twitter',isset($profile->twitter)?$profile->twitter:Null) }}" placeholder="https://twitter.com/seunomedeusuario" >
       </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="capital" class="col-sm-3 control-label">Capital</label>
+
+    <div class="col-sm-9">
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-money"></i>
+        </span>
+        <input class="form-control" id="capital" name="capital" type="number" step="100" value="{{ old('capital',isset($profile->capital)?$profile->capital:Null) }}">
+      </div>
+      <small class="text-muted">* Valor real ou arbitrário, usado para estatísticas. Caso não seja informado, será utilizado o valor fictício de 100.000,00</small>
     </div>
   </div>
 

@@ -6,6 +6,8 @@
   <small class="btn btn-xs btn-{{ statusClass($operation->status) }}">
     {{ operationStatus($operation->status) }}
   </small>
+  {{ nbsp(2) }}
+  <small class="font-12">{{ humanPastTime($operation->updated_at) }}</small>
 
   <span class="pull-right">
     {{ nbsp(2) }}

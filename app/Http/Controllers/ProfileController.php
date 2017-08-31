@@ -91,6 +91,10 @@ class ProfileController extends Controller
       $profile->twitter = $request->twitter;
       $profile->description = $request->mydescription;
 
+      if ($request->capital){
+        $profile->capital = $request->capital;
+      }
+
       //Status: 0: , 1: , 2: , 3:
       $profile->status = 0;
 
@@ -175,6 +179,10 @@ class ProfileController extends Controller
       $profile->facebook = $request->facebook;
       $profile->twitter = $request->twitter;
       $profile->description = $request->mydescription;
+
+      if ($request->capital){
+        $profile->capital = $request->capital;
+      }
 
       $profile->save();
 

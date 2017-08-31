@@ -227,6 +227,7 @@ function lockOperationFields($field,$status)
   $fieldStatus = [
     'strategy' => $prevFields,
     'stock' => $prevFields,
+    'amount' => $prevFields,
     'buyorsell' => $prevFields,
     'realorsimulated' => $prevFields,
     'gtime' => $prevFields,

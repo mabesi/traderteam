@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Operation extends Model
 {
   protected $fillable = [
-      'user_id', 'strategy_id', 'stock', 'gtime', 'buyorsell', 'realorsimulated',
+      'user_id', 'strategy_id', 'stock', 'amount', 'gtime', 'buyorsell', 'realorsimulated',
       'preventry', 'prevtarget', 'prevstop', 'realentry', 'realexit','currentstop',
       'entrydate', 'exitdate', 'preanalysis', 'preimage', 'postanalysis', 'postimage',
   ];
