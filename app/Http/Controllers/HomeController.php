@@ -35,5 +35,9 @@ class HomeController extends Controller
     {
       return view('terms');
     }
+    public function market()
+    {
+      return view('market');
+    }
 
 }

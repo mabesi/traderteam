@@ -69,6 +69,8 @@
           </ul>
         </li>
 
+        <li><a href="{{ route('market') }}"><i class="fa fa-area-chart"></i> <span>Mercado</span></a></li>
+
       </ul>
       <!-- /.sidebar-menu -->
     </section>

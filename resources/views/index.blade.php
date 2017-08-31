@@ -5,8 +5,6 @@
 
 @section('content')
 
-@include('layouts.tv-ticker')
-
 Vc está logado e na index... <br>
 Usuário: {{ Auth::user() }} <br><br>
 

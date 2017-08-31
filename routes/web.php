@@ -29,4 +29,5 @@ Route::middleware('auth')->group(function(){
   Route::resource('operation', 'OperationController');
   Route::get('strategy-rules', 'StrategyController@rules');
   Route::get('operation-rules', 'OperationController@rules');
+  Route::get('market', 'HomeController@market')->name('market');
 });

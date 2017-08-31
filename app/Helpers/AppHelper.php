@@ -256,3 +256,13 @@ function lockOperationFields($field,$status)
 
   return $fieldStatus[$field];
 }
+
+function getChartWidth()
+{
+  return 495;
+}
+
+function getChartHeigth()
+{
+  return 450;
+}
