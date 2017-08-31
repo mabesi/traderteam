@@ -11,35 +11,34 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-4">
+  <div class="col-lg-6 text-center">
     @include('layouts.chart.ibov')
   </div>
-  <div class="col-lg-4">
-    @include('layouts.chart.sp500')
-  </div>
-  <div class="col-lg-4">
-    @include('layouts.chart.dowjones')
+  <div class="col-lg-6 text-center">
+    @include('layouts.chart.dolar')
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-4">
-    @include('layouts.chart.dolar')
+  <div class="col-lg-6 text-center">
+    @include('layouts.chart.sp500')
   </div>
-  <div class="col-lg-4">
+  <div class="col-lg-6 text-center">
+    @include('layouts.chart.dowjones')
+  </div>
+</div>
+  <div class="row">
+  <div class="col-lg-6 text-center">
     @include('layouts.chart.euro')
   </div>
-  <div class="col-lg-4">
+  <div class="col-lg-6 text-center">
     @include('layouts.chart.petroleodolar')
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-4">
-    @include('layouts.chart.ourodolar')
-  </div>
-  <div class="col-lg-4">
+  <div class="col-lg-6 text-center">
     @include('layouts.chart.bitcoindolar')
   </div>
-  <div class="col-lg-4">
+  <div class="col-lg-6 text-center">
     @include('layouts.chart.ethereumdolar')
   </div>
 </div>

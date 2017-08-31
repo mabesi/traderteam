@@ -268,6 +268,11 @@ function getBRDateFromMysql($date=Null)
   return $day.'/'.$month.'/'.$year;
 }
 
+function getDateTimeFromString($date)
+{
+  return date("d-m-Y H:i:s", strtotime($date));
+}
+
 function getMysqlDate($date)
 {
     $arrayDate = explode('/',$date);

@@ -10,6 +10,11 @@ Usuário: {{ Auth::user() }} <br><br>
 
 Membro a: {{ humanPastTime(Auth::user()->created_at) }} <br />
 
+Notícias
+
+<div class="pad col-lg-4">
+  {!! feedRss('http://www.infomoney.com.br/mercados/rss') !!}
+</div>
 
 @endsection
 

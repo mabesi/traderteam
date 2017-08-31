@@ -259,10 +259,51 @@ function lockOperationFields($field,$status)
 
 function getChartWidth()
 {
-  return 495;
+  return 580;
 }
 
 function getChartHeigth()
 {
-  return 450;
+  return 420;
+}
+
+function getChartInterval($interval='S')
+{
+  $typeList = [
+    '5' => '300',
+    '15' => '900',
+    '30' => '1800',
+    '1' => '3600',
+    '4' => '14400',
+    'D' => '86400',
+    'S' => 'week',
+    'M' => 'month',
+  ];
+
+  return $typeList[$interval];
+}
+
+function feedRss($link,$limit=10,$showDescription=False)
+{
+  $rss = simplexml_load_file($link);
+  $count = 0;
+  $feed = '';
+
+  foreach($rss->channel->item as $item){
+
+    $feedDate = getDateTimeFromString($item->pubDate);
+    $feedDate = humanPastTime($feedDate);
+
+    $feed .= "<p class='text-justify'><a href='{$item->link}' target='_blank'>{$item->title}</a> <small>({$feedDate})</small></p>";
+
+    if ($showDescription){
+      $feed .= "<p>{$item->description}</p>";
+    }
+
+    $count++;
+    if($count == $limit){
+      break;
+    }
+  }
+  return $feed;
 }
