@@ -18,7 +18,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     $faker->addProvider(new App\Faker\Pessoa($faker));
 
     return [
-        'name' => trim($faker->name),
+        'name' => trim($faker->firstName.' '.$faker->lastName),
         'email' => $faker->unique()->safeEmail,
         'type' => 'U',
         'password' => $password ?: $password = bcrypt('secret'),

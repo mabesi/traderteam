@@ -74,7 +74,7 @@ class ProfileController extends Controller
 
       $profile->user_id = getUserId();
       //Level: 1: Iniciante, 2: Operador, 3: Analista, 4: Estragetista, 5: Tubarão
-      $profile->level = 0;
+      $profile->level = 1;
       $profile->enabled = true;
 
       $profile->occupation = $request->occupation;

@@ -49,6 +49,17 @@ function getUserAvatar($class="img-circle",$alt="Foto do Perfil",$user=Null,$wid
   return getHtmlImage($src,$class,$alt,Null,Null,$width,$height);
 }
 
+function getLevelStars($level)
+{
+  $stars='';
+
+  for ($i=0;$i<$level;$i++){
+    $stars .= '<i class="fa fa-star"></i>';
+  }
+
+  return $stars;
+}
+
 function getHtmlImage($src,$class=Null,$alt=Null,$id=Null,$title=Null,$width=Null,$height=Null,$style=Null)
 {
   $img = "<img src='".$src."'";

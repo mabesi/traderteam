@@ -254,16 +254,26 @@ function getMysqlDateFromBR($date)
     return $year.'-'.$month.'-'.$day;
 }
 
-function getBRDateFromMysql($date=Null)
+function getBRDateFromMysql($date=Null,$withTime=False)
 {
   if ($date==Null){
     return '';
   }
 
-  $arrayDate = explode('-',$date);
+  $arrayDateTime = explode(' ',$date);
+
+  $arrayDate = explode('-',$arrayDateTime[0]);
   $year = $arrayDate[0];
   $month = $arrayDate[1];
   $day = $arrayDate[2];
+
+  if ($withTime){
+    $arrayTime = explode(':',$arrayDateTime[1]);
+    $hour = $arrayTime[0];
+    $minute = $arrayTime[1];
+    $second = $arrayTime[2];
+    return $day.'/'.$month.'/'.$year.' '.$hour.':'.$minute.':'.$second;
+  }
 
   return $day.'/'.$month.'/'.$year;
 }

@@ -16,7 +16,7 @@ class ProfilesTableSeeder extends Seeder
 
       DB::table('profiles')->insert([
         'user_id' => 1,
-        'level' => 0,
+        'level' => 2,
         'enabled' => 1,
         'occupation' => 'Militar',
         'birthdate' => '1976-01-16',
@@ -50,7 +50,7 @@ class ProfilesTableSeeder extends Seeder
       ]);
       DB::table('profiles')->insert([
         'user_id' => 3,
-        'level' => 2,
+        'level' => 3,
         'enabled' => 1,
         'occupation' => 'Engenheiro Civil',
         'birthdate' => '1984-02-20',

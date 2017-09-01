@@ -49,18 +49,51 @@ class HomeController extends Controller
     {
       return view('terms');
     }
+
     public function market()
     {
       return view('market');
     }
-    public function user()
+
+    public function user(Request $request)
     {
-      $users = User::paginate(10);
+      $totalUsers = User::count();
+
+      if ($request->has('sort')){
+        $sort = $request->query('sort');
+        $dir = $request->query('dir');
+      } else {
+        $sort = 'name';
+        $dir = 'asc';
+      }
+
+      //dd($sort);
+      //$users = User::withCount('operations')->orderBy('operations_count','desc')->paginate(12);
+      $users = User::leftJoin('profiles','users.id','=','profiles.user_id')
+                    ->withCount('strategies')
+                    ->withCount('operations')
+                    ->withCount('followers')
+                    ->orderBy($sort,$dir);
+
+      if  ($request->has('search')){
+        $search = $request->query('search');
+        $users = $users->where('name','like',"%$search%");
+      }
+
+      $users = $users->paginate(12);
+
+      //dd($sort);
+      $newDir = ($dir=='asc'?'desc':'asc');
 
       $data = [
+        'totalUsers' => $totalUsers,
         'users' => $users,
+        'sort' => $sort,
+        'dir' => $dir,
+        'newDir' => $newDir,
       ];
 
+      //return 'Teste';
       return view('user.users',$data);
     }
 

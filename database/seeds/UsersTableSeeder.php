@@ -27,7 +27,14 @@ class UsersTableSeeder extends Seeder
 
         factory(App\User::class, 2)->create(['type' => 'A','avatar' => 'default.png']);
 
-        factory(App\User::class, 17)->create(['avatar' => 'default.png']);
+        factory(App\User::class, 27)->create(['avatar' => 'default.png']);
+
+        User::find(1)->followers()->attach([2,3,7,9,14]);
+        User::find(2)->followers()->attach([3,8,10,15]);
+        User::find(3)->followers()->attach([2,3,5,6,7,9,10,14,20]);
+        User::find(1)->following()->attach([2,4,6,7,15]);
+        User::find(2)->following()->attach([4,5,6,9,12]);
+        User::find(3)->following()->attach([1,3,4,5,7,8,9,12,16]);
 
     }
 }
