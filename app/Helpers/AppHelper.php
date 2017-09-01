@@ -117,6 +117,29 @@ function operationRealOrSimulated($type)
   return $typeList[$type];
 }
 
+function getUserOperationsLevel($operations,$result)
+{
+  // Levels:
+  // 1: Iniciante
+  // 2: Operador
+  // 3: Analista
+  // 4: Estragetista
+  // 5: Tubarão
+
+  if ($operations >= 1000 && $result>=100){
+    $level = 5;
+  } elseif ($operations >= 500 && $result >= 50){
+    $level = 4;
+  } elseif ($operations >= 100 && $result >= 10){
+    $level = 3;
+  } elseif ($operations >= 10 && $result > 0){
+    $level = 2;
+  } else {
+    $level = 1;
+  }
+  return $level;
+}
+
 function operationStatus($status)
 {
   $statusList = [
@@ -136,8 +159,6 @@ function operationStatus($status)
 
 function statusClass($status)
 {
-  //dd($status);
-
   $classList = [
     'P' => 'secondary',
     'C' => 'danger',
