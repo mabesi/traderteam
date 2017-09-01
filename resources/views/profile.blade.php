@@ -19,23 +19,23 @@
                 <li class="list-group-item">
                   <div class="row">
                     <div class="col-md-6">
-                      <b>Seguidores</b> <a class="pull-right">27</a>
+                      <b>Seguidores</b> <a class="pull-right">{{ $user->followers->count() }}</a>
                     </div>
                     <div class="col-md-6">
-                      <b>Seguindo</b> <a class="pull-right">18</a>
+                      <b>Seguindo</b> <a class="pull-right">{{ $user->following->count() }}</a>
                     </div>
                   </div>
                 </li>
                 <li class="list-group-item">
                 </li>
                 <li class="list-group-item">
-                  <b>Estratégias</b> <a class="pull-right">5</a>
+                  <b>Estratégias</b> <a class="pull-right">{{ $user->strategies->count() }}</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Operações</b> <a class="pull-right">34</a>
+                  <b>Operações</b> <a class="pull-right">{{ $user->operations->count() }}</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Resultado Geral</b> <a class="pull-right">22,67%</a>
+                  <b>Resultado Geral</b> <a class="pull-right">{{ $user->operations->sum('result') }}%</a>
                 </li>
               </ul>
 

@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
       if (Auth::check()) {
 
-        $users = User::take(10)->get();
+        $users = User::take(12)->get();
         $operations = Operation::orderBy('updated_at','desc')->take(10)->get();
 
         $data = [

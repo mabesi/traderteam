@@ -32,6 +32,7 @@ class CreateOperationsTable extends Migration
             $table->decimal('realentry',10,2)->nullable();
             $table->decimal('currentstop',10,2)->nullable();
             $table->decimal('realexit',10,2)->nullable();
+            $table->decimal('result',10,2)->default(0);
             $table->date('entrydate')->nullable();
             $table->date('exitdate')->nullable();
             $table->text('postanalysis')->nullable();

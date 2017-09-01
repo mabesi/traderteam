@@ -13,6 +13,6 @@ class OperationsTableSeeder extends Seeder
     public function run()
     {
       Operation::truncate();
-      factory(App\Operation::class, 100)->create();
+      factory(App\Operation::class, 200)->create();
     }
 }

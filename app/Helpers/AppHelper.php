@@ -33,12 +33,12 @@ function indicatorType($type){
   return $types[$type];
 }
 
-function operationCapital()
+function getOperationCapital()
 {
   return 5000.00;
 }
 
-function investimentCapital()
+function getInvestimentCapital()
 {
   return 100000.00;
 }
@@ -136,6 +136,8 @@ function operationStatus($status)
 
 function statusClass($status)
 {
+  //dd($status);
+
   $classList = [
     'P' => 'secondary',
     'C' => 'danger',

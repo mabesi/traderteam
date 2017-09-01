@@ -28,19 +28,19 @@
 
       <div class="row">
         <div class="col-md-3">
-          <strong>Criada a</strong>
+          <strong>Quantidade</strong>
         </div>
         <div class="col-md-9">
-          {{ humanPastTime($operation->created_at) }}
+          {{ $operation->amount }}
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-3">
-          <strong>Alterada a</strong>
+          <strong>Criada a</strong>
         </div>
         <div class="col-md-9">
-          {{ humanPastTime($operation->updated_at) }}
+          {{ humanPastTime($operation->created_at) }}
         </div>
       </div>
 
@@ -151,13 +151,17 @@
                       </div>
                 @else
                       <div class="info-box">
+                  @if (($operation->realexit >= $operation->realentry && $operation->buyorsell == 'C') || ($operation->realexit <= $operation->realentry && $operation->buyorsell == 'V'))
                         <span class="info-box-icon bg-green">
+                  @else
+                        <span class="info-box-icon bg-red">
+                  @endif
                           <i class="fa fa-money"></i>
                         </span>
                         <div class="info-box-content">
                           <span class="info-box-text">Saida {{ getBRDateFromMysql($operation->exitdate) }}</span>
-                          <span class="info-box-number">{{ $operation->realexit }}22,60</span>
-                          <span class="info-box-text">{{ $operation->prevReturn() }}% - {{ $operation->prevCapitalReturn() }}%</span>
+                          <span class="info-box-number">{{ $operation->realexit }}</span>
+                          <span class="info-box-text">{{ $operation->operationReturn() }}% / {{ $operation->capitalReturn() }}%</span>
                         </div>
                       </div>
                 @endif

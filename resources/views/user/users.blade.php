@@ -80,7 +80,7 @@
                     @endif
                   </td>
                   <td>{{ $user->profile->occupation }}</td>
-                  <td>{{ $user->profile->city }}</td>
+                  <td>{{ $user->profile->city.', '.$user->profile->state }}</td>
                 @endif
                     <td><a href="{{ url('user/'.$user->id.'/strategies') }}">{{ $user->strategies->count() }}</a></td>
                     <td><a href="{{ url('user/'.$user->id.'/operations') }}">{{ $user->operations->count() }}</a></td>

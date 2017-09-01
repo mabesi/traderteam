@@ -341,8 +341,8 @@ class OperationController extends Controller
                 ($operation->buyorsell=='V' && $operation->realexit >= $operation->currentstop)
               ) {
               $operation->status = 'S';
-            } elseif (($operation->buyorsell=='C' && $operation->realexit >= $operation->currentstop) ||
-                  ($operation->buyorsell=='V' && $operation->realexit <= $operation->currentstop)
+            } elseif (($operation->buyorsell=='C' && $operation->realexit >= $operation->prevtarget) ||
+                  ($operation->buyorsell=='V' && $operation->realexit <= $operation->prevtarget)
                 ) {
                 $operation->status = 'T';
             } else {
@@ -371,6 +371,12 @@ class OperationController extends Controller
       }
 
       $operation->save();
+
+      if ($operation->status == 'S' || $operation->status == 'E' || $operation->status == 'T'){
+        $operation->result = $operation->capitalReturn();
+        $operation->save();
+      }
+
       return redirect('operation/'.$operation->id);
     }
 
