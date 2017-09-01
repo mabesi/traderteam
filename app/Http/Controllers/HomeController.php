@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
+use App\Operation;
 
 class HomeController extends Controller
 {
@@ -24,11 +26,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-          return view('index');
-        } else {
-          return view('home');
-        }
+      if (Auth::check()) {
+
+        $users = User::take(10)->get();
+        $operations = Operation::orderBy('updated_at','desc')->take(10)->get();
+
+        $data = [
+          'users' => $users,
+          'operations' => $operations,
+        ];
+
+        return view('index',$data);
+
+      } else {
+
+        return view('home');
+
+      }
     }
 
     public function terms()
@@ -38,6 +52,16 @@ class HomeController extends Controller
     public function market()
     {
       return view('market');
+    }
+    public function user()
+    {
+      $users = User::paginate(10);
+
+      $data = [
+        'users' => $users,
+      ];
+
+      return view('user.users',$data);
     }
 
 }

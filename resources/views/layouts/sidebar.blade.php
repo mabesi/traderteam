@@ -52,7 +52,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{ url('operation/create') }}">Nova Operação</a></li>
-            <li><a href="{{ url('operation') }}">Minhas Operações</a></li>
+            <li><a href="{{ url('myoperations') }}">Minhas Operações</a></li>
             <li><a href="{{ url('operation-rules') }}">Regras para Registro</a></li>
           </ul>
         </li>

@@ -16,17 +16,28 @@ class OperationController extends Controller
      */
     public function index()
     {
-      $user = User::find(getUserId());
-      $operations = $user->operations;
+      $operations = Operation::orderBy('updated_at','desc')->paginate(10);
+
+      $data = [
+        'viewname' => 'Relação de Operações',
+        'viewtitle' => 'Relação de Operações',
+        'operations' => $operations,
+      ];
+
+        return view('operation.operations', $data);
+    }
+
+    public function myoperations()
+    {
+      $operations = Operation::where('user_id',getUserId())->orderBy('updated_at','desc')->paginate(10);
 
       $data = [
         'viewname' => 'Minhas Operações',
         'viewtitle' => 'Minhas Operações',
         'operations' => $operations,
-        'errors' => null,
       ];
 
-        return view('myoperations', $data);
+      return view('operation.operations', $data);
     }
 
     /**
@@ -50,7 +61,7 @@ class OperationController extends Controller
         'status' => 'P',
       ];
 
-      return view('operation', $data);
+      return view('operation.operation', $data);
     }
 
     /**
@@ -245,7 +256,7 @@ class OperationController extends Controller
         $data['postimage02'] = $postimage02;
       }
 
-      return view('operation', $data);
+      return view('operation.operation', $data);
     }
 
     /**
@@ -382,6 +393,6 @@ class OperationController extends Controller
         'errors' => null,
       ];
 
-      return view('operationrules', $data);
+      return view('operation.rules', $data);
     }
 }

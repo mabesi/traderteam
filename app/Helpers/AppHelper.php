@@ -43,10 +43,10 @@ function investimentCapital()
   return 100000.00;
 }
 
-function getUserAvatar($class="img-circle",$alt="Foto do Perfil",$user=Null)
+function getUserAvatar($class="img-circle",$alt="Foto do Perfil",$user=Null,$width=Null,$height=Null)
 {
   $src = asset("/storage/avatar/".($user==Null?Auth::user()->avatar:$user->avatar));
-  return getHtmlImage($src,$class,$alt);
+  return getHtmlImage($src,$class,$alt,Null,Null,$width,$height);
 }
 
 function getHtmlImage($src,$class=Null,$alt=Null,$id=Null,$title=Null,$width=Null,$height=Null,$style=Null)

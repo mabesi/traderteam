@@ -5,15 +5,45 @@
 
 @section('content')
 
-Vc está logado e na index... <br>
-Usuário: {{ Auth::user() }} <br><br>
+<div class="row">
+  <div class="col-md-3">
+    <div class="box box-solid">
+      <div class="box-header with-border bg-green">
+        <span class="font-24">Usuários</span>
+      </div>
+      <div class="box-body">
+        @include('user.list')
+      </div>
+      <div class="box-footer">
+        <a href="{{ url('user') }}">Ver Todos</a>
+      </div>
+    </div>
+  </div>
 
-Membro a: {{ humanPastTime(Auth::user()->created_at) }} <br />
+  <div class="col-md-5">
+    <div class="box box-solid">
+      <div class="box-header with-border bg-red">
+        <span class="font-24">Operações</span>
+      </div>
+      <div class="box-body">
+        @include('operation.listmin')
+      </div>
+      <div class="box-footer">
+        <a href="{{ url('operation') }}">Ver Todas</a>
+      </div>
+    </div>
+  </div>
 
-Notícias
-
-<div class="pad col-lg-4">
-  {!! feedRss('http://www.infomoney.com.br/mercados/rss') !!}
+  <div class="col-md-4">
+    <div class="box box-solid">
+      <div class="box-header with-border bg-blue">
+        <span class="font-24">Notícias <a class="font-12 text-teal" href="http://www.infomoney.com.br/mercados/ultimas-noticias" target="_blank">(Infomoney)</a></span>
+      </div>
+      <div class="box-body">
+        {!! feedRss('http://www.infomoney.com.br/mercados/rss') !!}
+      </div>
+    </div>
+  </div>
 </div>
 
 @endsection

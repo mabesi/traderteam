@@ -110,7 +110,7 @@
               <!-- /.tab-pane -->
               <div class="tab-pane active" id="operations">
 
-                @include('layouts.operation.list')
+                @include('operation.list')
               </div>
               <!-- /.tab-pane -->
 
