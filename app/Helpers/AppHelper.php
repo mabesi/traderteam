@@ -317,6 +317,40 @@ function getChartInterval($interval='S')
   return $typeList[$interval];
 }
 
+function getFollowingId($userId=Null)
+{
+  if ($userId==Null){
+    $users = Auth::user()->following;
+  } else {
+    $users = App\User::find($userId)->following;
+  }
+
+  $arrayId = Array();
+
+  foreach ($users as $user){
+    $arrayId[] = $user->id;
+  }
+
+  return $arrayId;
+}
+
+function getFollowersId($userId=Null)
+{
+  if ($userId==Null){
+    $users = Auth::user()->followers;
+  } else {
+    $users = App\User::find($userId)->followers;
+  }
+
+  $arrayId = Array();
+
+  foreach ($users as $user){
+    $arrayId[] = $user->id;
+  }
+
+  return $arrayId;
+}
+
 function feedRss($link,$limit=10,$showDescription=False)
 {
   $rss = simplexml_load_file($link);

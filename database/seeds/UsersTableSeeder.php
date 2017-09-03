@@ -12,6 +12,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('followers')->truncate();
+        DB::table('operation_user')->truncate();
         User::truncate();
 
         DB::table('users')->insert([
@@ -34,7 +36,7 @@ class UsersTableSeeder extends Seeder
         User::find(3)->followers()->attach([2,3,5,6,7,9,10,14,20]);
         User::find(1)->following()->attach([2,4,6,7,15]);
         User::find(2)->following()->attach([4,5,6,9,12]);
-        User::find(3)->following()->attach([1,3,4,5,7,8,9,12,16]);
+        User::find(3)->following()->attach([22,3,4,5,7,8,9,12,16]);
         User::find(8)->followers()->attach([2,3,7,9,14]);
         User::find(9)->followers()->attach([3,8,10,15]);
         User::find(15)->followers()->attach([2,3,5,6,7,9,10,14,20]);

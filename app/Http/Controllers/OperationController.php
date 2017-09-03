@@ -196,6 +196,8 @@ class OperationController extends Controller
         $data['postimage02'] = $postimage02;
       }
 
+      $data['user'] = $operation->user;
+
       return view('operation.summary', $data);
 
     }

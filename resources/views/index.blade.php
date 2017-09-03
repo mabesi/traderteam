@@ -6,27 +6,49 @@
 @section('content')
 
 <div class="row">
-  <div class="col-md-3">
-    <div class="box box-solid">
-      <div class="box-header with-border bg-green">
-        <span class="font-24">Usuários</span>
+
+  <div class="col-sm-6 col-lg-3">
+    <div class="box box-solid bg-gray">
+      <div class="box-header with-border bg-navy">
+        <span class="font-20">Evolução de Resultados</span>
       </div>
       <div class="box-body">
-        @include('user.list')
+        <div class="">
+          {!! getHtmlImage('http://bvmf.bmfbovespa.com.br/InstDados/Indices/MLCXGRAFICO_MENSAL.gif','img-responsive') !!}
+        </div>
+        <div class="info-box top-10">
+          <span class="info-box-icon bg-teal">
+            <i class="fa fa-calendar"></i>
+          </span>
+          <div class="info-box-content">
+            <span class="info-box-text">Ultimos 12 Meses</span>
+            <span class="info-box-number">15,47%</span>
+          </div>
+
+        </div>
+        <div class="info-box">
+          <span class="info-box-icon bg-green">
+            <i class="fa fa-bar-chart"></i>
+          </span>
+          <div class="info-box-content">
+            <span class="info-box-text">Resultado Geral</span>
+            <span class="info-box-number">34,23%</span>
+          </div>
+        </div>
       </div>
       <div class="box-footer">
-        <a href="{{ url('user') }}">Ver Todos</a>
+        <a href="{{ url('operation') }}">Ver Estatísticas</a>
       </div>
     </div>
   </div>
 
-  <div class="col-md-5">
+  <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
       <div class="box-header with-border bg-red">
-        <span class="font-24">Operações</span>
+        <span class="font-20">Operações em Andamento</span>
       </div>
       <div class="box-body">
-        @include('operation.listmin')
+        @include('operation.listmin-started')
       </div>
       <div class="box-footer">
         <a href="{{ url('operation') }}">Ver Todas</a>
@@ -34,10 +56,76 @@
     </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
       <div class="box-header with-border bg-blue">
-        <span class="font-24">Notícias <a class="font-12 text-teal" href="http://www.infomoney.com.br/mercados/ultimas-noticias" target="_blank">(Infomoney)</a></span>
+        <span class="font-20">Operações Não Iniciadas</span>
+      </div>
+      <div class="box-body">
+        @include('operation.listmin-new')
+      </div>
+      <div class="box-footer">
+        <a href="{{ url('operation') }}">Ver Todas</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-3">
+    <div class="box box-solid">
+      <div class="box-header with-border bg-olive">
+        <span class="font-20">Operações Finalizadas</span>
+      </div>
+      <div class="box-body">
+        @include('operation.listmin-finished')
+      </div>
+      <div class="box-footer">
+        <a href="{{ url('operation') }}">Ver Todas</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+
+
+  <div class="col-sm-5 col-lg-3">
+    <div class="box box-solid">
+      <div class="box-header with-border bg-orange">
+        <span class="font-20">Usuários (Seguindo)</span>
+      </div>
+      <div class="box-body">
+        @include('user.list')
+      </div>
+      <div class="box-footer">
+        <a href="{{ url('users') }}">Ver Todos</a> |
+        <a href="{{ url('users?follow=following') }}">Seguindo</a> |
+        <a href="{{ url('users?follow=followers') }}">Seguidores</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-7 col-lg-5">
+    <div class="box box-solid">
+      <div class="box-header with-border bg-purple">
+        <span class="font-20">Operações (Seguindo)</span>
+      </div>
+      <div class="box-body">
+        @include('operation.listmin')
+      </div>
+      <div class="box-footer">
+        <a href="{{ url('operation') }}">Ver Todas</a> |
+        <a href="{{ url('operation') }}">Não Iniciadas</a> |
+        <a href="{{ url('operation') }}">Em Andamento</a> |
+        <a href="{{ url('operation') }}">Encerradas</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-lg-4">
+    <div class="box box-solid">
+      <div class="box-header with-border bg-black">
+        <span class="font-20">Notícias <a class="font-14 text-white" href="http://www.infomoney.com.br/mercados/ultimas-noticias" target="_blank">(Infomoney)</a></span>
       </div>
       <div class="box-body">
         {!! feedRss('http://www.infomoney.com.br/mercados/rss') !!}

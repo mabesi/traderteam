@@ -8,58 +8,48 @@
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">
-                Relação de Usuários ({{ ($follow=='followers'?'Seguidores: ':($follow=='following'?'Seguindo: ':'')).$totalUsers.' no total' }})
+                Relação de Usuários ({{ $totalUsers.' no total' }})
               </h3>
-              <a class="pull-right" href="{{ url('users?follow=followers') }}">
-                <button type="button" class="btn btn-sm btn-success" name="button">Seguidores</button>
-              </a>
-              <a class="pull-right" href="{{ url('users?follow=following') }}">
-                <button type="button" class="btn btn-sm btn-danger" name="button">Seguindo</button>
-                {{ nbsp(2) }}
-              </a>
-              <a class="pull-right" href="{{ url('users') }}">
-                <button type="button" class="btn btn-sm btn-primary" name="button">Exibir Todos</button>
-                {{ nbsp(2) }}
-              </a>
+              <a class="pull-right" href="{{ url('user') }}"><button type="button" class="btn btn-sm btn-primary" name="button">Exibir Todos</button></a>
             </div>
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
                 <tbody>
                   <tr>
                     <th>Tipo</th>
-                    <th>Rank <a href="?sort=level&dir={{ ($sort=='level'?$newDir:'desc') }}">
-                      <i class="fa fa-sort-amount-{{ ($sort=='level'?$newDir:'desc') }}"></i></a></th>
+                    <th>Rank <a href="?sort=level&dir={{ ($sort=='level'?$newDir:'asc') }}">
+                      <i class="fa fa-sort-amount-{{ ($sort=='level'?$newDir:'asc') }}"></i></a></th>
                     <th>
                       <div class="col-xs-5">
                         Nome <a href="?sort=name&dir={{ ($sort=='name'?$newDir:'asc') }}">
                           <i class="fa fa-sort-amount-{{ ($sort=='name'?$newDir:'asc') }}"></i></a>
 
+                          <form class="" action="{{ url('user') }}" method="get">
                       </div>
                       <div class="col-xs-7">
-                        <form class="" action="{{ url('users') }}" method="get">
-                          <div class="input-group input-group-sm" style="width:150px;">
-                            <input type="text" name="search" class="form-control" placeholder="Pesquisar Nome">
-                            <div class="input-group-btn">
-                              <button type="submit" class="btn btn-default">
-                                <i class="fa fa-search"></i>
-                              </button>
-                            </div>
+                        <div class="input-group input-group-sm" style="width:150px;">
+                          <input type="text" name="search" class="form-control" placeholder="Pesquisar Nome">
+                          <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
+                              <i class="fa fa-search"></i>
+                            </button>
                           </div>
-                        </form>
+                        </div>
                       </div>
 
+                      </form>
                     </th>
 
                     <th>Ocupação</th>
                     <th>Localização</th>
-                    <th>Estratégias <a href="?sort=strategies_count&dir={{ ($sort=='strategies_count'?$newDir:'desc') }}">
-                      <i class="fa fa-sort-amount-{{ ($sort=='strategies_count'?$newDir:'desc') }}"></i></a></th>
-                    <th>Operações <a href="?sort=operations_count&dir={{ ($sort=='operations_count'?$newDir:'desc') }}">
-                      <i class="fa fa-sort-amount-{{ ($sort=='operations_count'?$newDir:'desc') }}"></i></a></th>
-                    <th>Seguidores <a href="?sort=followers_count&dir={{ ($sort=='followers_count'?$newDir:'desc') }}">
-                      <i class="fa fa-sort-amount-{{ ($sort=='followers_count'?$newDir:'desc') }}"></i></a></th>
-                      <th>Registro <a href="?sort=created_at&dir={{ ($sort=='created_at'?$newDir:'desc') }}">
-                        <i class="fa fa-sort-amount-{{ ($sort=='created_at'?$newDir:'desc') }}"></i></a></th>
+                    <th>Estratégias <a href="?sort=strategies_count&dir={{ ($sort=='strategies_count'?$newDir:'asc') }}">
+                      <i class="fa fa-sort-amount-{{ ($sort=='strategies_count'?$newDir:'asc') }}"></i></a></th>
+                    <th>Operações <a href="?sort=operations_count&dir={{ ($sort=='operations_count'?$newDir:'asc') }}">
+                      <i class="fa fa-sort-amount-{{ ($sort=='operations_count'?$newDir:'asc') }}"></i></a></th>
+                    <th>Seguidores <a href="?sort=followers_count&dir={{ ($sort=='followers_count'?$newDir:'asc') }}">
+                      <i class="fa fa-sort-amount-{{ ($sort=='followers_count'?$newDir:'asc') }}"></i></a></th>
+                      <th>Registro <a href="?sort=created_at&dir={{ ($sort=='created_at'?$newDir:'asc') }}">
+                        <i class="fa fa-sort-amount-{{ ($sort=='created_at'?$newDir:'asc') }}"></i></a></th>
                   </tr>
 @foreach ($users as $user)
                   <tr>
@@ -102,7 +92,7 @@
               </table>
             </div>
             <div class="box-footer">
-              {{ $users->appends(['sort' => $sort,'dir' => $dir,'follow' => $follow])->links() }}
+              {{ $users->appends(['sort' => $sort,'dir' => $dir])->links() }}
             </div>
           </div>
 

@@ -20,7 +20,8 @@
       {{ csrf_field() }}
 
       <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }} has-feedback">
-        <input id="name" type="text" class="form-control" placeholder="Nome + Sobrenome" name="name" value="{{ old('name') }}" required>
+        <input id="name" type="text" class="form-control" placeholder="Nome + Sobrenome" maxlength="30"
+                name="name" value="{{ old('name') }}" required>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
 
         @if ($errors->has('name'))

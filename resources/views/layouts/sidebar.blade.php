@@ -37,7 +37,12 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{ url('profile') }}">Meu Perfil</a></li>
-            <li><a href="{{ url('user') }}">Lista de Usuários</a></li>
+            <li><a href="{{ url('users') }}">Lista de Usuários</a></li>
+            <li><a href="{{ url('users?follow=following') }}">Seguindo</a></li>
+            <li><a href="{{ url('users?follow=followers') }}">Seguidores</a></li>
+            <li><a href="{{ url('users?sort=level&dir=desc') }}">Top Ranking</a></li>
+            <li><a href="{{ url('users?sort=followers_count&dir=desc') }}">Top Seguidores</a></li>
+            <li><a href="{{ url('users?sort=operations_count&dir=desc') }}">Top Operações</a></li>
           </ul>
         </li>
 
@@ -50,6 +55,8 @@
           <ul class="treeview-menu">
             <li><a href="{{ url('strategy/create') }}">Nova Estratégia</a></li>
             <li><a href="{{ url('strategy') }}">Minhas Estratégias</a></li>
+            <li><a href="{{ url('strategy') }}">Melhores Estratégias</a></li>
+            <li><a href="{{ url('strategy') }}">Estatísticas</a></li>
             <li><a href="{{ url('strategy-rules') }}">Regras de Definição</a></li>
             <li><a href="{{ url('indicator') }}">Indicadores</a></li>
           </ul>

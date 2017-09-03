@@ -31,5 +31,5 @@ Route::middleware('auth')->group(function(){
   Route::get('operation-rules', 'OperationController@rules');
   Route::get('myoperations', 'OperationController@myoperations');
   Route::get('market', 'HomeController@market')->name('market');
-  Route::get('user', 'HomeController@user')->name('user');
+  Route::get('users', 'UserController@users')->name('users');
 });

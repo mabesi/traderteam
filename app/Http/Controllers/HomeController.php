@@ -28,12 +28,43 @@ class HomeController extends Controller
     {
       if (Auth::check()) {
 
-        $users = User::take(12)->get();
-        $operations = Operation::orderBy('updated_at','desc')->take(10)->get();
+        $following = getFollowingId();
+
+        $users = Auth::user()->leftJoin('profiles','users.id','=','profiles.user_id')
+                      ->whereIn('users.id', $following)
+                      ->orderBy('level','desc')
+                      ->take(12)
+                      ->get();
+
+        $operations = Operation::whereIn('user_id', $following)
+                                ->orderBy('updated_at','desc')
+                                ->take(12)
+                                ->get();
+
+        $newOperations = Operation::where('user_id',getUserId())
+                                ->whereIn('status',['N','A'])
+                                ->orderBy('updated_at','desc')
+                                ->take(10)
+                                ->get();
+
+        $startedOperations = Operation::where('user_id',getUserId())
+                                ->whereIn('status',['I','M'])
+                                ->orderBy('updated_at','desc')
+                                ->take(10)
+                                ->get();
+
+        $finishedOperations = Operation::where('user_id',getUserId())
+                                ->whereIn('status',['S','E','T'])
+                                ->orderBy('updated_at','desc')
+                                ->take(10)
+                                ->get();
 
         $data = [
           'users' => $users,
           'operations' => $operations,
+          'newOperations' => $newOperations,
+          'startedOperations' => $startedOperations,
+          'finishedOperations' => $finishedOperations,
         ];
 
         return view('index',$data);
@@ -54,47 +85,4 @@ class HomeController extends Controller
     {
       return view('market');
     }
-
-    public function user(Request $request)
-    {
-      $totalUsers = User::count();
-
-      if ($request->has('sort')){
-        $sort = $request->query('sort');
-        $dir = $request->query('dir');
-      } else {
-        $sort = 'name';
-        $dir = 'asc';
-      }
-
-      //dd($sort);
-      //$users = User::withCount('operations')->orderBy('operations_count','desc')->paginate(12);
-      $users = User::leftJoin('profiles','users.id','=','profiles.user_id')
-                    ->withCount('strategies')
-                    ->withCount('operations')
-                    ->withCount('followers')
-                    ->orderBy($sort,$dir);
-
-      if  ($request->has('search')){
-        $search = $request->query('search');
-        $users = $users->where('name','like',"%$search%");
-      }
-
-      $users = $users->paginate(12);
-
-      //dd($sort);
-      $newDir = ($dir=='asc'?'desc':'asc');
-
-      $data = [
-        'totalUsers' => $totalUsers,
-        'users' => $users,
-        'sort' => $sort,
-        'dir' => $dir,
-        'newDir' => $newDir,
-      ];
-
-      //return 'Teste';
-      return view('user.users',$data);
-    }
-
 }
