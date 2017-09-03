@@ -44,28 +44,28 @@
 
   <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
-      <div class="box-header with-border bg-red">
+      <div class="box-header with-border bg-yellow">
         <span class="font-20">Operações em Andamento</span>
       </div>
       <div class="box-body">
         @include('operation.listmin-started')
       </div>
       <div class="box-footer">
-        <a href="{{ url('operation') }}">Ver Todas</a>
+        <a href="{{ url('myoperations?stoped=1&closed=1&finished=1') }}">Ver Todas</a>
       </div>
     </div>
   </div>
 
   <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
-      <div class="box-header with-border bg-blue">
+      <div class="box-header with-border bg-olive">
         <span class="font-20">Operações Não Iniciadas</span>
       </div>
       <div class="box-body">
         @include('operation.listmin-new')
       </div>
       <div class="box-footer">
-        <a href="{{ url('operation') }}">Ver Todas</a>
+        <a href="{{ url('myoperations?new=1&changed=1') }}">Ver Todas</a>
       </div>
     </div>
   </div>
@@ -79,7 +79,7 @@
         @include('operation.listmin-finished')
       </div>
       <div class="box-footer">
-        <a href="{{ url('operation') }}">Ver Todas</a>
+        <a href="{{ url('myoperations?stoped=1&closed=1&finished=1') }}">Ver Todas</a>
       </div>
     </div>
   </div>
@@ -91,7 +91,7 @@
 
   <div class="col-sm-5 col-lg-3">
     <div class="box box-solid">
-      <div class="box-header with-border bg-orange">
+      <div class="box-header with-border bg-gray">
         <span class="font-20">Usuários (Seguindo)</span>
       </div>
       <div class="box-body">
@@ -107,7 +107,7 @@
 
   <div class="col-sm-7 col-lg-5">
     <div class="box box-solid">
-      <div class="box-header with-border bg-purple">
+      <div class="box-header with-border bg-gray">
         <span class="font-20">Operações (Seguindo)</span>
       </div>
       <div class="box-body">
@@ -124,8 +124,8 @@
 
   <div class="col-sm-12 col-lg-4">
     <div class="box box-solid">
-      <div class="box-header with-border bg-black">
-        <span class="font-20">Notícias <a class="font-14 text-white" href="http://www.infomoney.com.br/mercados/ultimas-noticias" target="_blank">(Infomoney)</a></span>
+      <div class="box-header with-border bg-gray">
+        <span class="font-20">Notícias <a class="font-16" href="http://www.infomoney.com.br/mercados/ultimas-noticias" target="_blank">(Infomoney)</a></span>
       </div>
       <div class="box-body">
         {!! feedRss('http://www.infomoney.com.br/mercados/rss') !!}

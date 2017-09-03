@@ -14,31 +14,132 @@ class OperationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $operations = Operation::orderBy('updated_at','desc')->paginate(10);
 
-      $data = [
-        'viewname' => 'Relação de Operações',
-        'viewtitle' => 'Relação de Operações',
-        'operations' => $operations,
-      ];
-
-        return view('operation.operations', $data);
     }
 
-    public function myoperations()
+    protected function operations($request,$userId=Array())
     {
-      $operations = Operation::where('user_id',getUserId())->orderBy('updated_at','desc')->paginate(10);
+
+      $path = $request->path();
+
+      if (count($userId) == 0){
+        $strategies = Strategy::orderBy('title')
+                                ->get();
+      } else {
+        $strategies = Strategy::whereIn('user_id',$userId)
+                                ->orderBy('title')
+                                ->get();
+        $operations = Operation::whereIn('user_id',$userId);
+      }
+
+      $stock = $request->query('stock');
+      $status = $request->query('status');
+      $buyorsell = $request->query('buyorsell');
+      $realorsimulated = $request->query('realorsimulated');
+      $strategy = $request->query('strategy');
+      $new = $request->query('new');
+      $changed = $request->query('changed');
+      $started = $request->query('started');
+      $moved = $request->query('moved');
+      $stoped = $request->query('stoped');
+      $closed = $request->query('closed');
+      $finished = $request->query('finished');
+
+      $where = Array();
+
+      if ($stock != Null){
+        $where['stock'] = $stock;
+      }
+      if ($status != Null){
+        $where['status'] = $status;
+      }
+      if ($buyorsell != Null){
+        $where['buyorsell'] = $buyorsell;
+      }
+      if ($realorsimulated != Null){
+        $where['realorsimulated'] = $realorsimulated;
+      }
+      if ($strategy != Null){
+        $where['strategy_id'] = $strategy;
+      }
+
+      $orWhere = Array();
+      $statusWhere = Array();
+
+      if ($new==1){
+        $orWhere[] = ['status' => 'N'];
+        $statusWhere['new'] = 1;
+      }
+      if ($changed==1){
+        $orWhere[] = ['status' => 'A'];
+        $statusWhere['changed'] = 1;
+      }
+      if ($started==1){
+        $orWhere[] = ['status' => 'I'];
+        $statusWhere['started'] = 1;
+      }
+      if ($moved==1){
+        $orWhere[] = ['status' => 'M'];
+        $statusWhere['moved'] = 1;
+      }
+      if ($stoped==1){
+        $orWhere[] = ['status' => 'S'];
+        $statusWhere['stoped'] = 1;
+      }
+      if ($closed==1){
+        $orWhere[] = ['status' => 'E'];
+        $statusWhere['closed'] = 1;
+      }
+      if ($finished==1){
+        $orWhere[] = ['status' => 'T'];
+        $statusWhere['finished'] = 1;
+      }
+
+      $operations = $operations->where($where)
+                                ->where(function($query) use ($orWhere){
+                                  foreach($orWhere as $item){
+                                    $query->orWhere($item);
+                                  }
+                                })
+                                ->orderBy('updated_at','desc')
+                                ->paginate(10);
+
+      $where = array_merge($where,$statusWhere);
+      //dd($where);
 
       $data = [
         'viewname' => 'Minhas Operações',
         'viewtitle' => 'Minhas Operações',
         'operations' => $operations,
+        'strategies' => $strategies,
+        'where' => $where,
+        'path' => $path,
       ];
 
       return view('operation.operations', $data);
     }
+
+    public function myoperations(Request $request)
+    {
+      $userId[] = getUserId();
+      return $this->operations($request,$userId);
+    }
+
+    public function following(Request $request)
+    {
+      $userId[] = getFollowersId();
+      return $this->operations($request,$userId);
+    }
+
+    public function user(Request $request,$id)
+    {
+      $userId[] = $id;
+      return $this->operations($request,$userId);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

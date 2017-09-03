@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function(){
   Route::get('strategy-rules', 'StrategyController@rules');
   Route::get('operation-rules', 'OperationController@rules');
   Route::get('myoperations', 'OperationController@myoperations');
+  Route::get('operations/following', 'OperationController@following');
+  Route::get('operations/user/{id}', 'OperationController@user');
   Route::get('market', 'HomeController@market')->name('market');
   Route::get('users', 'UserController@users')->name('users');
 });

@@ -13,5 +13,5 @@
   <span class="font-12 pull-right">
       <a href="{{ url('profile/'.$operation->user->id) }}">{{ $operation->user->name }}</a>
   </span>
-@endif  
+@endif
 </div>
