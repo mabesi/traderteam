@@ -21,8 +21,6 @@ class OperationController extends Controller
 
     protected function operations($request,$userId=Array(),$owner="Todas")
     {
-      $path = $request->path();
-
       if (count($userId) == 0){
         $strategies = Strategy::orderBy('title')
                                 ->get();
@@ -114,7 +112,7 @@ class OperationController extends Controller
         'operations' => $operations,
         'strategies' => $strategies,
         'where' => $where,
-        'path' => $path,
+        'path' => $request->path(),
         'profileView' => False,
       ];
 

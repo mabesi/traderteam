@@ -32,7 +32,6 @@ $factory->define(App\Strategy::class, function (Faker\Generator $faker) {
         'user_id' => rand(1,10),
         'title' => $faker->sentence(3),
         'description' => $faker->paragraph(),
-        'indicators' => implode($faker->randomElements(['MACD','MME','MMA','RSI','BB','FRACTAL','WILLIANS','ADF','OBV','A/D'],3),' '),
     ];
 });
 

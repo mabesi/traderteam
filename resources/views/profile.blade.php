@@ -139,34 +139,39 @@
                   <div class="box-header with-border">
                     <h3 class="box-title">Alterar Senha</h3>
                   </div>
-                  <form class="form-horizontal">
-                    <div class="form-group">
-                      <label for="password" class="col-sm-3 control-label">Senha Atual</label>
 
-                      <div class="col-sm-9">
-                        <input type="password" name="password" class="form-control" id="password">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="confirmPassword" class="col-sm-3 control-label">Nova Senha</label>
+                  <div class="box-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">Senha Atual</label>
 
-                      <div class="col-sm-9">
-                        <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+                        <div class="col-sm-9">
+                          <input type="password" name="password" class="form-control" id="password">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="confirmPassword" class="col-sm-3 control-label">Confirme a Senha</label>
+                      <div class="form-group">
+                        <label for="confirmPassword" class="col-sm-3 control-label">Nova Senha</label>
 
-                      <div class="col-sm-9">
-                        <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+                        <div class="col-sm-9">
+                          <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+                        </div>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-danger">Enviar</button>
+                      <div class="form-group">
+                        <label for="confirmPassword" class="col-sm-3 control-label">Confirme a Senha</label>
+
+                        <div class="col-sm-9">
+                          <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+                        </div>
                       </div>
-                    </div>
-                  </form>
+                      <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                          <button type="submit" class="btn btn-danger">Enviar</button>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                  
                 </div>
 
 

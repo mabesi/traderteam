@@ -10,7 +10,7 @@
               <h3 class="box-title">Estratégias de Operação</h3>
             </div>
 
-            @include('layouts.strategy.list')
+            @include('strategy.list')
 
             <br />
           </div>

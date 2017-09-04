@@ -2,7 +2,7 @@
 <div class="top-bottom-5">
   @include('operation.lineview')
 
-  <p><strong>{{ strtoupper(gtimeName($operation->gtime)) }}</strong> - Entrada: {{ $operation->preventry }} - Alvo: {{ $operation->prevtarget }} - Stop: {{ $operation->prevstop }} -
+  <p><strong>{{ strtoupper(gtimeName($operation->gtime)) }}</strong> | Entrada: {{ $operation->preventry }} - Alvo: {{ $operation->prevtarget }} - Stop: {{ $operation->prevstop }} |
   Estratégia: <a href="{{ url('strategy/'.$operation->strategy->id) }}">{{ $operation->strategy->title }}</a>
 
     @if ($operation->user_id != getUserId() && !$profileView)

@@ -15,8 +15,8 @@ class CreateIndicatorsTable extends Migration
     {
         Schema::create('indicators', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',60)->unique();
             $table->string('acronym',20)->unique();
+            $table->string('name',60)->unique();
             $table->text('description');
             $table->string('type',1);
             $table->string('image',50)->nullable();

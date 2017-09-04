@@ -8,13 +8,6 @@ use App\Strategy;
 
 class StrategyController extends Controller
 {
-
-    private $indicators = [
-      'Volume','MMA','MME','MACD','BB','ATR','ADL','ADX','Williams',
-      'Momentum','Estocástico','Fibonacci','Keltner','HiLo','SAR','Aroon',
-      'IMD','OHLC','Candlestick','Heikin-Ashi','Renko','TRIX',
-    ];
-
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +25,72 @@ class StrategyController extends Controller
         'errors' => null,
       ];
 
-        return view('mystrategies', $data);
+        return view('strategy.mystrategies', $data);
+    }
+
+    public function strategies($request,$userId=Array(),$owner="Todas")
+    {
+      //dd(Strategy::first()->indicators);
+
+      if (count($userId) > 0){
+        $strategies = Strategy::whereIn('user_id',$userId);
+      }
+
+      $title = $request->query('title');
+      $indicator = $request->query('indicator');
+
+      $where = Array();
+
+      if ($title != Null){
+        $strategies->where('title','like',"%$title%");
+      }
+
+      //dd($where);
+
+      //User::leftJoin('indicators','users.id','=','profiles.user_id')
+
+      $strategies = $strategies->where($where)
+                                ->orderBy('title','asc')
+                                ->paginate(5);
+
+      $where['title'] = $title;
+
+      $data = [
+        'viewname' => 'Lista de Estratégias ('.$owner.')',
+        'viewtitle' => 'Lista de Estratégias ('.$owner.')',
+        'strategies' => $strategies,
+        'where' => $where,
+        'path' => $request->path(),
+        'profileView' => False,
+      ];
+
+      return view('strategy.strategies', $data);
+    }
+
+    public function mystrategies(Request $request)
+    {
+      $userId[] = getUserId();
+      return $this->strategies($request,$userId,"Minhas Estratégias");
+    }
+
+    public function beststrategies(Request $request)
+    {
+      //$userId[] = getUserId();
+      //return $this->strategies($request,$userId,"Minhas Estratégias");
+      return "Melhores Estratégias";
+    }
+
+    public function following(Request $request)
+    {
+      $userId = getFollowingId();
+      //dd($userId);
+      return $this->strategies($request,$userId,"Seguindo");
+    }
+
+    public function user(Request $request,$id)
+    {
+      $userId[] = $id;
+      return $this->strategies($request,$userId,"Usuário");
     }
 
     /**
@@ -148,5 +206,10 @@ class StrategyController extends Controller
       ];
 
       return view('strategyrules', $data);
+    }
+
+    public function statistics()
+    {
+      return "Estatísticas de Estratégias";
     }
 }

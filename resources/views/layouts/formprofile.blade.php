@@ -30,7 +30,7 @@
     </div>
     <div class="col-sm-4">
       <img class="profile-user-img img-responsive img-circle avatar"
-       src="{{ asset('/storage/avatar/'.getUserAvatarName())}}" />
+       src="{{ asset('/storage/avatar/'.getUserAvatarName($profile->user))}}" />
     </div>
   </div>
 

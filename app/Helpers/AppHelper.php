@@ -31,7 +31,7 @@ function isAdmin()
 
 function getUserId()
 {
-  return Auth::user()->id;
+  return Auth::id();
 }
 
 function getUserName()
@@ -44,9 +44,13 @@ function getUserEmail()
   return Auth::user()->email;
 }
 
-function getUserAvatarName()
+function getUserAvatarName($user=Null)
 {
-  return Auth::user()->avatar;
+  if ($user==Null){
+    return Auth::user()->avatar;
+  } else {
+    return $user->avatar;
+  }
 }
 
 function indicatorType($type){
@@ -156,6 +160,14 @@ function getUserResult($userId=Null)
               ->sum('result');
 }
 
+function getStrategyResult($strategyId)
+{
+  return App\Operation::where('strategy_id',$strategyId)
+              ->whereNotNull('exitdate')
+              ->whereNotNull('realexit')
+              ->sum('result');
+}
+
 function getUserAvatar($class="img-circle",$alt="Foto do Perfil",$user=Null,$width=Null,$height=Null)
 {
   $src = asset("/storage/avatar/".($user==Null?Auth::user()->avatar:$user->avatar));
@@ -239,13 +251,13 @@ function getUserOperationsLevel($operations,$result)
   // 4: Estragetista
   // 5: Tubarão
 
-  if ($operations >= 1000 && $result>=100){
+  if ($operations >= 1000 && $result>=500){
     $level = 5;
-  } elseif ($operations >= 500 && $result >= 50){
+  } elseif ($operations >= 500 && $result >= 100){
     $level = 4;
-  } elseif ($operations >= 100 && $result >= 10){
+  } elseif ($operations >= 100 && $result >= 50){
     $level = 3;
-  } elseif ($operations >= 10 && $result > 0){
+  } elseif ($operations >= 50 && $result > 10){
     $level = 2;
   } else {
     $level = 1;
@@ -466,7 +478,8 @@ function getFollowersId($userId=Null)
 
 function feedRss($link,$limit=10,$showDescription=False)
 {
-  $rss = simplexml_load_file($link);
+  return 'Notícias...';
+  //$rss = simplexml_load_file($link);
   $count = 0;
   $feed = '';
 
