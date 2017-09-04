@@ -65,6 +65,7 @@ class HomeController extends Controller
           'newOperations' => $newOperations,
           'startedOperations' => $startedOperations,
           'finishedOperations' => $finishedOperations,
+          'user' => Auth::user(),
         ];
 
         return view('index',$data);

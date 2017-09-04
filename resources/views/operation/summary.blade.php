@@ -26,6 +26,7 @@
         </div>
       </div>
 
+@if ($operation->user_id == getUserId())
       <div class="row">
         <div class="col-md-3">
           <strong>Quantidade</strong>
@@ -34,7 +35,7 @@
           {{ $operation->amount }}
         </div>
       </div>
-
+@endif
       <div class="row">
         <div class="col-md-3">
           <strong>Criada a</strong>

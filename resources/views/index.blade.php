@@ -5,6 +5,7 @@
 
 @section('content')
 
+
 <div class="row">
 
   <div class="col-sm-6 col-lg-3">
@@ -13,31 +14,10 @@
         <span class="font-20">Evolução de Resultados</span>
       </div>
       <div class="box-body">
-        <div class="">
-          {!! getHtmlImage('http://bvmf.bmfbovespa.com.br/InstDados/Indices/MLCXGRAFICO_MENSAL.gif','img-responsive') !!}
-        </div>
-        <div class="info-box top-10">
-          <span class="info-box-icon bg-teal">
-            <i class="fa fa-calendar"></i>
-          </span>
-          <div class="info-box-content">
-            <span class="info-box-text">Ultimos 12 Meses</span>
-            <span class="info-box-number">15,47%</span>
-          </div>
-
-        </div>
-        <div class="info-box">
-          <span class="info-box-icon bg-green">
-            <i class="fa fa-bar-chart"></i>
-          </span>
-          <div class="info-box-content">
-            <span class="info-box-text">Resultado Geral</span>
-            <span class="info-box-number">34,23%</span>
-          </div>
-        </div>
+        @include('operation.resultinfo')
       </div>
       <div class="box-footer">
-        <a href="{{ url('operation') }}">Ver Estatísticas</a>
+        <a href="{{ url('operation/statistics') }}">Ver Estatísticas</a>
       </div>
     </div>
   </div>
@@ -51,7 +31,7 @@
         @include('operation.listmin-started')
       </div>
       <div class="box-footer">
-        <a href="{{ url('myoperations?stoped=1&closed=1&finished=1') }}">Ver Todas</a>
+        <a href="{{ url('myoperations?started=1&moved=1') }}">Ver Todas</a>
       </div>
     </div>
   </div>
@@ -114,10 +94,10 @@
         @include('operation.listmin')
       </div>
       <div class="box-footer">
-        <a href="{{ url('operation') }}">Ver Todas</a> |
-        <a href="{{ url('operation') }}">Não Iniciadas</a> |
-        <a href="{{ url('operation') }}">Em Andamento</a> |
-        <a href="{{ url('operation') }}">Encerradas</a>
+        <a href="{{ url('operations/following') }}">Ver Todas</a> |
+        <a href="{{ url('operations/following?new=1&changed=1') }}">Não Iniciadas</a> |
+        <a href="{{ url('operations/following?started=1&moved=1') }}">Em Andamento</a> |
+        <a href="{{ url('operations/following?stoped=1&closed=1&finished=1') }}">Encerradas</a>
       </div>
     </div>
   </div>

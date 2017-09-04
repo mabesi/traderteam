@@ -10,23 +10,23 @@
               <div>
                 <h3 class="box-title">
                   <span class="label bg-blue">C</span> Compra
-                  <span class="label bg-red">V</span> Venda {{ nbsp(8) }}
+                  <span class="label bg-red">V</span> Venda {{ nbsp(6) }}
                   <span class="label bg-black">R</span> Real
                   <span class="label bg-green">S</span> Simulada
                 </h3>
-                <a class="pull-right" href="{{ url('myoperations?stoped=1&closed=1&finished=1') }}">
+                <a class="pull-right" href="{{ url($path.'?stoped=1&closed=1&finished=1') }}">
                   <button type="button" class="btn btn-sm btn-success" name="button">Finalizadas</button>
                   {{ nbsp(2) }}
                 </a>
-                <a class="pull-right" href="{{ url('myoperations?started=1&moved=1') }}">
+                <a class="pull-right" href="{{ url($path.'?started=1&moved=1') }}">
                   <button type="button" class="btn btn-sm btn-warning" name="button">Em Andamento</button>
                   {{ nbsp(2) }}
                 </a>
-                <a class="pull-right" href="{{ url('myoperations?new=1&changed=1') }}">
+                <a class="pull-right" href="{{ url($path.'?new=1&changed=1') }}">
                   <button type="button" class="btn btn-sm btn-info" name="button">Não Iniciadas</button>
                   {{ nbsp(2) }}
                 </a>
-                <a class="pull-right" href="{{ url('myoperations') }}">
+                <a class="pull-right" href="{{ url($path) }}">
                   <button type="button" class="btn btn-sm btn-primary" name="button">Exibir Todas</button>
                   {{ nbsp(2) }}
                 </a>

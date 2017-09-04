@@ -25,13 +25,13 @@
   {{ nbsp(1) }}
   <small class="font-10">{{ humanPastTime($operation->updated_at) }}</small>
 
-@if ($operation->user_id==getUserId())
+@if ($operation->user_id==getUserId() || isAdminOrSuperAdmin())
   <span class="pull-right">
     {{ nbsp(2) }}
     <small>
       <a href="{{ url('operation/'.$operation->id.'/edit') }}"><i class="fa fa-pencil"></i></a>
     </small>
-  @if ($operation->status == 'N' || $operation->status == 'A')
+  @if ($operation->status == 'N' || $operation->status == 'A' || isAdminOrSuperAdmin())
     {{ nbsp(1) }}
     <small>
       <a class="text-danger" href="{{ url('operation/'.$operation->id.'/delete') }}"><i class="fa fa-trash"></i></a>

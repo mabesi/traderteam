@@ -19,9 +19,8 @@ class OperationController extends Controller
 
     }
 
-    protected function operations($request,$userId=Array())
+    protected function operations($request,$userId=Array(),$owner="Todas")
     {
-
       $path = $request->path();
 
       if (count($userId) == 0){
@@ -110,12 +109,13 @@ class OperationController extends Controller
       //dd($where);
 
       $data = [
-        'viewname' => 'Minhas Operações',
-        'viewtitle' => 'Minhas Operações',
+        'viewname' => 'Lista de Operações ('.$owner.')',
+        'viewtitle' => 'Lista de Operações ('.$owner.')',
         'operations' => $operations,
         'strategies' => $strategies,
         'where' => $where,
         'path' => $path,
+        'profileView' => False,
       ];
 
       return view('operation.operations', $data);
@@ -124,19 +124,20 @@ class OperationController extends Controller
     public function myoperations(Request $request)
     {
       $userId[] = getUserId();
-      return $this->operations($request,$userId);
+      return $this->operations($request,$userId,"Minhas Operações");
     }
 
     public function following(Request $request)
     {
-      $userId[] = getFollowersId();
-      return $this->operations($request,$userId);
+      $userId = getFollowingId();
+      //dd($userId);
+      return $this->operations($request,$userId,"Seguindo");
     }
 
     public function user(Request $request,$id)
     {
       $userId[] = $id;
-      return $this->operations($request,$userId);
+      return $this->operations($request,$userId,"Usuário");
     }
 
 
@@ -282,6 +283,7 @@ class OperationController extends Controller
         'preanalysis02' => $preanalysis02,
         'postanalysis01' => $postanalysis01,
         'postanalysis02' => $postanalysis02,
+        'profileView' => False,
       ];
 
       if ($preimage01 != ''){

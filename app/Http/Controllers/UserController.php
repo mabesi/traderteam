@@ -71,4 +71,16 @@ class UserController extends Controller
     return view('user.users',$data);
   }
 
+  public function follow($id)
+  {
+    Auth::user()->following()->attach($id);
+    return back();
+  }
+
+  public function unfollow($id)
+  {
+    Auth::user()->following()->detach($id);
+    return back();
+  }
+
 }

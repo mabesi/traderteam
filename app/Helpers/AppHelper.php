@@ -2,6 +2,33 @@
 
 use Illuminate\Support\Facades\Auth;
 
+function isAdminOrSuperAdmin()
+{
+  if (Auth::user()->type=='A' || Auth::user()->type=='S'){
+    return True;
+  } else {
+    return False;
+  }
+}
+
+function isSuperAdmin()
+{
+  if (Auth::user()->type=='S'){
+    return True;
+  } else {
+    return False;
+  }
+}
+
+function isAdmin()
+{
+  if (Auth::user()->type=='A'){
+    return True;
+  } else {
+    return False;
+  }
+}
+
 function getUserId()
 {
   return Auth::user()->id;
@@ -41,6 +68,92 @@ function getOperationCapital()
 function getInvestimentCapital()
 {
   return 100000.00;
+}
+
+function getYearUserResult($userId=Null)
+{
+  if ($userId==Null){
+    $userId = getUserId();
+  }
+
+  $now = date('Y-m-d');
+  $dateLastYear = alterDate($now,'Y-m-d',0,0,-1);
+  $result = App\Operation::where('user_id',$userId)
+                        ->whereDate('exitdate','>=',$dateLastYear)
+                        ->sum('result');
+  return $result;
+}
+
+function getMontlyUserResult($startDate=Null,$userId=Null)
+{
+  if ($userId==Null){
+    $userId = getUserId();
+  }
+
+  $now = date('Y-m-d');
+
+  if ($startDate==Null){
+    $startDate = firstDayOfMonth(alterDate($now,'Y-m-d',0,-11,0));
+  } else {
+    $startDate = firstDayOfMonth($startDate);
+  }
+
+  $currentDate = $startDate;
+  $lastResult = 0;
+  $currentResult = 0;
+
+  $result = Array();
+  $monthResult = 0;
+  $month = 0;
+  $year = 0;
+
+  do{
+
+    $objDate = new DateTime($currentDate);
+
+    $month = $objDate->format('m');
+    $year = $objDate->format('Y');
+
+    $monthResult = App\Operation::where('user_id',$userId)
+    ->whereDate('exitdate','>=',$startDate)
+    ->whereMonth('exitdate',$month)
+    ->whereYear('exitdate',$year)
+    ->sum('result');
+
+    $currentResult = $monthResult + $lastResult;
+
+    if ($currentResult>$lastResult){
+      $color = 'green';
+    } elseif ($currentResult<$lastResult){
+      $color = 'red';
+    } else {
+      $color = 'blue';
+    }
+
+    $result[] = ['month' => $objDate->format('M'),
+                'year' => $year,
+                'color' => $color,
+                'total' => $currentResult,
+                'result' => $monthResult];
+
+    $currentDate = alterDate($currentDate,'Y-m-d',0,1,0);
+    $lastResult = $currentResult;
+
+  } while($currentDate <= $now);
+
+  return $result;
+}
+
+function getUserResult($userId=Null)
+{
+  if ($userId==Null){
+    $userId = getUserId();
+  }
+
+  return App\Operation::where('user_id',$userId)
+              ->whereNotNull('exitdate')
+              ->whereNotNull('realexit')
+              ->sum('result');
 }
 
 function getUserAvatar($class="img-circle",$alt="Foto do Perfil",$user=Null,$width=Null,$height=Null)

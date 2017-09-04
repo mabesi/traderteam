@@ -18,86 +18,88 @@
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
                   <div class="row">
-                    <div class="col-md-6">
-                      <b>Seguidores</b> <a class="pull-right">{{ $user->followers->count() }}</a>
+                    <div class="col-sm-6">
+                      <b>Seguidores</b> <a href="{{ url('user/'.$user->id.'/followers') }}" class="pull-right">{{ $user->followers->count() }}</a>
                     </div>
-                    <div class="col-md-6">
-                      <b>Seguindo</b> <a class="pull-right">{{ $user->following->count() }}</a>
+                    <div class="col-sm-6">
+                      <b>Seguindo</b> <a href="{{ url('user/'.$user->id.'/following') }}" class="pull-right">{{ $user->following->count() }}</a>
                     </div>
                   </div>
                 </li>
+
+
+
                 <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <b>Estratégias</b> <a href="{{ url('strategies/user/'.$user->id) }}" class="pull-right">{{ $user->strategies->count() }}</a>
+                    </div>
+                    <div class="col-sm-6">
+                      <b>Operações</b> <a href="{{ url('operations/user/'.$user->id) }}" class="pull-right">{{ $user->operations->count() }}</a>
+                    </div>
+                  </div>
                 </li>
-                <li class="list-group-item">
-                  <b>Estratégias</b> <a class="pull-right">{{ $user->strategies->count() }}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Operações</b> <a class="pull-right">{{ $user->operations->count() }}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Resultado Geral</b> <a class="pull-right">{{ $user->operations->sum('result') }}%</a>
-                </li>
+
               </ul>
 
-              <a href="#" class="btn btn-primary btn-block"><b>Seguir</b></a>
+@if ($user->id != getUserId())
+  @if ($following)
+              <a href="{{ url('user/'.$user->id.'/unfollow') }}" class="btn btn-danger btn-block"><b>Deixar de Seguir</b></a>
+  @else
+              <a href="{{ url('user/'.$user->id.'/follow') }}" class="btn btn-primary btn-block"><b>Seguir</b></a>
+  @endif
+@endif
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
 
-          <!-- About Me Box -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Sobre Mim</h3>
+          <div class="box box-solid">
+
+              <div class="box-body">
+                <div id="accordion01" class="box-group">
+
+                  <div class="panel box box-success">
+                    <div class="box-header with-border">
+                      <h4 class="box-title">
+                        <i class="fa fa-line-chart"></i>
+                        <a data-toggle="collapse" data-parent="#accordion01" href="#collapse01">
+                          Evolução de Resultados
+                        </a>
+                      </h4>
+                    </div>
+
+                    <div id="collapse01" class="panel-collapse collapse in">
+                      <div class="box-body bg-gray">
+                        @include('operation.resultinfo')
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel box box-danger">
+                    <div class="box-header with-border">
+                      <h4 class="box-title">
+                        <i class="fa fa-user"></i>
+                        <a data-toggle="collapse" data-parent="#accordion01" href="#collapse02">
+                          Sobre Mim
+                        </a>
+                      </h4>
+                    </div>
+
+                    <div id="collapse02" class="panel-collapse collapse">
+                      <div class="box-body">
+                        @include('profile.personalinfo')
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <strong><i class="fa fa-birthday-cake margin-r-5"></i> {{ humanPastTime($profile->birthdate) }}</strong>
-              <p class="text-muted">
-                Aniversário em {{ birthday($profile->birthdate,true) }}
-              </p>
-
-              <strong><i class="fa fa-briefcase margin-r-5"></i> Ocupação</strong>
-              <p class="text-muted">
-                {{ $profile->occupation }}
-              </p>
-
-              <strong><i class="fa fa-map-marker margin-r-5"></i> Localização</strong>
-              <p class="text-muted">
-                {{ $profile->city.(isset($profile->state)?', ':'').$profile->state.(isset($profile->country)?' - ':'').$profile->country }}
-              </p>
-
-              <strong><i class="fa fa-commenting margin-r-5"></i> Quem Sou Eu?</strong>
-              <p class="text-muted text-justify">
-                {!! $profile->description !!}
-              </p>
-
-              <strong><i class="fa fa-globe margin-r-5"></i> Site</strong>
-              <p class="text-muted text-justify">
-                {!! $profile->site !!}
-              </p>
-
-              <strong><i class="fa  fa-facebook-square margin-r-5"></i> Facebook</strong>
-              <p class="text-muted text-justify">
-                {!! $profile->facebook !!}
-              </p>
-
-              <strong><i class="fa  fa-twitter-square margin-r-5"></i> Twitter</strong>
-              <p class="text-muted text-justify">
-                {!! $profile->twitter !!}
-              </p>
-
-              <strong><i class="fa  fa-money margin-r-5"></i> Capital de Investimento</strong>
-              <p class="text-muted text-justify">
-                {{ formatCurrency($profile->capital) }}
-              </p>
-
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
         </div>
-        <!-- /.col -->
+
+        </div> <!-- /.col -->
+
+
         <div class="col-md-8">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
@@ -109,13 +111,18 @@
 
               <!-- /.tab-pane -->
               <div class="tab-pane active" id="operations">
-
                 @include('operation.list')
+                <div class="post top-5 with-border">
+                  <a href="{{ url('operations/user/'.$user->id) }}" class="">Ver Todas</a>
+                </div>
               </div>
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="strategies">
                 @include('layouts.strategy.list')
+                <div class="post top-5 with-border">
+                  <a href="{{ url('strategies/user/'.$user->id) }}" class="">Ver Todas</a>
+                </div>
               </div>
 
               <div class="tab-pane" id="settings">

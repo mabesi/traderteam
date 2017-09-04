@@ -71,6 +71,10 @@
           <ul class="treeview-menu">
             <li><a href="{{ url('operation/create') }}">Nova Operação</a></li>
             <li><a href="{{ url('myoperations') }}">Minhas Operações</a></li>
+            <li><a href="{{ url('myoperations?new=1&changed=1') }}">=> Não Iniciadas</a></li>
+            <li><a href="{{ url('myoperations?started=1&moved=1') }}">=> Em Andamento</a></li>
+            <li><a href="{{ url('myoperations?stoped=1&closed=1&finished=1') }}">=> Finalizadas</a></li>
+            <li><a href="{{ url('operations/following') }}">Operações Seguindo</a></li>
             <li><a href="{{ url('operation-rules') }}">Regras para Registro</a></li>
           </ul>
         </li>

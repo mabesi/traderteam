@@ -28,10 +28,13 @@ Route::middleware('auth')->group(function(){
   Route::resource('indicator', 'IndicatorController');
   Route::resource('operation', 'OperationController');
   Route::get('strategy-rules', 'StrategyController@rules');
+  Route::get('strategies/user/{id}', 'StrategyController@user');
   Route::get('operation-rules', 'OperationController@rules');
   Route::get('myoperations', 'OperationController@myoperations');
   Route::get('operations/following', 'OperationController@following');
   Route::get('operations/user/{id}', 'OperationController@user');
   Route::get('market', 'HomeController@market')->name('market');
   Route::get('users', 'UserController@users')->name('users');
+  Route::get('user/{id}/follow', 'UserController@follow')->name('follow');
+  Route::get('user/{id}/unfollow', 'UserController@unfollow')->name('unfollow');
 });

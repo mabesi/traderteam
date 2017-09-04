@@ -26,7 +26,7 @@ class ProfileController extends Controller
       $profile = Profile::where('user_id', getUserId())->first();
       $user = User::find(getUserId());
       $strategies = $user->strategies;
-      $operations = $user->operations;
+      $operations = $user->operations->take(12);
 
       $data = [
         'viewname' => 'Meu Perfil',
@@ -35,6 +35,7 @@ class ProfileController extends Controller
         'profile' => $profile,
         'strategies' => $strategies,
         'operations' => $operations,
+        'profileView' => True,
       ];
 
       if ($data['profile']==Null){
@@ -112,6 +113,9 @@ class ProfileController extends Controller
     public function show($id)
     {
       $profile = Profile::where('user_id', $id)->first();
+      $followingId = getFollowingId();
+      //dd($followingId);
+      $following = in_array($id,$followingId);
 
       if ($profile == Null){
 
@@ -121,7 +125,7 @@ class ProfileController extends Controller
 
         $user = $profile->user;
         $strategies = $user->strategies;
-        $operations = $user->operations;
+        $operations = $user->operations->take(12);
 
         $data = [
           'viewname' => 'Perfil',
@@ -130,6 +134,8 @@ class ProfileController extends Controller
           'profile' => $profile,
           'strategies' => $strategies,
           'operations' => $operations,
+          'following' => $following,
+          'profileView' => True,
         ];
 
         return view('profile', $data);
