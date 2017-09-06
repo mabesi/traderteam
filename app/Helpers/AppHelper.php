@@ -74,6 +74,16 @@ function getInvestimentCapital()
   return 100000.00;
 }
 
+function getUserHitRate($userId=Null,$inTarget=False)
+{
+  $totalOperations = getStartedOperations($userId);
+
+  $result = App\Operation::where('user_id',$userId)
+                        ->whereDate('exitdate','>=',$dateLastYear)
+                        ->sum('result');
+  return $result;
+}
+
 function getYearUserResult($userId=Null)
 {
   if ($userId==Null){
@@ -163,8 +173,8 @@ function getUserResult($userId=Null)
 function getStrategyResult($strategyId)
 {
   return App\Operation::where('strategy_id',$strategyId)
-              ->whereNotNull('exitdate')
-              ->whereNotNull('realexit')
+              //->whereNotNull('exitdate')
+              //->whereNotNull('realexit')
               ->sum('result');
 }
 
@@ -251,18 +261,32 @@ function getUserOperationsLevel($operations,$result)
   // 4: Estragetista
   // 5: Tubarão
 
-  if ($operations >= 1000 && $result>=500){
+  if ($operations >= 1000 && $result>=500 || $operations >= 500 && $result>=1000){
     $level = 5;
-  } elseif ($operations >= 500 && $result >= 100){
+  } elseif ($operations >= 500 && $result >= 100 || $operations >= 250 && $result>=500){
     $level = 4;
-  } elseif ($operations >= 100 && $result >= 50){
+  } elseif ($operations >= 100 && $result >= 50 || $operations >= 50 && $result>=100){
     $level = 3;
-  } elseif ($operations >= 50 && $result > 10){
+  } elseif ($operations >= 50 && $result > 10 || $operations >= 10 && $result>=50){
     $level = 2;
   } else {
     $level = 1;
   }
   return $level;
+}
+
+function getValueColor($value)
+{
+  if ($value > 10){
+    $color = 'green';
+  } elseif ($value > 0){
+    $color = 'teal';
+  } elseif ($value < 0){
+    $color = 'red';
+  } else {
+    $color = 'gray';
+  }
+  return $color;
 }
 
 function operationStatus($status)

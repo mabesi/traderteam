@@ -130,4 +130,117 @@ class Operation extends Model
     return 0;
   }
 
+  public static function getTotalOperations($userId=Null)
+  {
+    if ($userId==Null){
+      $userId = getUserId();
+    }
+
+    $totalOperations = Operation::where('user_id',$userId)
+                                    ->count();
+    return $totalOperations;
+  }
+
+  public static function getNewOperations($userId=Null)
+  {
+    if ($userId==Null){
+      $userId = getUserId();
+    }
+
+    $totalOperations = Operation::where('user_id',$userId)
+                                    ->where(function($query){
+                                      $query->orWhere('status','N')
+                                            ->orWhere('status','A');
+                                    })
+                                    ->count();
+    return $totalOperations;
+  }
+
+  public static function getCompleteOperations($userId=Null)
+  {
+    if ($userId==Null){
+      $userId = getUserId();
+    }
+
+    $totalOperations = Operation::where('user_id',$userId)
+                                    ->where(function($query){
+                                      $query->orWhere('status','S')
+                                            ->orWhere('status','E')
+                                            ->orWhere('status','T');
+                                    })
+                                    ->count();
+    return $totalOperations;
+  }
+
+  public static function getStartedOperations($userId=Null)
+  {
+    if ($userId==Null){
+      $userId = getUserId();
+    }
+
+    $totalOperations = Operation::where('user_id',$userId)
+                                    ->where(function($query){
+                                      $query->orWhere('status','I')
+                                            ->orWhere('status','M');
+                                    })
+                                    ->count();
+    return $totalOperations;
+  }
+
+  public static function getTargetedOperations($userId=Null)
+  {
+    if ($userId==Null){
+      $userId = getUserId();
+    }
+
+    $totalOperations = Operation::where('user_id',$userId)
+                                    ->whereNotNull('exitdate')
+                                    ->whereNotNull('realexit')
+                                    ->where('status','T')
+                                    ->count();
+    return $totalOperations;
+  }
+
+  public static function getLucrativeOperations($userId=Null)
+  {
+    if ($userId==Null){
+      $userId = getUserId();
+    }
+
+    $totalOperations = Operation::where('user_id',$userId)
+                                    ->whereNotNull('exitdate')
+                                    ->whereNotNull('realexit')
+                                    ->where('result','>',0)
+                                    ->count();
+    return $totalOperations;
+  }
+
+  public static function getLossyOperations($userId=Null)
+  {
+    if ($userId==Null){
+      $userId = getUserId();
+    }
+
+    $totalOperations = Operation::where('user_id',$userId)
+                                    ->whereNotNull('exitdate')
+                                    ->whereNotNull('realexit')
+                                    ->where('result','<',0)
+                                    ->count();
+    return $totalOperations;
+  }
+
+  public static function getBreakEvenOperations($userId=Null)
+  {
+    if ($userId==Null){
+      $userId = getUserId();
+    }
+
+    $totalOperations = Operation::where('user_id',$userId)
+                                    ->whereNotNull('exitdate')
+                                    ->whereNotNull('realexit')
+                                    ->where('result','=',0)
+                                    ->count();
+    return $totalOperations;
+  }
+
 }

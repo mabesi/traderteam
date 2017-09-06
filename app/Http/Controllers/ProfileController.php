@@ -25,7 +25,7 @@ class ProfileController extends Controller
     {
       $profile = Profile::where('user_id', getUserId())->first();
       $user = User::find(getUserId());
-      $strategies = $user->strategies;
+      $strategies = $user->strategies->take(12);
       $operations = $user->operations->take(12);
 
       $data = [

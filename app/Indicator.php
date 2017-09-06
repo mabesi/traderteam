@@ -21,4 +21,23 @@ class Indicator extends Model
     $src = asset("/storage/indicators/".$this->image);
     return getHtmlImage($src,$class,$alt,Null,$alt);
   }
+
+  public static function getIndicatorsId($search)
+  {
+    $indicators = Indicator::where('acronym','like',"%$search%")
+                        ->orWhere('name','like',"%$search%")
+                        ->get();
+    //dd($indicators);
+
+    $indicatorsId = Array();
+
+    foreach ($indicators as $indicator){
+      $indicatorsId[] = $indicator->id;
+    }
+
+    //dd($indicatorsId);
+
+    return $indicatorsId;
+  }
+
 }

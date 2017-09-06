@@ -11,9 +11,8 @@
 
               {!! getUserAvatar('profile-user-img img-responsive img-circle',Auth::user()->name,$user) !!}
 
-              <h3 class="profile-username text-center">{{ $user->name }}</h3>
-
-              <p class="text-muted text-center">Membro desde {{ $user->memberSince() }}</p>
+              <h3 class="profile-username text-center">{{ $user->name }} <span class="text-yellow">{!! getLevelStars($profile->level) !!}</span></h3>
+              <center class="text-muted font-12 text-center">Membro desde {{ $user->memberSince() }}</center>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
@@ -26,8 +25,6 @@
                     </div>
                   </div>
                 </li>
-
-
 
                 <li class="list-group-item">
                   <div class="row">
@@ -59,17 +56,34 @@
               <div class="box-body">
                 <div id="accordion01" class="box-group">
 
-                  <div class="panel box box-success">
+                  <div class="panel box box-primary">
                     <div class="box-header with-border">
                       <h4 class="box-title">
                         <i class="fa fa-line-chart"></i>
                         <a data-toggle="collapse" data-parent="#accordion01" href="#collapse01">
-                          Evolução de Resultados
+                          Estatísticas de Operações
                         </a>
                       </h4>
                     </div>
 
                     <div id="collapse01" class="panel-collapse collapse in">
+                      <div class="box-body bg-gray">
+                        @include('operation.statisticinfo')
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel box box-success">
+                    <div class="box-header with-border">
+                      <h4 class="box-title">
+                        <i class="fa fa-line-chart"></i>
+                        <a data-toggle="collapse" data-parent="#accordion01" href="#collapse02">
+                          Evolução de Resultados
+                        </a>
+                      </h4>
+                    </div>
+
+                    <div id="collapse02" class="panel-collapse collapse">
                       <div class="box-body bg-gray">
                         @include('operation.resultinfo')
                       </div>
@@ -80,13 +94,13 @@
                     <div class="box-header with-border">
                       <h4 class="box-title">
                         <i class="fa fa-user"></i>
-                        <a data-toggle="collapse" data-parent="#accordion01" href="#collapse02">
+                        <a data-toggle="collapse" data-parent="#accordion01" href="#collapse03">
                           Sobre Mim
                         </a>
                       </h4>
                     </div>
 
-                    <div id="collapse02" class="panel-collapse collapse">
+                    <div id="collapse03" class="panel-collapse collapse">
                       <div class="box-body">
                         @include('profile.personalinfo')
                       </div>
@@ -119,7 +133,7 @@
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="strategies">
-                @include('layouts.strategy.list')
+                @include('strategy.list')
                 <div class="post top-5 with-border">
                   <a href="{{ url('strategies/user/'.$user->id) }}" class="">Ver Todas</a>
                 </div>
@@ -171,7 +185,7 @@
                     </form>
 
                   </div>
-                  
+
                 </div>
 
 

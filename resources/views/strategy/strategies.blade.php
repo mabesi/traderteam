@@ -10,10 +10,10 @@
 
                 <form class="form-inline" action="{{ url($path) }}" method="get">
 
-                  <input type="text" name="title" class="form-control" size="20" placeholder="Pesquisar Estratégias"
-                    value="{{ (isset($where['title'])?$where['title']:'') }}">
+                  <input type="text" name="strategy" class="form-control" size="20" placeholder="Pesquisar Estratégia"
+                    value="{{ (isset($where['strategy'])?$where['strategy']:'') }}">
 
-                  <input type="text" name="indicator" class="form-control" size="20" placeholder="Pesquisar Indicadores"
+                  <input type="text" name="indicator" class="form-control" size="20" placeholder="Pesquisar Indicador"
                     value="{{ (isset($where['indicator'])?$where['indicator']:'') }}">
 
                   <button type="submit" class="btn btn-default">
@@ -28,13 +28,12 @@
                 </form>
 
             </div>
-
-            @include('strategy.list')
-
-            <br />
-          </div>
-          <div class="box-footer">
-            {{ $strategies->appends($where)->links() }}
+            <div class="box-body">
+              @include('strategy.list')
+            </div>
+            <div class="box-footer">
+              {{ $strategies->appends($where)->links() }}
+            </div>
           </div>
         </div>
         <!-- /.col -->

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Strategy;
+use App\Indicator;
 
 class StrategyController extends Controller
 {
@@ -30,30 +32,35 @@ class StrategyController extends Controller
 
     public function strategies($request,$userId=Array(),$owner="Todas")
     {
-      //dd(Strategy::first()->indicators);
+      $strategies = Strategy::leftJoin('operations','strategies.id','=','operations.strategy_id')
+                              ->select(DB::raw('strategies.*,sum(result) as sumresult'))
+                              ->groupBy('strategies.id','strategies.title','strategies.description','strategies.user_id');
+
 
       if (count($userId) > 0){
-        $strategies = Strategy::whereIn('user_id',$userId);
+        $strategies->whereIn('strategies.user_id',$userId);
       }
 
-      $title = $request->query('title');
+      $strategy = $request->query('strategy');
       $indicator = $request->query('indicator');
 
       $where = Array();
 
-      if ($title != Null){
-        $strategies->where('title','like',"%$title%");
+      if ($indicator != Null){
+        $indicatorsId = Indicator::getIndicatorsId($indicator);
+        $strategiesId = Strategy::getIndicatorsStrategiesId($indicatorsId);
+        $strategies->whereIn('strategies.id',$strategiesId);
       }
 
-      //dd($where);
+      if ($strategy != Null){
+        $strategies->where('title','like',"%$strategy%");
+      }
 
-      //User::leftJoin('indicators','users.id','=','profiles.user_id')
+      $strategies = $strategies->orderBy('title','asc')
+                              ->paginate(6);
 
-      $strategies = $strategies->where($where)
-                                ->orderBy('title','asc')
-                                ->paginate(5);
-
-      $where['title'] = $title;
+      $where['strategy'] = $strategy;
+      $where['indicator'] = $indicator;
 
       $data = [
         'viewname' => 'Lista de Estratégias ('.$owner.')',

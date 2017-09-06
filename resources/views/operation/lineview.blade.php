@@ -3,7 +3,7 @@
   <small class="label bg-{{ ($operation->realorsimulated=='R'?'black':'green') }}">{{$operation->realorsimulated}}</small>
   <a class="font-26" href="{{ url('operation/'.$operation->id) }}"><strong>{{ $operation->stock }}</strong></a>
   {{ nbsp(1) }}
-  <span class="font-12 label bg-{{ ($operation->riskReturn()>=3?'green':($operation->riskReturn()>=1?'orange':'maroon')) }}">
+  <span class="font-12 label bg-{{ ($operation->riskReturn()>=3?'green':($operation->riskReturn()>=1?'primary':'maroon')) }}">
     {{ $operation->riskReturn() }}
   </span>
   {{ nbsp(1) }}
