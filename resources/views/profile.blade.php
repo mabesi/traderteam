@@ -56,10 +56,10 @@
               <div class="box-body">
                 <div id="accordion01" class="box-group">
 
-                  <div class="panel box box-primary">
+                  <div class="panel box box-info">
                     <div class="box-header with-border">
                       <h4 class="box-title">
-                        <i class="fa fa-line-chart"></i>
+                        <i class="fa fa-pie-chart"></i>
                         <a data-toggle="collapse" data-parent="#accordion01" href="#collapse01">
                           Estatísticas de Operações
                         </a>

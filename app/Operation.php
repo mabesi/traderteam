@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Operation extends Model
 {
@@ -156,7 +157,7 @@ class Operation extends Model
     return $totalOperations;
   }
 
-  public static function getCompleteOperations($userId=Null)
+  public static function getFinishedOperations($userId=Null)
   {
     if ($userId==Null){
       $userId = getUserId();
@@ -170,6 +171,62 @@ class Operation extends Model
                                     })
                                     ->count();
     return $totalOperations;
+  }
+
+  public static function getAvgBuyOperations($userId=Null)
+  {
+    if ($userId==Null){
+      $userId = getUserId();
+    }
+
+    $avgOperations = Operation::where('user_id',$userId)
+                                ->where(function($query){
+                                  $query->orWhere('status','S')
+                                        ->orWhere('status','E')
+                                        ->orWhere('status','T');
+                                })
+                                ->where('buyorsell','C')
+                                ->select(DB::raw('avg((realexit - realentry)*100/realentry) As avgResult'))
+                                ->first();
+
+    return $avgOperations->avgResult;
+  }
+
+  public static function getAvgSellOperations($userId=Null)
+  {
+    if ($userId==Null){
+      $userId = getUserId();
+    }
+
+    $avgOperations = Operation::where('user_id',$userId)
+                                ->where(function($query){
+                                  $query->orWhere('status','S')
+                                        ->orWhere('status','E')
+                                        ->orWhere('status','T');
+                                })
+                                ->where('buyorsell','V')
+                                ->select(DB::raw('avg((realentry - realexit)*100/realentry) As avgResult'))
+                                ->first();
+
+    return $avgOperations->avgResult;
+  }
+
+  public static function getAvgResultOperations($userId=Null)
+  {
+    $buyAvg = Operation::getAvgBuyOperations($userId);
+    $sellAvg = Operation::getAvgSellOperations($userId);
+
+    if($buyAvg!=Null){
+      if($sellAvg!=Null){
+        return ($buyAvg + $sellAvg) / 2;
+      } else {
+        return $buyAvg;
+      }
+    } elseif ($sellAvg!=Null){
+      return $sellAvg;
+    } else {
+      return Null;
+    }
   }
 
   public static function getStartedOperations($userId=Null)

@@ -30,14 +30,30 @@ class StrategyController extends Controller
         return view('strategy.mystrategies', $data);
     }
 
-    public function strategies($request,$userId=Array(),$owner="Todas")
+    public function strategies($request,$userId=Array(),$owner="Todas",$minResult=Null,$minOperations=Null)
     {
+      if ($request->has('sort')){
+        $sort = $request->query('sort');
+        $dir = $request->query('dir');
+      } else {
+        $sort = 'title';
+        $dir = 'asc';
+      }
+
       $strategies = Strategy::leftJoin('operations','strategies.id','=','operations.strategy_id')
                               ->select(DB::raw('strategies.*,sum(result) as sumresult'))
+                              ->withCount('operations')
                               ->groupBy('strategies.id','strategies.title','strategies.description','strategies.user_id');
 
+      //if ($minResult!=Null){
+      //  $strategies->having('sum(result)','>=',$minResult);
+      //}
 
-      if (count($userId) > 0){
+      if ($minOperations!=Null){
+        $strategies->has('operations','>=',$minOperations);
+      }
+
+      if ($userId!=Null && count($userId) > 0){
         $strategies->whereIn('strategies.user_id',$userId);
       }
 
@@ -56,11 +72,13 @@ class StrategyController extends Controller
         $strategies->where('title','like',"%$strategy%");
       }
 
-      $strategies = $strategies->orderBy('title','asc')
+      $strategies = $strategies->orderBy($sort,$dir)
                               ->paginate(6);
 
       $where['strategy'] = $strategy;
       $where['indicator'] = $indicator;
+
+      $newDir = ($dir=='asc'?'desc':'asc');
 
       $data = [
         'viewname' => 'Lista de Estratégias ('.$owner.')',
@@ -68,6 +86,9 @@ class StrategyController extends Controller
         'strategies' => $strategies,
         'where' => $where,
         'path' => $request->path(),
+        'sort' => $sort,
+        'dir' => $dir,
+        'newDir' => $newDir,
         'profileView' => False,
       ];
 
@@ -82,9 +103,7 @@ class StrategyController extends Controller
 
     public function beststrategies(Request $request)
     {
-      //$userId[] = getUserId();
-      //return $this->strategies($request,$userId,"Minhas Estratégias");
-      return "Melhores Estratégias";
+      return $this->strategies($request,Null,"Melhores Estratégias",10,10);
     }
 
     public function following(Request $request)
