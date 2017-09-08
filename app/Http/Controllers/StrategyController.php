@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Strategy;
+use App\Operation;
 use App\Indicator;
 
 class StrategyController extends Controller
@@ -15,26 +17,21 @@ class StrategyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $user = User::find(getUserId());
-      $strategies = $user->strategies;
-
-      $data = [
-        'viewname' => 'Minhas Estratégias',
-        'viewtitle' => 'Minhas Estratégias',
-        'strategies' => $strategies,
-        'errors' => null,
-      ];
-
-        return view('strategy.mystrategies', $data);
+      return $this->strategies($request);
     }
 
     public function strategies($request,$userId=Array(),$owner="Todas",$minResult=Null,$minOperations=Null)
     {
+      $path = $request->path();
+
       if ($request->has('sort')){
         $sort = $request->query('sort');
         $dir = $request->query('dir');
+      } elseif($path == 'beststrategies'){
+        $sort = 'sumresult';
+        $dir = 'desc';
       } else {
         $sort = 'title';
         $dir = 'asc';
@@ -45,9 +42,9 @@ class StrategyController extends Controller
                               ->withCount('operations')
                               ->groupBy('strategies.id','strategies.title','strategies.description','strategies.user_id');
 
-      //if ($minResult!=Null){
-      //  $strategies->having('sum(result)','>=',$minResult);
-      //}
+      if ($minResult!=Null){
+        $strategies->havingRaw('sum(result) >= '.$minResult);
+      }
 
       if ($minOperations!=Null){
         $strategies->has('operations','>=',$minOperations);
@@ -85,7 +82,7 @@ class StrategyController extends Controller
         'viewtitle' => 'Lista de Estratégias ('.$owner.')',
         'strategies' => $strategies,
         'where' => $where,
-        'path' => $request->path(),
+        'path' => $path,
         'sort' => $sort,
         'dir' => $dir,
         'newDir' => $newDir,
@@ -101,15 +98,28 @@ class StrategyController extends Controller
       return $this->strategies($request,$userId,"Minhas Estratégias");
     }
 
-    public function beststrategies(Request $request)
+    public function best(Request $request)
     {
-      return $this->strategies($request,Null,"Melhores Estratégias",10,10);
+      $strategyResultOperations = Operation::select(DB::raw('sum(result) as result, strategy_id'))
+                                  ->groupBy('strategy_id')
+                                  ->havingRaw('sum(result) > 0')
+                                  ->get();
+
+      $avgStrategyResult = round($strategyResultOperations->avg('result'));
+
+      $strategyTotalOperations = Operation::select(DB::raw('count(*) as operations, strategy_id'))
+                                  ->groupBy('strategy_id')
+                                  ->havingRaw('operations > 0')
+                                  ->get();
+
+      $avgOperations = round($strategyTotalOperations->avg('operations'));
+
+      return $this->strategies($request,Null,"Melhores Estratégias",$avgStrategyResult,$avgOperations);
     }
 
     public function following(Request $request)
     {
       $userId = getFollowingId();
-      //dd($userId);
       return $this->strategies($request,$userId,"Seguindo");
     }
 
@@ -126,16 +136,16 @@ class StrategyController extends Controller
      */
     public function create()
     {
+      $indicators = Indicator::all();
+
       $data = [
         'viewname' => 'Nova Estratégia',
         'viewtitle' => 'Nova Estratégia',
-        'errors' => null,
-        'indicators' => $this->indicators,
+        'indicators' => $indicators->sortBy('name'),
+        'indicatorsId' => '',
       ];
 
-      sort($data['indicators']);
-
-      return view('strategy', $data);
+      return view('strategy.edit', $data);
     }
 
     /**
@@ -151,9 +161,10 @@ class StrategyController extends Controller
       $strategy->user_id = getUserId();
       $strategy->title = $request->title;
       $strategy->description = $request->description;
-      $strategy->indicators = implode(',',$request->indicators);
 
       $strategy->save();
+
+      $strategy->indicators()->attach($request->indicators);
 
       return redirect('strategy/'.$strategy->id);
     }
@@ -171,14 +182,11 @@ class StrategyController extends Controller
       $data = [
         'viewname' => 'Estratégia',
         'viewtitle' => 'Estratégia',
-        'errors' => null,
-        'indicators' => $this->indicators,
+        'indicators' => $strategy->indicators->sortBy('name'),
         'strategy' => $strategy,
       ];
 
-      sort($data['indicators']);
-
-      return view('strategy', $data);
+      return view('strategy.strategy', $data);
     }
 
     /**
@@ -189,7 +197,18 @@ class StrategyController extends Controller
      */
     public function edit($id)
     {
-        //
+      $strategy = Strategy::find($id);
+      $indicators = Indicator::all();
+
+      $data = [
+        'viewname' => 'Editar Estratégia',
+        'viewtitle' => 'Editar Estratégia',
+        'indicators' => $indicators->sortBy('name'),
+        'indicatorsId' => $strategy->indicators->implode('id',','),
+        'strategy' => $strategy,
+      ];
+
+      return view('strategy.edit', $data);
     }
 
     /**
@@ -205,9 +224,10 @@ class StrategyController extends Controller
 
       $strategy->title = $request->title;
       $strategy->description = $request->description;
-      $strategy->indicators = implode(',',$request->indicators);
-
       $strategy->save();
+
+      $strategy->indicators()->detach();
+      $strategy->indicators()->attach($request->indicators);
 
       return redirect('strategy/'.$strategy->id);
     }
@@ -220,7 +240,22 @@ class StrategyController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $strategy = Strategy::find($id);
+
+      if ($strategy->has('operations')){
+        $data = getMsgDeleteErrorVinculated();
+      } else {
+        if (isAdmin() || $strategy->user_id = getUserId()){
+          if ($strategy->delete()){
+            $data = getMsgDeleteSuccess();
+          } else {
+            $data = getMsgDeleteError();
+          }
+        } else {
+          $data = getMsgAccessForbidden();
+        }
+      }
+      return response()->json($data);
     }
 
     public function rules()

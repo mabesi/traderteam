@@ -17,7 +17,7 @@
         @include('operation.resultinfo')
       </div>
       <div class="box-footer">
-        <a href="{{ url('operation/statistics') }}">Ver Estatísticas</a>
+        <a href="{{ url('myoperations') }}">Minhas Operações</a>
       </div>
     </div>
   </div>
@@ -71,7 +71,7 @@
 
   <div class="col-sm-5 col-lg-3">
     <div class="box box-solid">
-      <div class="box-header with-border bg-gray">
+      <div class="box-header with-border bg-tt-green">
         <span class="font-20">Usuários (Seguindo)</span>
       </div>
       <div class="box-body">
@@ -87,7 +87,7 @@
 
   <div class="col-sm-7 col-lg-5">
     <div class="box box-solid">
-      <div class="box-header with-border bg-gray">
+      <div class="box-header with-border bg-tt-green">
         <span class="font-20">Operações (Seguindo)</span>
       </div>
       <div class="box-body">
@@ -104,8 +104,8 @@
 
   <div class="col-sm-12 col-lg-4">
     <div class="box box-solid">
-      <div class="box-header with-border bg-gray">
-        <span class="font-20">Notícias <a class="font-16" href="http://www.infomoney.com.br/mercados/ultimas-noticias" target="_blank">(Infomoney)</a></span>
+      <div class="box-header with-border bg-tt-green">
+        <span class="font-20">Notícias <a class="font-16 text-aqua" href="http://www.infomoney.com.br/mercados/ultimas-noticias" target="_blank">(Infomoney)</a></span>
       </div>
       <div class="box-body">
         {!! feedRss('http://www.infomoney.com.br/mercados/rss') !!}

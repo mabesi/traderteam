@@ -104,3 +104,7 @@
       <!-- /.row -->
 
 @endsection
+
+@push('scripts')
+<script src="{{ asset("/js/form-helper.js") }}"></script>
+@endpush

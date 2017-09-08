@@ -25,8 +25,8 @@ class ProfileController extends Controller
     {
       $profile = Profile::where('user_id', getUserId())->first();
       $user = User::find(getUserId());
-      $strategies = $user->strategies->take(12);
-      $operations = $user->operations->take(12);
+      $strategies = $user->strategies->sortBy('name')->take(10);
+      $operations = $user->operations->sortByDesc('updated_at')->take(10);
 
       $data = [
         'viewname' => 'Meu Perfil',

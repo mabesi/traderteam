@@ -2,8 +2,25 @@
 <div class="post">
   <div class="row">
     <div class="col-sm-8 col-lg-4">
-      <div class="font-20">
+      <div class="font-16">
         <a href="{{ url('strategy/'.$strategy->id) }}">{{ $strategy->title }}</a>
+
+        @if ($strategy->user_id != getUserId() && !$profileView)
+          <span class="font-10">
+            {{ nbsp(2) }}
+            @if ($strategy->user->profile != Null)
+              (<a class="user-line" href="{{ url('profile/'.$strategy->user_id) }}">
+                {!! getUserAvatar('img-circle','Avatar',$strategy->user) !!} {{ $strategy->user->name }}
+              </a>)
+            @else
+              (<span class="user-line">
+                {!! getUserAvatar('img-circle','Avatar',$strategy->user) !!} {{ $strategy->user->name }}
+              </span>)
+            @endif
+          </span>
+        @endif
+
+
       </div>
     </div>
 
@@ -18,12 +35,15 @@
       </small>
     </div>
 
+@if (!$profileView)
+
     <div class="col-sm-2 col-lg-2">
       <div class="font-14 text-bold">
         Operações: {{ $strategy->operations_count }}</a>
       </div>
     </div>
 
+@endif
     <div class="col-sm-12 col-lg-5">
       <div>
         <strong>Indicadores:</strong>

@@ -160,16 +160,16 @@
                         </div>
                       </div>
                 @else
-                      <div class="info-box">
                   @if (($operation->realexit >= $operation->realentry && $operation->buyorsell == 'C') || ($operation->realexit <= $operation->realentry && $operation->buyorsell == 'V'))
-                        <span class="info-box-icon bg-green">
+                      <div class="info-box bg-green">
                   @else
-                        <span class="info-box-icon bg-red">
+                        <div class="info-box bg-red">
                   @endif
-                          <i class="fa fa-money"></i>
-                        </span>
+                          <span class="info-box-icon">
+                            <i class="fa fa-money"></i>
+                          </span>
                         <div class="info-box-content">
-                          <span class="info-box-text">Saida {{ getBRDateFromMysql($operation->exitdate) }}</span>
+                          <span class="info-box-text">Saída {{ getBRDateFromMysql($operation->exitdate) }}</span>
                           <span class="info-box-number">{{ $operation->realexit }}</span>
                           <span class="info-box-text">{{ $operation->operationReturn() }}% / {{ $operation->capitalReturn() }}%</span>
                         </div>
@@ -332,4 +332,5 @@
 
 @push('scripts')
 <script src="{{ asset("/js/img-helper.js") }}"></script>
+<script src="{{ asset("/js/form-helper.js") }}"></script>
 @endpush

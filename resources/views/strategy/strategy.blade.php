@@ -1,92 +1,98 @@
 @extends('layouts.panel')
 
-@push('css')
-  <link rel="stylesheet" href="{{ asset('/adminlte2/plugins/select2/select2.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
-@endpush
-
 @section('content')
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-lg-7">
 
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h3 class="box-title">Estratégia de Operação em Bolsa</h3>
+        <h3 class="no-padding no-margin" >{{ $strategy->title }}
+
+          @if ($strategy->user_id != getUserId())
+            <span class="font-10">
+              {{ nbsp(2) }}
+              @if ($strategy->user->profile != Null)
+                (<a class="user-line" href="{{ url('profile/'.$strategy->user_id) }}">
+                  {!! getUserAvatar('img-circle','Avatar',$strategy->user) !!} {{ $strategy->user->name }}
+                </a>)
+              @else
+                (<span class="user-line">
+                  {!! getUserAvatar('img-circle','Avatar',$strategy->user) !!} {{ $strategy->user->name }}
+                </span>)
+              @endif
+            </span>
+          @endif
+
+          <span class="pull-right">
+            {!! getItemAdminIcons($strategy,'strategy','mystrategies') !!}
+          </span>
+
+        </h3>
+      </div>
+      <div class="box-body">
+
+        {!! $strategy->description !!}
+
       </div>
 
-      <form class="form-horizontal" action="{{ url('/strategy'.(isset($strategy->id)?'/'.$strategy->id:'')) }}" method="POST">
+      <div class="box-footer">
 
-      {{ csrf_field() }}
-
-      @if (isset($strategy->id))
-        <input type="hidden" name="_method" value="PUT">
-      @endif
-
-      <div class="form-group">
-        <div class="col-sm-3">
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Total de Operações
+              <small class="label bg-blue }} font-16">
+                {{ $strategy->operations->count() }}
+              </small>
+            </h4>
+          </div>
+          <div class="col-md-6">
+            <h4>Resultado da Estratégia
+              <small class="label bg-{{ getValueColor($strategy->getResult()) }} font-16">
+                {{ formatRealNumber($strategy->getResult(),2) }}%
+              </small>
+            </h4>
+          </div>
         </div>
-        <div class="col-sm-9">
-          <p class="text-muted">
-            As informações com asterisco (*) são obrigatórias.
-          </p>
-        </div>
+
       </div>
 
-        <div class="form-group">
-          <label for="title" class="col-sm-3 control-label">Estratégia *</label>
-
-          <div class="col-sm-9">
-            <input type="text" value="{{ old('title',isset($strategy->title)?$strategy->title:Null) }}" name="title" class="form-control" id="title" placeholder="Nome da estratégia">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="description" class="col-sm-3 control-label">Descrição *</label>
-
-          <div class="col-sm-9">
-            <textarea class="textarea form-control" name="description" id="description" >{!! old('description',isset($strategy->description)?$strategy->description:Null) !!}</textarea>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="indicators" class="col-sm-3 control-label">Indicadores</label>
-
-          <div class="col-sm-9">
-            <select id="indicators" name="indicators[]" class="form-control select2" multiple="multiple" data-placeholder="Informe quais indicadores utiliza" style="width: 100%;">
-              @foreach ($indicators as $indicator)
-                <option {{ (strContains((isset($strategy->indicators)?$strategy->indicators:''),$indicator)?'selected':'') }}>{{ $indicator }}</option>
-              @endforeach
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-9">
-            <button type="submit" class="btn btn-primary">{{ (isset($strategy->id)?'Salvar':'Enviar') }} </button>
-          </div>
-        </div>
-      </form>
-
-
-      <br />
     </div>
 
   </div>
-  <!-- /.col -->
-</div>
-<!-- /.row -->
+  <div class="col-lg-5">
 
+    <div class="box box-danger">
+      <div class="box-header with-border">
+        <h3 class="no-padding no-margin">Indicadores Utilizados</h3>
+      </div>
+      <div class="box-body">
+
+
+          @foreach ($strategy->indicators as $indicator)
+
+          <div class="post">
+          <a href="{{ url('indicator/'.$indicator->id) }}"><h4>{{ $indicator->name.' ('.$indicator->acronym.')' }}</h4></a>
+          <p>Tipo de Indicador: <strong>{{ indicatorType($indicator->type) }}</strong></p>
+          <div id='indicator-description'>{!! substr($indicator->description, 0, 150) !!}...</div>
+          </div>
+
+          @endforeach
+
+
+      </div>
+      <div class="box-footer">
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+@include('layouts.imagemodal')
 @endsection
 
 @push('scripts')
-<script src="{{ asset("/adminlte2/plugins/select2/select2.full.min.js") }}"></script>
-<script src="{{ asset("/adminlte2/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.pt-BR.js") }}"></script>
-<script src="{{ asset("/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js") }}"></script>
-<script>
-  $(function () {
-    $('.select2').select2();
-    $('.textarea').wysihtml5();
-  });
-</script>
+<script src="{{ asset("/js/img-helper.js") }}"></script>
+<script src="{{ asset("/js/form-helper.js") }}"></script>
 @endpush

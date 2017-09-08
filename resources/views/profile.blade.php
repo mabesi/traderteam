@@ -3,15 +3,18 @@
 @section('content')
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-lg-4">
 
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
+              {!! getUserTypeLabel($user->type) !!}
 
-              {!! getUserAvatar('profile-user-img img-responsive img-circle',Auth::user()->name,$user) !!}
+              {!! getUserAvatar('profile-user-img img-responsive img-circle',$user->name,$user) !!}
 
-              <h3 class="profile-username text-center">{{ $user->name }} <span class="text-yellow">{!! getLevelStars($profile->level) !!}</span></h3>
+              <h3 class="profile-username text-center">{{ $user->name }}</h3>
+              <div class="font-20 text-center">{!! getRankStars($user->rank) !!}</div>
+              <div class="text-center text-muted">{{ getLevelName($user->rank) }}</div>
               <center class="text-muted font-12 text-center">Membro desde {{ $user->memberSince() }}</center>
 
               <ul class="list-group list-group-unbordered">
@@ -114,7 +117,7 @@
         </div> <!-- /.col -->
 
 
-        <div class="col-md-8">
+        <div class="col-lg-8">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#operations" data-toggle="tab">Operações</a></li>

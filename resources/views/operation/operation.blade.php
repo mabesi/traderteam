@@ -17,12 +17,16 @@
       enctype="multipart/form-data">
 
       <ul class="nav nav-tabs">
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-        <li><div class="pad"><button type="submit" class="btn btn-lg pad btn-primary">{{ (isset($operation->id)?'Salvar':'Enviar') }} </button></div></li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-        <li class="active"><a class="btn btn-info" href="#operation" data-toggle="tab">Operação</a></li>
-        <li><a class="btn btn-danger" href="#preanalysis" data-toggle="tab">Pré-Análise</a></li>
-        <li><a class="btn btn-success" href="#postanalysis" data-toggle="tab">Pós-Análise</a></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        <li><div class="pad">
+          <button type="submit" class="btn btn-lg pad btn-primary">{{ (isset($operation->id)?'Salvar':'Enviar') }}</button>
+          {{ nbsp(2) }}
+          <a href="{{ url('operation/'.$operation->id) }}" class="btn btn-lg pad btn-warning">Cancelar</a>
+        </div></li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        <li class="active"><a class="btn btn-info" href="#operation" data-toggle="tab"><b>Operação</b></a></li>
+        <li><a class="btn btn-danger" href="#preanalysis" data-toggle="tab"><b>Pré-Análise</b></a></li>
+        <li><a class="btn btn-success" href="#postanalysis" data-toggle="tab"><b>Pós-Análise</b></a></li>
       </ul>
 
       <div class="tab-content">

@@ -19,7 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('type',1)->default('U');
+            $table->unsignedTinyInteger('rank')->default(0);
             $table->string('avatar',50);
+            $table->boolean('confirmed')->default(False);
+            $table->boolean('locked')->default(True);
             $table->rememberToken();
             $table->timestamps();
         });

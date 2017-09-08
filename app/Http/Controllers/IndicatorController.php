@@ -9,25 +9,60 @@ use Illuminate\Support\Facades\Storage;
 
 class IndicatorController extends Controller
 {
+
+  public function indicators($request)
+  {
+    $path = $request->path();
+
+    if ($request->has('sort')){
+      $sort = $request->query('sort');
+      $dir = $request->query('dir');
+    } else {
+      $sort = 'name';
+      $dir = 'asc';
+    }
+
+    $indicators = Indicator::withCount('strategies');
+
+    $indicator = $request->query('indicator');
+
+    $where = Array();
+
+    if ($indicator != Null){
+      $indicators->where('name','like',"%$indicator%");
+      $indicators->orWhere('acronym','like',"%$indicator%");
+    }
+
+    $indicators = $indicators->orderBy($sort,$dir)
+                            ->paginate(5);
+
+    $where['indicator'] = $indicator;
+
+    $newDir = ($dir=='asc'?'desc':'asc');
+
+    $data = [
+      'viewname' => 'Lista de Indicadores',
+      'viewtitle' => 'Lista de Indicadores',
+      'indicators' => $indicators,
+      'where' => $where,
+      'path' => $path,
+      'sort' => $sort,
+      'dir' => $dir,
+      'newDir' => $newDir,
+      'profileView' => False,
+    ];
+
+    return view('indicator.list', $data);
+  }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $indicators = Indicator::all();
-
-      $data = [
-        'viewname' => 'Indicadores',
-        'viewtitle' => 'Indicadores Técnicos',
-        'errors' => null,
-        'indicators' => $indicators,
-      ];
-
-      //dd($data['indicators']);
-
-      return view('indicators', $data);
+      return $this->indicators($request);
     }
 
     /**
@@ -77,7 +112,13 @@ class IndicatorController extends Controller
      */
     public function show(Indicator $indicator)
     {
-        //
+      $data = [
+        'viewname' => 'Indicador',
+        'viewtitle' => 'Indicador',
+        'indicator' => $indicator,
+      ];
+
+      return view('indicator.indicator', $data);
     }
 
     /**
@@ -95,7 +136,7 @@ class IndicatorController extends Controller
         'indicator' => $indicator,
       ];
 
-      return view('indicator', $data);
+      return view('indicator.edit', $data);
     }
 
     /**
@@ -128,6 +169,18 @@ class IndicatorController extends Controller
      */
     public function destroy(Indicator $indicator)
     {
-        dd($indicator);
+      if (isAdmin()){
+
+        //if ($indicator->delete()){
+        if (true){
+          $data = getMsgDeleteSuccess();
+        } else {
+          $data = getMsgDeleteError();
+        }
+
+      } else {
+        $data = getMsgAccessForbidden();
+      }
+      return response()->json($data);
     }
 }

@@ -16,8 +16,6 @@ class ProfilesTableSeeder extends Seeder
 
       DB::table('profiles')->insert([
         'user_id' => 1,
-        'level' => 2,
-        'enabled' => 1,
         'occupation' => 'Militar',
         'birthdate' => '1976-01-16',
         'city' => 'Anápolis',
@@ -27,14 +25,11 @@ class ProfilesTableSeeder extends Seeder
         'facebook' => 'https://www.facebook.com/plinio.mabesi',
         'twitter' => 'https://www.twitter.com/pliniomabesi',
         'description' => 'Esta é a minha descrição dizendo um pouco sobre mim.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida lorem turpis, vitae porta leo congue ut.<br> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean vitae imperdiet tortor. Donec consectetur velit eu lectus sodales pulvinar. Vestibulum at egestas ex, et accumsan quam. Suspendisse convallis diam nibh, convallis sodales eros aliquam id. Cras ut lectus eu nisi tincidunt dignissim sed eget mauris.',
-        'status' => 0,
         'created_at' => date("Y-m-d H:i:s"),
         'updated_at' => date("Y-m-d H:i:s"),
       ]);
       DB::table('profiles')->insert([
         'user_id' => 2,
-        'level' => 1,
-        'enabled' => 1,
         'occupation' => 'Nutricionista',
         'birthdate' => '1983-09-03',
         'city' => 'Belém',
@@ -44,14 +39,11 @@ class ProfilesTableSeeder extends Seeder
         'facebook' => 'https://www.facebook.com/liza.barral',
         'twitter' => 'https://www.twitter.com/lizabarral',
         'description' => 'Esta é a minha descrição dizendo um pouco sobre mim.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida lorem turpis, vitae porta leo congue ut.<br> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean vitae imperdiet tortor. Donec consectetur velit eu lectus sodales pulvinar. Vestibulum at egestas ex, et accumsan quam. Suspendisse convallis diam nibh, convallis sodales eros aliquam id. Cras ut lectus eu nisi tincidunt dignissim sed eget mauris.',
-        'status' => 0,
         'created_at' => date("Y-m-d H:i:s"),
         'updated_at' => date("Y-m-d H:i:s"),
       ]);
       DB::table('profiles')->insert([
         'user_id' => 3,
-        'level' => 3,
-        'enabled' => 1,
         'occupation' => 'Engenheiro Civil',
         'birthdate' => '1984-02-20',
         'city' => 'Goiânia',
@@ -61,7 +53,34 @@ class ProfilesTableSeeder extends Seeder
         'facebook' => 'https://www.facebook.com/eng.civil',
         'twitter' => 'https://www.twitter.com/engcivil',
         'description' => 'Esta é a minha descrição dizendo um pouco sobre mim.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida lorem turpis, vitae porta leo congue ut.<br> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean vitae imperdiet tortor. Donec consectetur velit eu lectus sodales pulvinar. Vestibulum at egestas ex, et accumsan quam. Suspendisse convallis diam nibh, convallis sodales eros aliquam id. Cras ut lectus eu nisi tincidunt dignissim sed eget mauris.',
-        'status' => 0,
+        'created_at' => date("Y-m-d H:i:s"),
+        'updated_at' => date("Y-m-d H:i:s"),
+      ]);
+      DB::table('profiles')->insert([
+        'user_id' => 4,
+        'occupation' => 'Manicure',
+        'birthdate' => '1989-07-02',
+        'city' => 'Campo Grande',
+        'state' => 'MS',
+        'country' => 'BR',
+        'site' => 'http://www.manicure.com',
+        'facebook' => 'https://www.facebook.com/manicure',
+        'twitter' => 'https://www.twitter.com/manicure',
+        'description' => 'Esta é a minha descrição dizendo um pouco sobre mim.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida lorem turpis, vitae porta leo congue ut.<br> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean vitae imperdiet tortor. Donec consectetur velit eu lectus sodales pulvinar. Vestibulum at egestas ex, et accumsan quam. Suspendisse convallis diam nibh, convallis sodales eros aliquam id. Cras ut lectus eu nisi tincidunt dignissim sed eget mauris.',
+        'created_at' => date("Y-m-d H:i:s"),
+        'updated_at' => date("Y-m-d H:i:s"),
+      ]);
+      DB::table('profiles')->insert([
+        'user_id' => 5,
+        'occupation' => 'Bancário',
+        'birthdate' => '1973-05-18',
+        'city' => 'São Paulo',
+        'state' => 'SP',
+        'country' => 'BR',
+        'site' => 'http://www.bancario.com',
+        'facebook' => 'https://www.facebook.com/bancario',
+        'twitter' => 'https://www.twitter.com/bancario',
+        'description' => 'Esta é a minha descrição dizendo um pouco sobre mim.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida lorem turpis, vitae porta leo congue ut.<br> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean vitae imperdiet tortor. Donec consectetur velit eu lectus sodales pulvinar. Vestibulum at egestas ex, et accumsan quam. Suspendisse convallis diam nibh, convallis sodales eros aliquam id. Cras ut lectus eu nisi tincidunt dignissim sed eget mauris.',
         'created_at' => date("Y-m-d H:i:s"),
         'updated_at' => date("Y-m-d H:i:s"),
       ]);

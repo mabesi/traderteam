@@ -52,7 +52,7 @@
           <label for="description" class="col-sm-3 control-label">Descrição *</label>
 
           <div class="col-sm-9">
-            <textarea class="textarea form-control" name="description" id="description" >
+            <textarea class="textarea textarea-md form-control" name="description" id="description" >
       				{!! old('description',isset($indicator->description)?$indicator->description:Null) !!}
       			</textarea>
           </div>
@@ -110,6 +110,8 @@
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-9">
             <button type="submit" class="btn btn-primary">{{ (isset($indicator->id)?'Salvar':'Enviar') }} </button>
+            {{ nbsp(2) }}
+            <a class="btn btn-warning" href="{{ url('indicator/'.$indicator->id) }}">Cancelar</a>
           </div>
         </div>
       </form>

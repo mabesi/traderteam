@@ -2,15 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 
-function isAdminOrSuperAdmin()
-{
-  if (Auth::user()->type=='A' || Auth::user()->type=='S'){
-    return True;
-  } else {
-    return False;
-  }
-}
-
 function isSuperAdmin()
 {
   if (Auth::user()->type=='S'){
@@ -22,7 +13,16 @@ function isSuperAdmin()
 
 function isAdmin()
 {
-  if (Auth::user()->type=='A'){
+  if (Auth::user()->type=='A' || isSuperAdmin()){
+    return True;
+  } else {
+    return False;
+  }
+}
+
+function isNotAdmin()
+{
+  if (Auth::user()->type=='U'){
     return True;
   } else {
     return False;
@@ -51,6 +51,25 @@ function getUserAvatarName($user=Null)
   } else {
     return $user->avatar;
   }
+}
+
+function getUserTypeLabel($type)
+{
+  $typeList = [
+    'U' => 'Usuário',
+    'A' => 'Administrador',
+    'S' => 'Super Administrador',
+  ];
+
+  $colorList = [
+    'U' => 'gray',
+    'A' => 'red',
+    'S' => 'black',
+  ];
+
+  $label = "<span class='label bg-$colorList[$type]' title='$typeList[$type]'>$type</span>";
+
+  return $label;
 }
 
 function indicatorType($type){
@@ -184,17 +203,6 @@ function getUserAvatar($class="img-circle",$alt="Foto do Perfil",$user=Null,$wid
   return getHtmlImage($src,$class,$alt,Null,Null,$width,$height);
 }
 
-function getLevelStars($level)
-{
-  $stars='';
-
-  for ($i=0;$i<$level;$i++){
-    $stars .= '<i class="fa fa-star"></i>';
-  }
-
-  return $stars;
-}
-
 function getHtmlImage($src,$class=Null,$alt=Null,$id=Null,$title=Null,$width=Null,$height=Null,$style=Null)
 {
   $img = "<img src='".$src."'";
@@ -252,27 +260,148 @@ function operationRealOrSimulated($type)
   return $typeList[$type];
 }
 
-function getUserOperationsLevel($operations,$result)
+function getUserAdminIcons($user,$redirect)
 {
-  // Levels:
-  // 1: Iniciante
-  // 2: Operador
-  // 3: Analista
-  // 4: Estragetista
-  // 5: Tubarão
-
-  if ($operations >= 1000 && $result>=500 || $operations >= 500 && $result>=1000){
-    $level = 5;
-  } elseif ($operations >= 500 && $result >= 100 || $operations >= 250 && $result>=500){
-    $level = 4;
-  } elseif ($operations >= 100 && $result >= 50 || $operations >= 50 && $result>=100){
-    $level = 3;
-  } elseif ($operations >= 50 && $result > 10 || $operations >= 10 && $result>=50){
-    $level = 2;
+  if ($user->confirmed){
+    $icons = "<span title='Confirmado' class='text-info'><i class='fa fa-check-square-o'></i></span>";
   } else {
-    $level = 1;
+    $icons = "<span title='Não Confirmado' class='text-gray'><i class='fa fa-square-o'></i></span>";
   }
+
+  $icons .= nbsp(2);
+
+  if (isAdmin() || $user->id == getUserId()){
+    if ($user->profile!=Null){
+      $icons .= "<a title='Editar Usuário' class='text-primary edit-button' href='".url('profile/'.$user->profile->id.'/edit')."'><i class='fa fa-pencil'></i></a>".nbsp(2);
+    }
+  }
+
+  if (isAdmin()){
+    $icons .= "<a title='Deletar Usuário' class='text-danger delete-button' href='".url('user/'.$user->id)."' data-token='".csrf_token()."' data-redirect='".url($redirect)."'><i class='fa fa-trash'></i></a>".nbsp(2);
+    if ($user->locked){
+      $icons .= "<a title='Desbloquear Usuário' class='text-warning' href='".url('user/'.$user->id.'/unlock')."'><i class='fa fa-lock'></i></a>";
+    } else {
+      $icons .= "<a title='Bloquear Usuário' class='text-green' href='".url('user/'.$user->id.'/lock')."'><i class='fa fa-unlock'></i></a>";
+    }
+  }
+
+
+  return trim($icons);
+}
+
+function getItemAdminIcons($item,$itemType,$redirect)
+{
+  $icons = '';
+
+  if (isAdmin() || $item->user_id == getUserId()){
+    $icons .= "<a class='text-primary edit-button' href='".url($itemType.'/'.$item->id.'/edit')."'><i class='fa fa-pencil'></i></a>".nbsp(2);
+    $icons .= "<a class='text-danger delete-button' href='".url($itemType.'/'.$item->id)."' data-token='".csrf_token()."' data-redirect='".url($redirect)."'><i class='fa fa-trash'></i></a>";
+  }
+
+  return trim($icons);
+}
+
+function getMsgAccessForbidden()
+{
+  $data = [
+    'success' => false,
+    'msg' => 'O usuário não possui acesso a este recurso.',
+  ];
+
+  return $data;
+}
+
+function getMsgDeleteError()
+{
+  $data = [
+    'success' => false,
+    'msg' => 'Ocorreu um erro ao deletar o recurso.',
+  ];
+
+  return $data;
+}
+
+function getMsgDeleteErrorVinculated()
+{
+  $data = [
+    'success' => false,
+    'msg' => 'Este recurso possui registros vinculados, por isso não pode ser deletado.',
+  ];
+
+  return $data;
+}
+
+function getMsgDeleteErrorLocked()
+{
+  $data = [
+    'success' => false,
+    'msg' => 'Este recurso está bloqueado, por isso não pode ser deletado.',
+  ];
+
+  return $data;
+}
+
+function getMsgDeleteSuccess()
+{
+  $data = [
+    'success' => true,
+    'msg' => 'O recurso foi deletado com sucesso.',
+  ];
+
+  return $data;
+}
+
+function getUserLevel($user)
+{
+  $followers = $user->followers->count();
+  $operations = $user->operations->count();
+  $result = getUserResult($user->id);
+
+  if ($followers >= 500 && (($operations >= 1000 && $result>=500) || ($operations >= 500 && $result>=1000))){
+    $level = 5; //Tubarão
+  } elseif ($followers >= 100 && (($operations >= 500 && $result >= 100) || ($operations >= 250 && $result>=500))){
+    $level = 4; //Estrategista
+  } elseif ($followers >= 50 && (($operations >= 100 && $result >= 50) || ($operations >= 50 && $result>=100))){
+    $level = 3; //Analista
+  } elseif ($followers >= 10 && (($operations >= 50 && $result > 10) || ($operations >= 10 && $result>=50))){
+    $level = 2; //Operador
+  } else {
+    $level = 1; //Sardinha
+  }
+
   return $level;
+}
+
+function getLevelName($level)
+{
+  $levelList = [
+    '1' => 'Sardinha',
+    '2' => 'Operador',
+    '3' => 'Analista',
+    '4' => 'Estrategista',
+    '5' => 'Tubarão',
+  ];
+
+  return $levelList[$level];
+}
+
+function getRankStars($rank)
+{
+  if ($rank == 0){
+    return '<span class="text-gray"><i class="fa fa-star"></i></span>';
+  } elseif ($rank == 5) {
+    $stars='<span class="label bg-black text-yellow">';
+  } else {
+    $stars='<span class="text-yellow">';
+  }
+
+  for ($i=0;$i<$rank;$i++){
+    $stars .= '<i class="fa fa-star"></i>';
+  }
+
+  $stars .= '</span>';
+
+  return $stars;
 }
 
 function getValueColor($value)
@@ -321,6 +450,17 @@ function statusClass($status)
   ];
 
   return $classList[$status];
+}
+
+function btnValueClass($value)
+{
+  if ($value > 0) {
+    return "success";
+  } elseif ($value < 0) {
+    return "danger";
+  } else {
+    return "primary";
+  }
 }
 
 function gtimeName($gtime)
@@ -502,8 +642,8 @@ function getFollowersId($userId=Null)
 
 function feedRss($link,$limit=10,$showDescription=False)
 {
-  return 'Notícias...';
-  //$rss = simplexml_load_file($link);
+  //return 'Notícias...';
+  $rss = simplexml_load_file($link);
   $count = 0;
   $feed = '';
 

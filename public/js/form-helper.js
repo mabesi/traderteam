@@ -8,6 +8,35 @@ $( document ).ready(function() {
       readURL(this);
     });
 
+    $(".delete-button").on("click", function() {
+      return deleteItem(this);
+    });
+
+    function deleteItem(e) {
+
+      var token = $(e).data('token');
+      var redirect = $(e).data('redirect');
+      var url = $(e).attr('href');
+
+      if (confirm('Confirma a exclusão deste item?')==true){
+        $.ajax({
+          type: "post",
+          url: url,
+          data: {_method: 'delete',_token: token},
+          success: function(response){
+            if (response.success){
+              alert(response.msg);
+              $(location).attr('href',redirect);
+            } else {
+              alert(response.msg);
+            }
+          }
+        });
+
+      }
+      return false;
+    }
+
     $('form').submit(function(){
 
       var fileInput = $(':file');

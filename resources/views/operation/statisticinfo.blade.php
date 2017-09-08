@@ -8,10 +8,17 @@ $lucrativeOperations = App\Operation::getLucrativeOperations($user->id);
 $breakEvenOperations = App\Operation::getBreakEvenOperations($user->id);
 $lossyOperations = App\Operation::getLossyOperations($user->id);
 
-$targetedRate = $targetedOperations * 100 / $finishedOperations;
-$lucrativeRate = $lucrativeOperations * 100 / $finishedOperations;
-$breakEvenRate = $breakEvenOperations * 100 / $finishedOperations;
-$lossyRate = $lossyOperations * 100 / $finishedOperations;
+if ($finishedOperations>0) {
+  $targetedRate = $targetedOperations * 100 / $finishedOperations;
+  $lucrativeRate = $lucrativeOperations * 100 / $finishedOperations;
+  $breakEvenRate = $breakEvenOperations * 100 / $finishedOperations;
+  $lossyRate = $lossyOperations * 100 / $finishedOperations;
+} else {
+  $targetedRate = 0;
+  $lucrativeRate = 0;
+  $breakEvenRate = 0;
+  $lossyRate = 0;
+}
 
 $avgResult = nullToZero(App\Operation::getAvgResultOperations($user->id));
 

@@ -52,4 +52,10 @@ class Strategy extends Model
                   //->whereNotNull('realexit')
                   ->sum('result');
     }
+
+    function getIndicatorsId()
+    {
+      $indicators = $this->indicators->implode('id',',');
+      return $indicators;
+    }
 }

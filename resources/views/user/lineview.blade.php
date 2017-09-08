@@ -10,6 +10,6 @@
   {!! getUserAvatar('img-circle','Avatar',$user) !!} {{ $user->name }}
 </a>
 {{ nbsp(2) }}
-<span class="text-yellow">{!! getLevelStars($user->profile->level) !!}</span>
+{!! getRankStars($user->rank) !!}
 @endif
 </div>

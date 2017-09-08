@@ -17,7 +17,6 @@ class CreateProfilesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedTinyInteger('level');
             $table->boolean('enabled')->default(True);
             $table->string('occupation',50)->nullable();
             $table->date('birthdate')->nullable();
@@ -29,7 +28,6 @@ class CreateProfilesTable extends Migration
             $table->string('twitter',50)->nullable();
             $table->text('description')->nullable();
             $table->decimal('capital',10,2)->default(100000.00);
-            $table->unsignedTinyInteger('status');
             $table->timestamps();
         });
     }

@@ -30,7 +30,8 @@ Route::middleware('auth')->group(function(){
   Route::get('strategy-rules', 'StrategyController@rules');
   Route::get('strategy-statistics', 'StrategyController@statistics');
   Route::get('mystrategies', 'StrategyController@mystrategies');
-  Route::get('beststrategies', 'StrategyController@beststrategies');
+  Route::get('beststrategies', 'StrategyController@best');
+  Route::get('strategies/following', 'StrategyController@following');
   Route::get('strategies/user/{id}', 'StrategyController@user');
   Route::get('operation-rules', 'OperationController@rules');
   Route::get('myoperations', 'OperationController@myoperations');
@@ -38,6 +39,14 @@ Route::middleware('auth')->group(function(){
   Route::get('operations/user/{id}', 'OperationController@user');
   Route::get('market', 'HomeController@market')->name('market');
   Route::get('users', 'UserController@users')->name('users');
+
+  Route::get('user/{id}/followers', 'UserController@followers')->name('followers');
+  Route::get('user/{id}/following', 'UserController@following')->name('following');
   Route::get('user/{id}/follow', 'UserController@follow')->name('follow');
   Route::get('user/{id}/unfollow', 'UserController@unfollow')->name('unfollow');
+  Route::get('user/{id}/lock', 'UserController@lock')->name('lock');
+  Route::get('user/{id}/unlock', 'UserController@unlock')->name('unlock');
+  Route::get('user/myfollowers', 'UserController@myfollowers')->name('myfollowers');
+  Route::get('user/following', 'UserController@myfollowing')->name('myfollowing');
+  Route::delete('user/{id}', 'UserController@destroy');
 });

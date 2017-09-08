@@ -32,7 +32,7 @@ class HomeController extends Controller
 
         $users = Auth::user()->leftJoin('profiles','users.id','=','profiles.user_id')
                       ->whereIn('users.id', $following)
-                      ->orderBy('level','desc')
+                      ->orderBy('rank','desc')
                       ->take(12)
                       ->get();
 
@@ -44,19 +44,19 @@ class HomeController extends Controller
         $newOperations = Operation::where('user_id',getUserId())
                                 ->whereIn('status',['N','A'])
                                 ->orderBy('updated_at','desc')
-                                ->take(10)
+                                ->take(8)
                                 ->get();
 
         $startedOperations = Operation::where('user_id',getUserId())
                                 ->whereIn('status',['I','M'])
                                 ->orderBy('updated_at','desc')
-                                ->take(10)
+                                ->take(8)
                                 ->get();
 
         $finishedOperations = Operation::where('user_id',getUserId())
                                 ->whereIn('status',['S','E','T'])
                                 ->orderBy('updated_at','desc')
-                                ->take(10)
+                                ->take(8)
                                 ->get();
 
         $data = [

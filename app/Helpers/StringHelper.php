@@ -23,9 +23,13 @@ if (! function_exists('special_ucwords')) {
 
 function strContains($strComplete,$str)
 {
+  $strComplete = (string) $strComplete;
+  $str = (string) $str;
+
   if (strpos($strComplete,$str)===False){
     return false;
   } else {
+    //dd($strComplete.' - '.$str);
     return true;
   }
 }

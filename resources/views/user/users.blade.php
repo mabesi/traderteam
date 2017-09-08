@@ -7,13 +7,16 @@
 
           <div class="box box-primary">
             <div class="box-header with-border">
+              <span class="user-line">
+                {!! $followLabel !!}<br>
+              </span>
               <h3 class="box-title">
-                Relação de Usuários ({{ ($follow=='followers'?'Seguidores: ':($follow=='following'?'Seguindo: ':'')).$totalUsers.' no total' }})
+                Relação de Usuários ({{ $totalUsers.' no total' }})
               </h3>
-              <a class="pull-right" href="{{ url('users?follow=followers') }}">
-                <button type="button" class="btn btn-sm btn-success" name="button">Seguidores</button>
+              <a class="pull-right" href="{{ url('user/myfollowers') }}">
+                <button type="button" class="btn btn-sm btn-success" name="button">Meus Seguidores</button>
               </a>
-              <a class="pull-right" href="{{ url('users?follow=following') }}">
+              <a class="pull-right" href="{{ url('user/following') }}">
                 <button type="button" class="btn btn-sm btn-danger" name="button">Seguindo</button>
                 {{ nbsp(2) }}
               </a>
@@ -27,12 +30,12 @@
                 <tbody>
                   <tr>
                     <th>Tipo</th>
-                    <th>Rank <a href="?sort=level&dir={{ ($sort=='level'?$newDir:'desc') }}">
-                      <i class="fa fa-sort-amount-{{ ($sort=='level'?$newDir:'desc') }}"></i></a></th>
+                    <th>Rank <a href="?sort=rank&dir={{ ($sort=='rank'?$newDir:'desc') }}">
+                      <i class="fa fa-sort-amount-{{ ($sort=='rank'?$newDir:'desc') }}"></i></a></th>
                     <th>
                       <div class="col-xs-5">
                         Nome <a href="?sort=name&dir={{ ($sort=='name'?$newDir:'asc') }}">
-                          <i class="fa fa-sort-amount-{{ ($sort=='name'?$newDir:'asc') }}"></i></a>
+                          <i class="fa fa-sort-alpha-{{ ($sort=='name'?$newDir:'asc') }}"></i></a>
 
                       </div>
                       <div class="col-xs-7">
@@ -63,31 +66,25 @@
                   </tr>
 @foreach ($users as $user)
                   <tr>
-                  <td class="text-center text-bold">{{ $user->type }}</td>
+                  <td class="text-center text-bold">{!! getUserTypeLabel($user->type) !!}</td>
+                  <td>{!! getRankStars($user->rank) !!}</td>
                 @if($user->profile==Null)
-                  <td><i class="fa fa-star text-gray"></i></td>
                   <td>
                     <span class="user-line">{!! getUserAvatar('img-circle','Avatar',$user) !!}</span>
                      {{ $user->name }}
-                     @if (Auth::user()->type=='S' || Auth::user()->type=='A')
-                       {{ nbsp(1) }}
-                       <a class="text-danger" href="{{ url('user/'.$user->id.'/delete') }}"><i class="fa fa-trash"></i></a>
-                     @endif
+                     {{ nbsp(2) }}
+                     {!! getUserAdminIcons($user,$currentPage) !!}
                   </td>
                   <td><i class="fa fa-question text-gray"></i></td>
                   <td><i class="fa fa-question text-gray"></i></td>
                 @else
-                  <td class='text-yellow'>{!! getLevelStars($user->profile->level) !!}</td>
+
                   <td>
                     <a class="user-line" href="{{ url('profile/'.$user->profile->id) }}">
                       {!! getUserAvatar('img-circle','Avatar',$user) !!} {{ $user->name }}
                     </a>
-                    @if (Auth::user()->type=='S' || Auth::user()->type=='A')
                       {{ nbsp(2) }}
-                        <a href="{{ url('profile/'.$user->profile->id.'/edit') }}"><i class="fa fa-pencil"></i></a>
-                      {{ nbsp(1) }}
-                        <a class="text-danger" href="{{ url('user/'.$user->id.'/delete') }}"><i class="fa fa-trash"></i></a>
-                    @endif
+                      {!! getUserAdminIcons($user,$currentPage) !!}
                   </td>
                   <td>{{ $user->profile->occupation }}</td>
                   <td>{{ $user->profile->city.', '.$user->profile->state }}</td>
@@ -102,7 +99,7 @@
               </table>
             </div>
             <div class="box-footer">
-              {{ $users->appends(['sort' => $sort,'dir' => $dir,'follow' => $follow])->links() }}
+              {{ $users->links() }}
             </div>
           </div>
 
@@ -112,3 +109,7 @@
       <!-- /.row -->
 
 @endsection
+
+@push('scripts')
+<script src="{{ asset("/js/form-helper.js") }}"></script>
+@endpush

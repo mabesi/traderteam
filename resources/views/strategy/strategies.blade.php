@@ -12,7 +12,7 @@
                 <div class="col-md-3">
 
                   <span class="font-16">Título <a href="?sort=title&dir={{ ($sort=='title'?$newDir:'desc') }}">
-                    <i class="fa fa-sort-amount-{{ ($sort=='title'?$newDir:'desc') }}"></i></a></span>
+                    <i class="fa fa-sort-alpha-{{ ($sort=='title'?$newDir:'desc') }}"></i></a></span>
                   {{ nbsp(4) }}
                   <span class="font-16">Resultado <a href="?sort=sumresult&dir={{ ($sort=='sumresult'?$newDir:'desc') }}">
                     <i class="fa fa-sort-amount-{{ ($sort=='sumresult'?$newDir:'desc') }}"></i></a></span>
@@ -38,6 +38,10 @@
                 <div class="col-md-3 text-right">
                   <a class="" href="{{ url($path) }}">
                     <button type="button" class="btn btn-sm btn-primary" name="button">Exibir Todas</button>
+                    {{ nbsp(2) }}
+                  </a>
+                  <a class="" href="{{ url('strategy/create') }}">
+                    <button type="button" class="btn btn-sm btn-success" name="button">Nova Estratégia</button>
                     {{ nbsp(2) }}
                   </a>
                 </div>

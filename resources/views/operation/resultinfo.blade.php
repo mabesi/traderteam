@@ -18,41 +18,48 @@
     $baseBar = 90;
   }
 
+  $userResult = getUserResult($user->id);
+
 @endphp
 
-<div class="text-center">
-@foreach (getMontlyUserResult(Null,$user->id) as $bar)
+<div class="row">
+  <div class="col-sm-12">
+    <div class="text-center">
+      @foreach (getMontlyUserResult(Null,$user->id) as $bar)
 
-  <div class="progress vertical progress-sm no-margin">
-    <div class="progress-bar progress-bar-{{ $bar['color'] }} font-10"
-         aria-valuenow="14"
-         aria-valuemin="0"
-         aria-valuemax="120"
-         style="height:{{ $baseBar + $bar['total'] }}%" >
-         {{ $bar['month'] }}<br>{{ number_format($bar['result'],1) }}
+      <div class="progress vertical progress-sm no-margin">
+        <div class="progress-bar progress-bar-{{ $bar['color'] }} font-10"
+        aria-valuenow="14"
+        aria-valuemin="0"
+        aria-valuemax="120"
+        style="height:{{ $baseBar + $bar['total'] }}%" >
+        {{ $bar['month'] }}<br>{{ number_format($bar['result'],1) }}
+      </div>
+    </div>
+
+    @endforeach
+  </div>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-xs-6">
+    <div class="text-center top-10">
+      <span class="btn btn-{{ btnValueClass($yearResult) }} pad">
+        <p class="font-18">Últimos 12 Meses</p>
+        <p class="font-30 text-bold">{{ formatRealNumber($yearResult,1) }}%</p>
+      </span>
     </div>
   </div>
 
-@endforeach
-
-</div>
-
-<div class="info-box top-10">
-  <span class="info-box-icon bg-teal">
-    <i class="fa fa-calendar"></i>
-  </span>
-  <div class="info-box-content">
-    <span class="info-box-text">Últimos 12 Meses</span>
-    <span class="info-box-number">{{ $yearResult }}%</span>
+  <div class="col-xs-6">
+    <div class="text-center top-10">
+      <span class="btn btn-{{ btnValueClass($userResult) }} pad">
+        <p class="font-18">Resultado Geral</p>
+        <p class="font-30 text-bold">{{ formatRealNumber($userResult,1) }}%</p>
+      </span>
+    </div>
   </div>
 
-</div>
-<div class="info-box">
-  <span class="info-box-icon bg-green">
-    <i class="fa fa-bar-chart"></i>
-  </span>
-  <div class="info-box-content">
-    <span class="info-box-text">Resultado Geral</span>
-    <span class="info-box-number">{{ getUserResult($user->id) }}%</span>
-  </div>
 </div>

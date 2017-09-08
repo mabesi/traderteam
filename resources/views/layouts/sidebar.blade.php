@@ -38,11 +38,12 @@
           <ul class="treeview-menu">
             <li><a href="{{ url('profile') }}">Meu Perfil</a></li>
             <li><a href="{{ url('users') }}">Lista de Usuários</a></li>
-            <li><a href="{{ url('users?follow=following') }}">Seguindo</a></li>
-            <li><a href="{{ url('users?follow=followers') }}">Seguidores</a></li>
-            <li><a href="{{ url('users?sort=level&dir=desc') }}">Top Ranking</a></li>
+            <li><a href="{{ url('user/following') }}">Seguindo</a></li>
+            <li><a href="{{ url('user/myfollowers') }}">Meus Seguidores</a></li>
+            <li><a href="{{ url('users?sort=rank&dir=desc') }}">Top Ranking</a></li>
             <li><a href="{{ url('users?sort=followers_count&dir=desc') }}">Top Seguidores</a></li>
             <li><a href="{{ url('users?sort=operations_count&dir=desc') }}">Top Operações</a></li>
+            <li><a href="{{ url('users?sort=strategies_count&dir=desc') }}">Top Estratégias</a></li>
           </ul>
         </li>
 
@@ -56,7 +57,7 @@
             <li><a href="{{ url('strategy/create') }}">Nova Estratégia</a></li>
             <li><a href="{{ url('mystrategies') }}">Minhas Estratégias</a></li>
             <li><a href="{{ url('beststrategies') }}">Melhores Estratégias</a></li>
-            <li><a href="{{ url('strategy-statistics') }}">Estatísticas</a></li>
+            <li><a href="{{ url('strategies/following') }}">Estratégias Seguindo</a></li>
             <li><a href="{{ url('strategy-rules') }}">Regras de Definição</a></li>
             <li><a href="{{ url('indicator') }}">Indicadores</a></li>
           </ul>
