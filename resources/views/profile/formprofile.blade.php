@@ -115,10 +115,10 @@
     </div>
   </div>
 
+@if (isSuperAdmin() || $user->id == getUserId())
   <div class="form-group">
     <label for="capital" class="col-sm-3 control-label">Capital</label>
 
-@if (isSuperAdmin() || $user->id == getUserId())
     <div class="col-sm-9">
       <div class="input-group">
         <span class="input-group-addon">

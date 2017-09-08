@@ -37,7 +37,8 @@ class CreateOperationsTable extends Migration
             $table->date('exitdate')->nullable();
             $table->text('postanalysis')->nullable();
             $table->string('postimage',100)->nullable();
-            // N: Nova; A: Alterada; C: Cancelada; I: Iniciada; S: Stopada; F: Finalizada;
+            // N: Nova; A: Alterada; I: Iniciada; M: Stop Movido;
+            // S: Stopada; T: Finalizada;
             $table->string('status',1)->default('N');
             $table->timestamps();
         });

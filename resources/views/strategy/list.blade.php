@@ -1,7 +1,11 @@
 @foreach ($strategies as $strategy)
 <div class="post">
   <div class="row">
-    <div class="col-sm-8 col-lg-4">
+@if ($profileView)
+    <div class="col-sm-8 col-lg-6">
+@else
+  <div class="col-sm-8 col-lg-4">
+@endif
       <div class="font-16">
         <a href="{{ url('strategy/'.$strategy->id) }}">{{ $strategy->title }}</a>
         {{ nbsp(2) }}
@@ -38,14 +42,13 @@
     </div>
 
 @if (!$profileView)
-
     <div class="col-sm-2 col-lg-2">
       <div class="font-14 text-bold">
         Operações: {{ $strategy->operations_count }}</a>
       </div>
     </div>
-
 @endif
+
     <div class="col-sm-12 col-lg-5">
       <div>
         <strong>Indicadores:</strong>

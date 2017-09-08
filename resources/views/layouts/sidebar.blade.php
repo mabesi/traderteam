@@ -12,11 +12,11 @@
       </div>
 
       <!-- search form (Optional) -->
-      <form action="#" method="get" class="sidebar-form">
+      <form action="{{ route('search') }}" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Buscar...">
               <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
         </div>
@@ -80,6 +80,7 @@
           </ul>
         </li>
 
+@if (false)
         <li class="treeview">
           <a href="#"><i class="fa fa-envelope"></i> <span>Mensagens</span>
             <span class="pull-right-container">
@@ -91,8 +92,11 @@
             <li><a href="#">Caixa de Entrada</a></li>
           </ul>
         </li>
+@endif
 
         <li><a href="{{ route('market') }}"><i class="fa fa-globe"></i> <span>Mercado Mundial</span></a></li>
+
+        <li><a href="{{ route('help') }}"><i class="fa fa-question-circle"></i> <span>Ajuda</span></a></li>
 
       </ul>
       <!-- /.sidebar-menu -->

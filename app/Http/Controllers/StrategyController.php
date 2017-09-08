@@ -266,7 +266,7 @@ class StrategyController extends Controller
         'errors' => null,
       ];
 
-      return view('strategyrules', $data);
+      return view('strategy.rules', $data);
     }
 
     public function statistics()

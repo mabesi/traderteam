@@ -86,4 +86,27 @@ class HomeController extends Controller
     {
       return view('market');
     }
+
+    public function help()
+    {
+      $data = [
+        'viewname' => 'Ajuda',
+        'viewtitle' => 'Ajuda',
+      ];
+
+      return view('help',$data);
+    }
+
+    public function search(Request $request)
+    {
+      $search = $request->q;
+
+      $data = [
+        'viewname' => 'Pesquisa',
+        'viewtitle' => 'Pesquisa',
+        'q' => $search,
+      ];
+
+      return view('search',$data);
+    }
 }

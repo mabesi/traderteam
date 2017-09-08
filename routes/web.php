@@ -25,6 +25,8 @@ Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::middleware('auth')->group(function(){
 
   Route::get('market', 'HomeController@market')->name('market');
+  Route::get('help', 'HomeController@help')->name('help');
+  Route::get('search', 'HomeController@search')->name('search');
 
   Route::resource('profile', 'ProfileController');
   Route::resource('strategy', 'StrategyController');
