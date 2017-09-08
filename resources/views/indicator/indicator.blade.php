@@ -10,7 +10,7 @@
         <h3 class="no-padding no-margin" >{{ $indicator->name.' ('.$indicator->acronym.')' }}
 
           <span class="pull-right">
-            {!! getItemAdminIcons($indicator,'indicator','indicator') !!}
+            {!! getItemAdminIcons($indicator,'indicator','True') !!}
           </span>
 
         </h3>
@@ -44,7 +44,7 @@
       </div>
       <div class="box-body">
 
-        {!! $indicator->getImage() !!}
+        {!! $indicator->getImage('img-max pad') !!}
 
       </div>
       <div class="box-footer">

@@ -44,7 +44,7 @@
               <div class="col-sm-10">
                 <h3 class="no-margin"><a href="{{ url('indicator/'.$indicator->id) }}">{{ $indicator->name.' ('.$indicator->acronym.')' }}</a>
                   <span class="pull-right font-16">
-                    {!! getItemAdminIcons($indicator,'indicator','indicator') !!}
+                    {!! getItemAdminIcons($indicator,'indicator','False') !!}
                   </span>
                 </h3>
                 <p>Tipo de Indicador: <strong>{{ indicatorType($indicator->type) }}</strong></p>
@@ -71,9 +71,11 @@
     <!-- /.col -->
   </div>
   <!-- /.row -->
-
+  
+@include('layouts.imagemodal')
 @endsection
 
 @push('scripts')
 <script src="{{ asset("/js/form-helper.js") }}"></script>
+<script src="{{ asset("/js/img-helper.js") }}"></script>
 @endpush

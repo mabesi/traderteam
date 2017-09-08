@@ -171,8 +171,8 @@ class IndicatorController extends Controller
     {
       if (isAdmin()){
 
-        //if ($indicator->delete()){
-        if (true){
+        if ($indicator->delete()){
+        //if (true){
           $data = getMsgDeleteSuccess();
         } else {
           $data = getMsgDeleteError();

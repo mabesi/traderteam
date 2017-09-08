@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 
 class UserController extends Controller
@@ -147,6 +148,49 @@ class UserController extends Controller
       $data = getMsgAccessForbidden();
     }
     return response()->json($data);
+  }
+
+  public function changePassword(Request $request,$id)
+  {
+    //$request->validate([
+    //  'newpassword' => 'required|confirmed|min:8',
+    //]);
+
+    $user = User::find($id);
+
+    if ($request->password==Null || $request->newpassword==Null || $request->newpassword_confirmation==Null){
+      return back()->with('warnings', ['Por favor preencha todos os campos!']);
+    } else {
+
+      $password = $request->password;
+
+      //dd($password.' - '.bcrypt($password).' - '.Auth::user()->password);
+      //dd(Hash::make($password).' - '.Auth::user()->password);
+
+      if (!Hash::check($password,Auth::user()->password)){
+        return back()->with('errors', ['Senha atual incorreta!']);
+      }
+
+      $newpassword = $request->newpassword;
+      $newpassword_confirmation = $request->newpassword_confirmation;
+
+      if ($newpassword == $newpassword_confirmation){
+
+        $user->password = Hash::make($newpassword);
+
+        if (isAdmin() || $user->id == getUserId()){
+
+          $user->save();
+          return back()->with('informations', ['A senha foi alterada com sucesso!']);
+
+        } else {
+          return back()->with('errors', ['Falha ao alterar a senha. Acesso proibido!']);
+        }
+
+      } else {
+        return back()->with('errors', ['A nova senha não confere com a confirmação!']);
+      }
+    }
   }
 
 }

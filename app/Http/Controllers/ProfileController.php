@@ -40,9 +40,9 @@ class ProfileController extends Controller
 
       if ($data['profile']==Null){
         $data['warnings'] = ['Você ainda não criou o seu perfil. Aproveite para fazer isso agora...'];
-        return view('newprofile', $data);
+        return view('profile.newprofile', $data);
       } else {
-        return view('profile', $data);
+        return view('profile.profile', $data);
       }
     }
 
@@ -65,11 +65,21 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
       $profile = new Profile;
+      $userChanged = False;
 
       $user = User::find(getUserId());
       $avatarName = saveImage($request,'avatar','avatar',getUserId());
       if ($avatarName != false){
         $user->avatar = $avatarName;
+        $userChanged = True;
+      }
+
+      if (isSuperAdmin() && $request->type){
+        $user->type = $request->type;
+        $userChanged = True;
+      }
+
+      if ((isAdmin() || $user->id == getUserId()) && $userChanged){
         $user->save();
       }
 
@@ -138,7 +148,7 @@ class ProfileController extends Controller
           'profileView' => True,
         ];
 
-        return view('profile', $data);
+        return view('profile.profile', $data);
       }
     }
 
@@ -162,12 +172,23 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+      $userChanged = False;
+
       $profile = Profile::find($id);
       $user = User::find($profile->user->id);
       $avatarName = saveImage($request,'avatar','avatar',getUserId(),getUserAvatarName(),'default.png');
 
       if ($avatarName != false){
         $user->avatar = $avatarName;
+        $userChanged = True;
+      }
+
+      if (isSuperAdmin() && $request->type){
+        $user->type = $request->type;
+        $userChanged = True;
+      }
+
+      if ((isAdmin() || $user->id == getUserId()) && $userChanged){
         $user->save();
       }
 
@@ -190,9 +211,11 @@ class ProfileController extends Controller
         $profile->capital = $request->capital;
       }
 
-      $profile->save();
-
-      return redirect('profile');
+      if ($profile->save()){
+        return back()->with('informations', ['As informações foram atualizadas com sucesso!']);
+      } else {
+        return back()->with('errors', ['Erro ao salvar. As informações não foram atualizadas!']);
+      }
     }
 
     /**

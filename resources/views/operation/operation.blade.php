@@ -21,7 +21,11 @@
         <li><div class="pad">
           <button type="submit" class="btn btn-lg pad btn-primary">{{ (isset($operation->id)?'Salvar':'Enviar') }}</button>
           {{ nbsp(2) }}
+@if (isset($operation))
           <a href="{{ url('operation/'.$operation->id) }}" class="btn btn-lg pad btn-warning">Cancelar</a>
+@else
+          <a href="{{ route('home') }}" class="btn btn-lg pad btn-warning">Cancelar</a>
+@endif
         </div></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
         <li class="active"><a class="btn btn-info" href="#operation" data-toggle="tab"><b>Operação</b></a></li>

@@ -15,7 +15,8 @@ $( document ).ready(function() {
     function deleteItem(e) {
 
       var token = $(e).data('token');
-      var redirect = $(e).data('redirect');
+      var resource = ($(e).data('resource') == 'True');
+      var previous = $(e).data('previous');
       var url = $(e).attr('href');
 
       if (confirm('Confirma a exclusão deste item?')==true){
@@ -26,7 +27,12 @@ $( document ).ready(function() {
           success: function(response){
             if (response.success){
               alert(response.msg);
-              $(location).attr('href',redirect);
+              if (resource){
+                $(location).attr('href',previous);
+                //history.back();
+              } else {
+                location.reload();
+              }
             } else {
               alert(response.msg);
             }

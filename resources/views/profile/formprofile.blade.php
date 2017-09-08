@@ -15,7 +15,7 @@
   </div>
   <div class="col-sm-9">
     <p class="text-muted">
-      Com exceção da imagem do perfil, todas as informações são opcionais.
+      Todas as informações são opcionais.
     </p>
   </div>
 </div>
@@ -25,7 +25,7 @@
 
     <div class="col-sm-5">
       <input id="avatar" name="avatar" class="btn btn-primary imagepreview" type="file"
-       accept="image/png,image/jpeg" max-size="204800" required>
+       accept="image/png,image/jpeg" max-size="204800">
       <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 200KB.</p>
     </div>
     <div class="col-sm-4">
@@ -118,6 +118,7 @@
   <div class="form-group">
     <label for="capital" class="col-sm-3 control-label">Capital</label>
 
+@if (isSuperAdmin() || $user->id == getUserId())
     <div class="col-sm-9">
       <div class="input-group">
         <span class="input-group-addon">
@@ -128,6 +129,34 @@
       <small class="text-muted">* Valor real ou arbitrário, usado para estatísticas. Caso não seja informado, será utilizado o valor fictício de 100.000,00</small>
     </div>
   </div>
+@endif
+
+@if (isSuperAdmin())
+  <div class="form-group">
+    <label for="type" class="col-sm-3 control-label">Tipo de Usuário *</label>
+
+    <div class="col-sm-9">
+      <div class="radio">
+        <label>
+          <input id="typeU" name="type" value="U" type="radio" {{ ((isset($user->type)?$user->type:'')=='U'?'checked':'') }} >
+          <span class=" label bg-gray">Usuário</span>
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input id="typeA" name="type" value="A" type="radio" {{ ((isset($user->type)?$user->type:'')=='A'?'checked':'') }} >
+          <span class=" label bg-red">Administrador</span>
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input id="typeS" name="type" value="S" type="radio" {{ ((isset($user->type)?$user->type:'')=='S'?'checked':'') }} >
+          <span class=" label bg-black">Super Administrador</span>
+        </label>
+      </div>
+    </div>
+  </div>
+@endif
 
   <div class="form-group">
     <div class="col-sm-offset-3 col-sm-9">

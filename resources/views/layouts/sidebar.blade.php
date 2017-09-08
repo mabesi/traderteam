@@ -92,7 +92,7 @@
           </ul>
         </li>
 
-        <li><a href="{{ route('market') }}"><i class="fa fa-area-chart"></i> <span>Mercado</span></a></li>
+        <li><a href="{{ route('market') }}"><i class="fa fa-globe"></i> <span>Mercado Mundial</span></a></li>
 
       </ul>
       <!-- /.sidebar-menu -->

@@ -25,7 +25,7 @@
           @endif
 
           <span class="pull-right">
-            {!! getItemAdminIcons($strategy,'strategy','mystrategies') !!}
+            {!! getItemAdminIcons($strategy,'strategy','True') !!}
           </span>
 
         </h3>
@@ -72,9 +72,24 @@
           @foreach ($strategy->indicators as $indicator)
 
           <div class="post">
-          <a href="{{ url('indicator/'.$indicator->id) }}"><h4>{{ $indicator->name.' ('.$indicator->acronym.')' }}</h4></a>
-          <p>Tipo de Indicador: <strong>{{ indicatorType($indicator->type) }}</strong></p>
-          <div id='indicator-description'>{!! substr($indicator->description, 0, 150) !!}...</div>
+
+            <div class="row">
+              <div class="col-sm-3">
+                {!! $indicator->getImage() !!}
+              </div>
+              <div class="col-sm-9">
+                <h5>
+                  <a href="{{ url('indicator/'.$indicator->id) }}">
+                    {{ $indicator->name.' ('.$indicator->acronym.')' }}
+                  </a> | <small><b>{{ indicatorType($indicator->type) }}</b></small>
+                  <span class="pull-right">
+                    {!! getItemAdminIcons($indicator,'indicator','False') !!}
+                  </span>
+                </h5>
+                <div id='indicator-description'>{!! substr($indicator->description, 0, 150) !!}...</div>
+              </div>
+            </div>
+
           </div>
 
           @endforeach

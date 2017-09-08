@@ -260,7 +260,7 @@ function operationRealOrSimulated($type)
   return $typeList[$type];
 }
 
-function getUserAdminIcons($user,$redirect)
+function getUserAdminIcons($user,$resource)
 {
   if ($user->confirmed){
     $icons = "<span title='Confirmado' class='text-info'><i class='fa fa-check-square-o'></i></span>";
@@ -277,7 +277,7 @@ function getUserAdminIcons($user,$redirect)
   }
 
   if (isAdmin()){
-    $icons .= "<a title='Deletar Usuário' class='text-danger delete-button' href='".url('user/'.$user->id)."' data-token='".csrf_token()."' data-redirect='".url($redirect)."'><i class='fa fa-trash'></i></a>".nbsp(2);
+    $icons .= "<a title='Deletar Usuário' class='text-danger delete-button' href='".url('user/'.$user->id)."' data-token='".csrf_token()."' data-resource='".$resource."' data-previous='".URL::previous()."'><i class='fa fa-trash'></i></a>".nbsp(2);
     if ($user->locked){
       $icons .= "<a title='Desbloquear Usuário' class='text-warning' href='".url('user/'.$user->id.'/unlock')."'><i class='fa fa-lock'></i></a>";
     } else {
@@ -289,13 +289,13 @@ function getUserAdminIcons($user,$redirect)
   return trim($icons);
 }
 
-function getItemAdminIcons($item,$itemType,$redirect)
+function getItemAdminIcons($item,$itemType,$resource)
 {
   $icons = '';
 
   if (isAdmin() || $item->user_id == getUserId()){
     $icons .= "<a class='text-primary edit-button' href='".url($itemType.'/'.$item->id.'/edit')."'><i class='fa fa-pencil'></i></a>".nbsp(2);
-    $icons .= "<a class='text-danger delete-button' href='".url($itemType.'/'.$item->id)."' data-token='".csrf_token()."' data-redirect='".url($redirect)."'><i class='fa fa-trash'></i></a>";
+    $icons .= "<a class='text-danger delete-button' href='".url($itemType.'/'.$item->id)."' data-token='".csrf_token()."' data-resource='".$resource."' data-previous='".URL::previous()."'><i class='fa fa-trash'></i></a>";
   }
 
   return trim($icons);
@@ -365,16 +365,19 @@ function getUserLevel($user)
     $level = 3; //Analista
   } elseif ($followers >= 10 && (($operations >= 50 && $result > 10) || ($operations >= 10 && $result>=50))){
     $level = 2; //Operador
-  } else {
+  } elseif ($operations > 0) {
     $level = 1; //Sardinha
+  } else {
+    $level = 0; //Observador
   }
 
   return $level;
 }
 
-function getLevelName($level)
+function getRankName($rank)
 {
-  $levelList = [
+  $rankList = [
+    '0' => 'Observador',
     '1' => 'Sardinha',
     '2' => 'Operador',
     '3' => 'Analista',
@@ -382,17 +385,19 @@ function getLevelName($level)
     '5' => 'Tubarão',
   ];
 
-  return $levelList[$level];
+  return $rankList[$rank];
 }
 
 function getRankStars($rank)
 {
+  $stars = '<span title="'.getRankName($rank).'" ';
+
   if ($rank == 0){
-    return '<span class="text-gray"><i class="fa fa-star"></i></span>';
+    return $stars.'class="text-gray"><i class="fa fa-star"></i></span>';
   } elseif ($rank == 5) {
-    $stars='<span class="label bg-black text-yellow">';
+    $stars .= 'class="label bg-black text-yellow">';
   } else {
-    $stars='<span class="text-yellow">';
+    $stars .= 'class="text-yellow">';
   }
 
   for ($i=0;$i<$rank;$i++){
@@ -590,7 +595,7 @@ function getChartHeigth()
   return 420;
 }
 
-function getChartInterval($interval='S')
+function getChartInterval($interval='D')
 {
   $typeList = [
     '5' => '300',

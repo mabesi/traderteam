@@ -10,7 +10,7 @@
               <h3 class="box-title">Informações do Perfil</h3>
             </div>
 
-            @include('layouts.formprofile')
+            @include('profile.formprofile')
 
             <br />
           </div>

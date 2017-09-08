@@ -19,7 +19,11 @@ class Indicator extends Model
   {
     $alt=$this->name;
     $src = asset("/storage/indicators/".$this->image);
-    return getHtmlImage($src,$class,$alt,Null,$alt);
+    $img = getHtmlImage($src,$class,$alt,Null,$alt);
+    $link = '<a href="#" class="azoom" title="Clique para aumentar!">'.
+            $img.
+            '</a>';
+    return $link;
   }
 
   public static function getIndicatorsId($search)

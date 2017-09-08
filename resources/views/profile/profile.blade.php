@@ -14,7 +14,7 @@
 
               <h3 class="profile-username text-center">{{ $user->name }}</h3>
               <div class="font-20 text-center">{!! getRankStars($user->rank) !!}</div>
-              <div class="text-center text-muted">{{ getLevelName($user->rank) }}</div>
+              <div class="text-center text-muted">{{ getRankName($user->rank) }}</div>
               <center class="text-muted font-12 text-center">Membro desde {{ $user->memberSince() }}</center>
 
               <ul class="list-group list-group-unbordered">
@@ -120,9 +120,11 @@
         <div class="col-lg-8">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#operations" data-toggle="tab">Operações</a></li>
-              <li><a href="#strategies" data-toggle="tab">Estratégias</a></li>
-              <li><a href="#settings" data-toggle="tab">Configurações</a></li>
+              <li class="active"><a href="#operations" data-toggle="tab"><b>Operações</b></a></li>
+              <li><a href="#strategies" data-toggle="tab"><b>Estratégias</b></a></li>
+@if (isAdmin() || $user->id == getUserId())
+              <li><a href="#settings" data-toggle="tab"><b>Configurações</b></a></li>
+@endif
             </ul>
             <div class="tab-content">
 
@@ -142,13 +144,15 @@
                 </div>
               </div>
 
+@if (isAdmin() || $user->id == getUserId())
               <div class="tab-pane" id="settings">
+
                 <div class="box box-primary">
                   <div class="box-header with-border">
                     <h3 class="box-title">Informações do Perfil</h3>
                   </div>
 
-                  @include('layouts.formprofile')
+                  @include('profile.formprofile')
 
                 </div>
 
@@ -158,42 +162,13 @@
                   </div>
 
                   <div class="box-body">
-                    <form class="form-horizontal">
-                      <div class="form-group">
-                        <label for="password" class="col-sm-3 control-label">Senha Atual</label>
-
-                        <div class="col-sm-9">
-                          <input type="password" name="password" class="form-control" id="password">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="confirmPassword" class="col-sm-3 control-label">Nova Senha</label>
-
-                        <div class="col-sm-9">
-                          <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="confirmPassword" class="col-sm-3 control-label">Confirme a Senha</label>
-
-                        <div class="col-sm-9">
-                          <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9">
-                          <button type="submit" class="btn btn-danger">Enviar</button>
-                        </div>
-                      </div>
-                    </form>
-
+                    @include('profile.changepassword')
                   </div>
 
                 </div>
+@endif
 
-
-              </div>
-              <!-- /.tab-pane -->
+              </div><!-- /.tab-pane -->
             </div>
             <!-- /.tab-content -->
           </div>

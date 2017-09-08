@@ -36,6 +36,16 @@
         </div>
       </div>
 @endif
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Tempo Gráfico</strong>
+        </div>
+        <div class="col-md-9">
+          {{ gtimeName($operation->gtime) }}
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-md-3">
           <strong>Criada a</strong>
@@ -44,22 +54,13 @@
           {{ humanPastTime($operation->created_at) }}
         </div>
       </div>
-
+      
       <div class="row">
         <div class="col-md-3">
           <strong>Estratégia</strong>
         </div>
         <div class="col-md-9">
           <a href="{{ url('strategy/'.$operation->strategy->id) }}">{{ $operation->strategy->title }}</a>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3">
-          <strong>Tempo Gráfico</strong>
-        </div>
-        <div class="col-md-9">
-          {{ gtimeName($operation->gtime) }}
         </div>
       </div>
 

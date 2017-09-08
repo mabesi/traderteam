@@ -4,6 +4,8 @@
     <div class="col-sm-8 col-lg-4">
       <div class="font-16">
         <a href="{{ url('strategy/'.$strategy->id) }}">{{ $strategy->title }}</a>
+        {{ nbsp(2) }}
+        {!! getItemAdminIcons($strategy,'strategy','False') !!}
 
         @if ($strategy->user_id != getUserId() && !$profileView)
           <span class="font-10">
