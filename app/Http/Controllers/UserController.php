@@ -168,7 +168,7 @@ class UserController extends Controller
       //dd(Hash::make($password).' - '.Auth::user()->password);
 
       if (!Hash::check($password,Auth::user()->password)){
-        return back()->with('errors', ['Senha atual incorreta!']);
+        return back()->with('problems', ['Senha atual incorreta!']);
       }
 
       $newpassword = $request->newpassword;
@@ -184,11 +184,11 @@ class UserController extends Controller
           return back()->with('informations', ['A senha foi alterada com sucesso!']);
 
         } else {
-          return back()->with('errors', ['Falha ao alterar a senha. Acesso proibido!']);
+          return back()->with('problems', ['Falha ao alterar a senha. Acesso proibido!']);
         }
 
       } else {
-        return back()->with('errors', ['A nova senha não confere com a confirmação!']);
+        return back()->with('problems', ['A nova senha não confere com a confirmação!']);
       }
     }
   }

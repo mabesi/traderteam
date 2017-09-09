@@ -13,7 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="{{ asset("/adminlte2/bootstrap/css/bootstrap.min.css") }}">
   <!-- Font Awesome -->
-  
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
 
@@ -70,7 +70,9 @@ desired effect
 
 @if (isset($viewname))
   <section class="content-header">
-    <h1>
+    <h1 class="text-bold text-primary">
+      <button type="button" class="btn btn-default btn-sm" onClick="history.go(-1)"><i class="fa fa-arrow-circle-left "></i>{{nbsp(2)}}Voltar</button>
+      {{nbsp(1)}}
       {{ $viewtitle }}
 @if (isset($viewdescription))
       <small>{{ $viewdescription }}</small>

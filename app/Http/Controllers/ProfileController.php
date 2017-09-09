@@ -129,7 +129,7 @@ class ProfileController extends Controller
 
       if ($profile == Null){
 
-        return redirect('/')->with('errors', ['O perfil informado não existe!']);
+        return redirect('/')->with('problems', ['O perfil informado não existe!']);
 
       } else {
 
@@ -214,7 +214,7 @@ class ProfileController extends Controller
       if ($profile->save()){
         return back()->with('informations', ['As informações foram atualizadas com sucesso!']);
       } else {
-        return back()->with('errors', ['Erro ao salvar. As informações não foram atualizadas!']);
+        return back()->with('problems', ['Erro ao salvar. As informações não foram atualizadas!']);
       }
     }
 

@@ -80,6 +80,20 @@
           </ul>
         </li>
 
+        <li class="treeview">
+          <a href="#"><i class="fa fa-bullhorn"></i> <span>Avisos</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+@if (isAdmin())
+            <li><a href="{{ url('notice/create') }}">Novo Aviso</a></li>
+@endif
+            <li><a href="{{ url('notice') }}">Lista de Avisos</a></li>
+          </ul>
+        </li>
+
 @if (false)
         <li class="treeview">
           <a href="#"><i class="fa fa-envelope"></i> <span>Mensagens</span>

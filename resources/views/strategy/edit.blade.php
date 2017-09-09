@@ -15,7 +15,7 @@
         <h3 class="box-title">Estratégia de Operação em Bolsa</h3>
       </div>
 
-      <form class="form-horizontal" action="{{ url('/strategy'.(isset($strategy->id)?'/'.$strategy->id:'')) }}" method="POST">
+      <form class="form-horizontal pad" action="{{ url('/strategy'.(isset($strategy->id)?'/'.$strategy->id:'')) }}" method="POST">
 
       {{ csrf_field() }}
 
@@ -65,7 +65,7 @@
           <div class="col-sm-offset-3 col-sm-9">
             <button type="submit" class="btn btn-primary">{{ (isset($strategy->id)?'Salvar':'Enviar') }} </button>
             {{ nbsp(2) }}
-            <a class="btn btn-warning" href="{{ url('strategy/'.$strategy->id) }}">Cancelar</a>
+            <a class="btn btn-warning" href="{{ url('strategy'.(isset($strategy->id)?'/'.$strategy->id:'')) }}">Cancelar</a>
           </div>
         </div>
       </form>

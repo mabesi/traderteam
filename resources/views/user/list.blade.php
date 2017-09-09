@@ -1,5 +1,5 @@
 @foreach ($users as $user)
-<div class="pad">
+<div class="top-10">
   @include('user.lineview')
 </div>
 @endforeach

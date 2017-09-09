@@ -243,19 +243,19 @@ class StrategyController extends Controller
       $strategy = Strategy::find($id);
 
       if ($strategy->has('operations')){
-        $data = getMsgDeleteErrorVinculated();
+        $message = getMsgDeleteErrorVinculated();
       } else {
         if (isAdmin() || $strategy->user_id = getUserId()){
           if ($strategy->delete()){
-            $data = getMsgDeleteSuccess();
+            $message = getMsgDeleteSuccess();
           } else {
-            $data = getMsgDeleteError();
+            $message = getMsgDeleteError();
           }
         } else {
-          $data = getMsgAccessForbidden();
+          $message = getMsgAccessForbidden();
         }
       }
-      return response()->json($data);
+      return response()->json($message);
     }
 
     public function rules()
@@ -263,7 +263,6 @@ class StrategyController extends Controller
       $data = [
         'viewname' => 'Regras',
         'viewtitle' => 'Regras',
-        'errors' => null,
       ];
 
       return view('strategy.rules', $data);

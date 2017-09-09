@@ -46,6 +46,16 @@ $factory->define(App\Indicator::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Notice::class, function (Faker\Generator $faker) {
+
+    return [
+        'user_id' => rand(1,10),
+        'title' => $faker->sentence(3),
+        'content' => $faker->paragraph(),
+        'onlyadmin' => $faker->randomElement([True,False,False,False,False,False]),
+    ];
+});
+
 $factory->define(App\Operation::class, function (Faker\Generator $faker) {
 
     return [

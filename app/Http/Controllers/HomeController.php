@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Operation;
+use App\Notice;
 
 class HomeController extends Controller
 {
@@ -30,11 +31,14 @@ class HomeController extends Controller
 
         $following = getFollowingId();
 
-        $users = Auth::user()->leftJoin('profiles','users.id','=','profiles.user_id')
-                      ->whereIn('users.id', $following)
-                      ->orderBy('rank','desc')
-                      ->take(12)
-                      ->get();
+        //$users = Auth::user()->leftJoin('profiles','users.id','=','profiles.user_id')
+          //            ->whereIn('users.id', $following)
+
+        $users = Auth::user()->following->sortByDesc('rank');
+
+        $test = $users->splice(10);
+
+        //dd($users);
 
         $operations = Operation::whereIn('user_id', $following)
                                 ->orderBy('updated_at','desc')
@@ -44,7 +48,7 @@ class HomeController extends Controller
         $newOperations = Operation::where('user_id',getUserId())
                                 ->whereIn('status',['N','A'])
                                 ->orderBy('updated_at','desc')
-                                ->take(8)
+                                ->take(5)
                                 ->get();
 
         $startedOperations = Operation::where('user_id',getUserId())
@@ -56,7 +60,11 @@ class HomeController extends Controller
         $finishedOperations = Operation::where('user_id',getUserId())
                                 ->whereIn('status',['S','E','T'])
                                 ->orderBy('updated_at','desc')
-                                ->take(8)
+                                ->take(5)
+                                ->get();
+
+        $notices = Notice::orderBy('updated_at','desc')
+                                ->take(6)
                                 ->get();
 
         $data = [
@@ -65,6 +73,7 @@ class HomeController extends Controller
           'newOperations' => $newOperations,
           'startedOperations' => $startedOperations,
           'finishedOperations' => $finishedOperations,
+          'notices' => $notices,
           'user' => Auth::user(),
         ];
 

@@ -1,8 +1,17 @@
-@if (session('errors'))
+@if (isset($errors) && count($errors) > 0)
 <div class="alert alert-danger alert-dismissible">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    @foreach (session('errors') as $error)
+    @foreach ($errors->all() as $error)
     <p><i class="icon fa fa-ban"></i> {{ $error }}</p>
+    @endforeach
+</div>
+@endif
+
+@if (session('problems'))
+<div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    @foreach (session('problems') as $problem)
+    <p><i class="icon fa fa-ban"></i> {{ $problem }}</p>
     @endforeach
 </div>
 @endif

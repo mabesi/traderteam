@@ -75,10 +75,9 @@ class IndicatorController extends Controller
       $data = [
         'viewname' => 'Novo Indicador',
         'viewtitle' => 'Novo Indicador',
-        'errors' => null,
       ];
 
-      return view('indicator', $data);
+      return view('indicator.edit', $data);
     }
 
     /**
@@ -132,7 +131,6 @@ class IndicatorController extends Controller
       $data = [
         'viewname' => 'Editar Indicador',
         'viewtitle' => 'Editar Indicador',
-        'errors' => null,
         'indicator' => $indicator,
       ];
 
@@ -172,15 +170,14 @@ class IndicatorController extends Controller
       if (isAdmin()){
 
         if ($indicator->delete()){
-        //if (true){
-          $data = getMsgDeleteSuccess();
+          $message = getMsgDeleteSuccess();
         } else {
-          $data = getMsgDeleteError();
+          $message = getMsgDeleteError();
         }
 
       } else {
-        $data = getMsgAccessForbidden();
+        $message = getMsgAccessForbidden();
       }
-      return response()->json($data);
+      return response()->json($message);
     }
 }

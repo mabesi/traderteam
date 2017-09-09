@@ -156,7 +156,6 @@ class OperationController extends Controller
       $data = [
         'viewname' => 'Nova Operação',
         'viewtitle' => 'Nova Operação Swing Trade',
-        'errors' => null,
         'strategies' => $strategies,
         'status' => 'P',
       ];
@@ -274,7 +273,6 @@ class OperationController extends Controller
       $data = [
         'viewname' => 'Sumário da Operação',
         'viewtitle' => 'Sumário da Operação',
-        'errors' => null,
         'operation' => $operation,
         'status' => $operation->status,
         'preanalysis01' => $preanalysis01,
@@ -336,7 +334,6 @@ class OperationController extends Controller
       $data = [
         'viewname' => 'Editar Operação',
         'viewtitle' => 'Editar Operação',
-        'errors' => null,
         'operation' => $operation,
         'status' => $operation->status,
         'preanalysis01' => $preanalysis01,
@@ -513,7 +510,6 @@ class OperationController extends Controller
       $data = [
         'viewname' => 'Regras',
         'viewtitle' => 'Regras',
-        'errors' => null,
       ];
 
       return view('operation.rules', $data);

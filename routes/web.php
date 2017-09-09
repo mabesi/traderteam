@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function(){
   Route::resource('strategy', 'StrategyController');
   Route::resource('indicator', 'IndicatorController');
   Route::resource('operation', 'OperationController');
+  Route::resource('notice', 'NoticeController');
 
   Route::get('strategy-rules', 'StrategyController@rules');
   Route::get('strategy-statistics', 'StrategyController@statistics');

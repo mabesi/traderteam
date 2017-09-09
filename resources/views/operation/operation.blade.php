@@ -33,8 +33,7 @@
         <li><a class="btn btn-success" href="#postanalysis" data-toggle="tab"><b>Pós-Análise</b></a></li>
       </ul>
 
-      <div class="tab-content">
-
+      <div class="tab-content pad">
 
         <!-- /.tab-pane -->
         <div class="tab-pane active" id="operation">
@@ -325,7 +324,8 @@
                           <label for="preanalysis01" class="control-label">Análise do Gráfico 1</label>
                         </div>
                         <div class="box-body">
-                          <textarea class="textarea textarea-md form-control" name="preanalysis01" id="preanalysis01" rows="15">
+                          <textarea class="textarea textarea-md form-control" name="preanalysis01" id="preanalysis01" rows="15"
+                            {{ lockOperationFields('preanalysis01',$status) }} >
                             {!! old('preanalysis01',isset($preanalysis01)?$preanalysis01:Null) !!}
                           </textarea>
                         </div>
@@ -366,7 +366,8 @@
                           <label for="preanalysis02" class="control-label">Análise do Gráfico 2</label>
                         </div>
                         <div class="box-body">
-                          <textarea class="textarea textarea-md form-control" name="preanalysis02" id="preanalysis02" rows="15">
+                          <textarea class="textarea textarea-md form-control" name="preanalysis02" id="preanalysis02" rows="15"
+                          {{ lockOperationFields('preanalysis02',$status) }} >
                             {!! old('preanalysis02',isset($preanalysis02)?$preanalysis02:Null) !!}
                           </textarea>
                         </div>

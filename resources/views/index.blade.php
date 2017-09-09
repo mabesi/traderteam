@@ -26,44 +26,59 @@
     <div class="box box-solid">
       <div class="box-header with-border bg-yellow">
         <span class="font-20">Operações em Andamento</span>
+        <a class="pull-right font-20 text-olive" title="Ver Todas"
+          href="{{ url('myoperations?started=1&moved=1') }}"><i class="fa fa-th-list"></i>
+        </a>
       </div>
       <div class="box-body">
         @include('operation.listmin-started')
       </div>
-      <div class="box-footer">
-        <a href="{{ url('myoperations?started=1&moved=1') }}">Ver Todas</a>
-      </div>
     </div>
   </div>
 
   <div class="col-sm-6 col-lg-3">
-    <div class="box box-solid">
-      <div class="box-header with-border bg-olive">
+
+    <div class="box box-solid no-padding">
+      <div class="box-header with-border bg-tt-green">
         <span class="font-20">Operações Não Iniciadas</span>
+        <a class="pull-right font-20 text-warning" title="Ver Todas"
+          href="{{ url('myoperations?new=1&changed=1') }}"><i class="fa fa-th-list"></i>
+        </a>
       </div>
       <div class="box-body">
         @include('operation.listmin-new')
       </div>
-      <div class="box-footer">
-        <a href="{{ url('myoperations?new=1&changed=1') }}">Ver Todas</a>
-      </div>
     </div>
-  </div>
 
-  <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
-      <div class="box-header with-border bg-olive">
+      <div class="box-header with-border bg-tt-green">
         <span class="font-20">Operações Finalizadas</span>
+        <a class="pull-right font-20 text-warning" title="Ver Todas"
+          href="{{ url('myoperations?stoped=1&closed=1&finished=1') }}"><i class="fa fa-th-list"></i>
+        </a>
       </div>
       <div class="box-body">
         @include('operation.listmin-finished')
       </div>
-      <div class="box-footer">
-        <a href="{{ url('myoperations?stoped=1&closed=1&finished=1') }}">Ver Todas</a>
-      </div>
     </div>
+
   </div>
 
+  <div class="col-sm-6 col-lg-3">
+
+    <div class="box box-solid">
+      <div class="box-header with-border bg-tt-green">
+        <span class="font-20">Quadro de Avisos</span>
+        <a class="pull-right font-20 text-warning" title="Ver Todos"
+          href="{{ url('myoperations?stoped=1&closed=1&finished=1') }}"><i class="fa fa-th-list"></i>
+        </a>
+      </div>
+      <div class="box-body">
+        @include('notice.listmin')
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <div class="row">
@@ -108,7 +123,7 @@
         <span class="font-20">Notícias <a class="font-16 text-aqua" href="http://www.infomoney.com.br/mercados/ultimas-noticias" target="_blank">(Infomoney)</a></span>
       </div>
       <div class="box-body">
-        {!! feedRss('http://www.infomoney.com.br/mercados/rss') !!}
+        {!! feedRss('http://www.infomoney.com.br/mercados/rss',8) !!}
       </div>
     </div>
   </div>

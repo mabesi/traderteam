@@ -14,7 +14,7 @@
         <h3 class="box-title">Indicador de Análise Técnica</h3>
       </div>
 
-      <form class="form-horizontal" action="{{ url('/indicator'.(isset($indicator->id)?'/'.$indicator->id:'')) }}" method="POST" enctype="multipart/form-data">
+      <form class="form-horizontal pad" action="{{ url('/indicator'.(isset($indicator->id)?'/'.$indicator->id:'')) }}" method="POST" enctype="multipart/form-data">
 
       {{ csrf_field() }}
 
@@ -94,7 +94,7 @@
 
           <div class="col-sm-6">
             <input id="image01" name="image" class="btn btn-primary imagepreview" type="file"
-             accept="image/png,image/jpeg" >
+             accept="image/png,image/jpeg" max-size="512000">
             <p class="help-block">Imagens permitidas: jpeg, jpg e png. Tamanho máximo: 500KB.</p>
           </div>
 
@@ -111,7 +111,7 @@
           <div class="col-sm-offset-3 col-sm-9">
             <button type="submit" class="btn btn-primary">{{ (isset($indicator->id)?'Salvar':'Enviar') }} </button>
             {{ nbsp(2) }}
-            <a class="btn btn-warning" href="{{ url('indicator/'.$indicator->id) }}">Cancelar</a>
+            <a class="btn btn-warning" href="{{ url('indicator'.(isset($indicator->id)?'/'.$indicator->id:'')) }}">Cancelar</a>
           </div>
         </div>
       </form>

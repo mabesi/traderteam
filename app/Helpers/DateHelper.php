@@ -1,7 +1,7 @@
 <?php
 
 if (! function_exists('humanPastTime')) {
-  function humanPastTime($dateTime,$popularTime=false)
+  function humanPastTime($dateTime,$popularTime=true)
   {
     /**
     *  % - Literal %
@@ -29,6 +29,7 @@ if (! function_exists('humanPastTime')) {
     $now = new DateTime();
     $yearNow = (int) $now->format('Y');
     $monthNow = (int) $now->format('m');
+    $hourNow = (int) $now->format('H');
 
     $interval = $now->diff($pastDateTime);
 
@@ -97,7 +98,9 @@ if (! function_exists('humanPastTime')) {
 
     } elseif ($hours > 0) {
 
-      if ($hours > 1){
+      if ($hours + $hourNow > 24 && $popularTime){
+        return 'Ontem';
+      } elseif ($hours > 1){
         return $hours.' horas';
       } else {
         $humanInterval = $hours.' hora';

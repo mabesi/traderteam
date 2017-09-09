@@ -534,7 +534,6 @@ function lockOperationFields($field,$status)
         $endFields = '';
         $postFields = ' disabled';
           break;
-      case 'C':
       case 'S':
       case 'E':
       case 'T':
@@ -657,7 +656,8 @@ function feedRss($link,$limit=10,$showDescription=False)
     $feedDate = getDateTimeFromString($item->pubDate);
     $feedDate = humanPastTime($feedDate);
 
-    $feed .= "<p class='text-justify'><a href='{$item->link}' target='_blank'>{$item->title}</a> <small>({$feedDate})</small></p>";
+    $feed .= "<p class='text-justify font-13'><a href='{$item->link}' target='_blank'>
+              {$item->title}</a> <small class='text-muted'>({$feedDate})</small></p>";
 
     if ($showDescription){
       $feed .= "<p>{$item->description}</p>";

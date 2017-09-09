@@ -1,4 +1,5 @@
-<div class="font-18 no-padding">
+<div class="font-14 top-5">
+
   <small class="label bg-{{ ($operation->buyorsell=='C'?'blue':'red') }}">{{$operation->buyorsell}}</small>
   <small class="label bg-{{ ($operation->realorsimulated=='R'?'black':'green') }}">{{$operation->realorsimulated}}</small>
   <a class="font-18" href="{{ url('operation/'.$operation->id) }}"><strong>{{ $operation->stock }}</strong></a>
