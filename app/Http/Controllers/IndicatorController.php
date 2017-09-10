@@ -95,6 +95,8 @@ class IndicatorController extends Controller
       $indicator->description = $request->description;
       $indicator->type = $request->type;
 
+      //saveImage($request,$fieldName,$dir,$imageName,$oldName=Null,$default=Null)
+      //saveImage($request,'avatar','avatar',getUserId(),getUserAvatarName(),'default.png');
       $indicator->image = saveImage($request,'image','indicators',$indicator->acronym);
 
       $indicator->save();
@@ -151,7 +153,7 @@ class IndicatorController extends Controller
       $indicator->description = $request->description;
       $indicator->type = $request->type;
 
-      $indicator->image = saveImage($request,'image','indicators',$indicator->acronym,$indicator->image,'loaging.gif');
+      $indicator->image = saveImage($request,'image','indicators',$indicator->acronym,$indicator->image,'loading.gif');
 
       $indicator->save();
 

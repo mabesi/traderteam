@@ -368,20 +368,37 @@ class OperationController extends Controller
      */
     public function update(Request $request, Operation $operation)
     {
+      $operationDir = 'operations/'.getUserId().'/'.$operation->id;
+      $defaultImage = '../../loading.gif';
+
       if ($operation->status == 'N' || $operation->status == 'A' ){
 
         $preimage = explode('|||',$operation->preimage);
+
+        $oldImage01 = $preimage[0];
+
+        if ($oldImage01==''){
+          $oldImage01 = Null;
+        }
+
+        $oldImage02 = $preimage[1];
+
+        if ($oldImage02==''){
+          $oldImage02 = Null;
+        }
 
         $preanalysis01 = $request->preanalysis01;
         $preanalysis02 = $request->preanalysis02;
 
         $operation->preanalysis = $preanalysis01.'|||'.$preanalysis02;
 
-        $preimage01 = saveImage($request,'preimage01','operations/'.getUserId(),'preimage01',Null,Null);
+        $preimage01 = saveImage($request,'preimage01',$operationDir,
+                                'preimage01',$oldImage01,$defaultImage);
         if ($preimage01==False){
           $preimage01 = $preimage[0];
         }
-        $preimage02 = saveImage($request,'preimage02','operations/'.getUserId(),'preimage02',Null,Null);
+        $preimage02 = saveImage($request,'preimage02',$operationDir,
+                                'preimage02',$oldImage02,$defaultImage);
         if ($preimage02==False){
           $preimage02 = $preimage[1];
         }
@@ -455,15 +472,27 @@ class OperationController extends Controller
 
         $postimage = explode('|||',$operation->postimage);
 
+        $oldImage01 = $postimage[0];
+        if ($oldImage01==''){
+          $oldImage01 = Null;
+        }
+
+        $oldImage02 = $postimage[1];
+        if ($oldImage02==''){
+          $oldImage02 = Null;
+        }
+
         $postanalysis01 = $request->postanalysis01;
         $postanalysis02 = $request->postanalysis02;
         $operation->postanalysis = $postanalysis01.'|||'.$postanalysis02;
 
-        $postimage01 = saveImage($request,'postimage01','operations/'.getUserId(),'postimage01',Null,Null);
+        $postimage01 = saveImage($request,'postimage01',$operationDir,
+                                'postimage01',$oldImage01,$defaultImage);
         if ($postimage01==False){
           $postimage01 = $postimage[0];
         }
-        $postimage02 = saveImage($request,'postimage02','operations/'.getUserId(),'postimage02',Null,Null);
+        $postimage02 = saveImage($request,'postimage02',$operationDir,
+                                'postimage02',$oldImage02,$defaultImage);
         if ($postimage02==False){
           $postimage02 = $postimage[1];
         }

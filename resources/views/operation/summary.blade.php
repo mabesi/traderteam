@@ -54,7 +54,7 @@
           {{ humanPastTime($operation->created_at) }}
         </div>
       </div>
-      
+
       <div class="row">
         <div class="col-md-3">
           <strong>Estratégia</strong>
@@ -66,7 +66,7 @@
 
       <div class="row">
         <div class="col-md-3">
-          <strong>Usuário</strong>
+          <strong>Criada por</strong>
         </div>
         <div class="col-md-9">
           @include('user.lineview')
@@ -217,7 +217,8 @@
                       <a href="#" class="azoom" title="Clique para aumentar!">
                         <img class="img-max pad preimage01"
                         src="{{ asset('/storage/operations/'.
-                        (isset($preimage01)?$operation->user_id.'/'.$preimage01:'../../img/loading.gif'))}}" />
+                        (isset($preimage01)?$operation->user_id.'/'.$operation->id.'/'.
+                        $preimage01:'../../img/loading.gif'))}}" />
                       </a>
                     </div>
                     <div class="col-lg-8">
@@ -243,7 +244,8 @@
                       <a href="#" class="azoom" title="Clique para aumentar!">
                         <img class="img-max pad preimage02"
                         src="{{ asset('/storage/operations/'.
-                        (isset($preimage02)?$operation->user_id.'/'.$preimage02:'../../img/loading.gif'))}}" />
+                        (isset($preimage02)?$operation->user_id.'/'.$operation->id.'/'.
+                        $preimage02:'../../img/loading.gif'))}}" />
                       </a>
                     </div>
                     <div>
@@ -282,7 +284,8 @@
                       <a href="#" class="azoom" title="Clique para aumentar!">
                         <img class="img-max pad postimage01"
                         src="{{ asset('/storage/operations/'.
-                        (isset($postimage01)?$operation->user_id.'/'.$postimage01:'../../img/loading.gif'))}}" />
+                        (isset($postimage01)?$operation->user_id.'/'.$operation->id.'/'.
+                        $postimage01:'../../img/loading.gif'))}}" />
                       </a>
                     </div>
                     <div>
@@ -308,7 +311,8 @@
                       <a href="#" class="azoom" title="Clique para aumentar!">
                         <img class="img-max pad postimage02"
                         src="{{ asset('/storage/operations/'.
-                        (isset($postimage02)?$operation->user_id.'/'.$postimage02:'../../img/loading.gif'))}}" />
+                        (isset($postimage02)?$operation->user_id.'/'.$operation->id.'/'.
+                        $postimage02:'../../img/loading.gif'))}}" />
                       </a>
                     </div>
                     <div>
