@@ -70,7 +70,7 @@
       <div class="box-header with-border bg-tt-green">
         <span class="font-20">Quadro de Avisos</span>
         <a class="pull-right font-20 text-warning" title="Ver Todos"
-          href="{{ url('myoperations?stoped=1&closed=1&finished=1') }}"><i class="fa fa-th-list"></i>
+          href="{{ url('notice') }}"><i class="fa fa-th-list"></i>
         </a>
       </div>
       <div class="box-body">
@@ -94,8 +94,8 @@
       </div>
       <div class="box-footer">
         <a href="{{ url('users') }}">Ver Todos</a> |
-        <a href="{{ url('users?follow=following') }}">Seguindo</a> |
-        <a href="{{ url('users?follow=followers') }}">Seguidores</a>
+        <a href="{{ url('user/following') }}">Seguindo</a> |
+        <a href="{{ url('user/myfollowers') }}">Seguidores</a>
       </div>
     </div>
   </div>

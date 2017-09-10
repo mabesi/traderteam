@@ -10,10 +10,8 @@ use App\User;
 class UserController extends Controller
 {
 
-  public function users(Request $request,$userId=Array(),$follow=Null,$user=Null)
+  public function users(Request $request,$userId=Array(),$follow=Null,$mainUser=Null)
   {
-    //$totalUsers = User::count();
-    //$
     $users = User::leftJoin('profiles','users.id','=','profiles.user_id');
 
     if (count($userId) > 0){
@@ -28,8 +26,6 @@ class UserController extends Controller
       $dir = 'desc';
     }
 
-    //dd($sort);
-    //$users = User::withCount('operations')->orderBy('operations_count','desc')->paginate(12);
     $users->withCount('strategies')
             ->withCount('operations')
             ->withCount('followers')
@@ -43,15 +39,20 @@ class UserController extends Controller
     $totalUsers = $users->count();
     $users = $users->paginate(12);
 
-    //dd($sort);
     $newDir = ($dir=='asc'?'desc':'asc');
 
-    if ($follow!=Null && $user!=Null){
+    if ($follow!=Null && $mainUser!=Null){
 
+      if ($follow == "Seguindo"){
+        $followLabel = getUserLine($mainUser).' está '.$follow;
+      } elseif ($follow == "Seguidores") {
+        $followLabel = $follow.' de '.getUserLine($mainUser);
+      }
+    } elseif ($follow!=Null){
       $followLabel = $follow;
-
+      $user = Null;
     } else {
-      $followLabel = '';
+      $followLabel = "Geral";
       $user = Null;
     }
 
@@ -63,8 +64,8 @@ class UserController extends Controller
       'sort' => $sort,
       'dir' => $dir,
       'newDir' => $newDir,
-      'followLabel' => $followLabel,
-      'user' => $user,
+      'followLabel' => ' - '.$followLabel,
+      'user' => $mainUser,
       'currentPage' => $users->url($users->currentPage()),
     ];
 
@@ -74,16 +75,16 @@ class UserController extends Controller
 
   public function followers(Request $request,$id)
   {
-    $userId = getFollowersId($id);
-    $user = User::find($userId);
-    return $this->users($request,$userId,"Seguidores",$user);
+    $userIds = getFollowersId($id);
+    $user = User::find($id);
+    return $this->users($request,$userIds,"Seguidores",$user);
   }
 
   public function following(Request $request,$id)
   {
-    $userId = getFollowingId($id);
-    $user = User::find($userId);
-    return $this->users($request,$userId,"Seguindo",$user);
+    $userIds = getFollowingId($id);
+    $user = User::find($id);
+    return $this->users($request,$userIds,"Seguindo",$user);
   }
 
   public function myFollowers(Request $request)
@@ -95,7 +96,7 @@ class UserController extends Controller
   public function myFollowing(Request $request)
   {
     $userId = getFollowingId();
-    return $this->users($request,$userId,"Me Seguindo");
+    return $this->users($request,$userId,"Estou Seguindo");
   }
 
   public function follow($id)

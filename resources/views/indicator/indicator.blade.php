@@ -18,7 +18,7 @@
       <div class="box-body">
 
         <p>Tipo de Indicador: <strong>{{ indicatorType($indicator->type) }}</strong></p>
-        <div id='indicator-description'>{!! $indicator->description !!}</div>
+        <div id='indicator-description' class="text-justify">{!! $indicator->description !!}</div>
 
       </div>
 

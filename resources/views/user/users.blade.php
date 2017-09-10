@@ -7,11 +7,10 @@
 
           <div class="box box-primary">
             <div class="box-header with-border">
-              <span class="user-line">
-                {!! $followLabel !!}<br>
-              </span>
               <h3 class="box-title">
                 Relação de Usuários ({{ $totalUsers.' no total' }})
+
+                {!! $followLabel !!}
               </h3>
               <a class="pull-right" href="{{ url('user/myfollowers') }}">
                 <button type="button" class="btn btn-sm btn-success" name="button">Meus Seguidores</button>
@@ -68,26 +67,23 @@
                   <tr>
                   <td class="text-center text-bold">{!! getUserTypeLabel($user->type) !!}</td>
                   <td>{!! getRankStars($user->rank) !!}</td>
-                @if($user->profile==Null)
                   <td>
-                    <span class="user-line">{!! getUserAvatar('img-circle','Avatar',$user) !!}</span>
-                     {{ $user->name }}
+                     {!! getUserLine($user) !!}
                      {{ nbsp(2) }}
                      {!! getUserAdminIcons($user,$currentPage) !!}
                   </td>
-                  <td><i class="fa fa-question text-gray"></i></td>
+                  <td>{!! getFieldOrQuestion($user->profile,'occupation',True) !!}</td>
+                  @if($user->profile==Null)
                   <td><i class="fa fa-question text-gray"></i></td>
                 @else
-
-                  <td>
-                    <a class="user-line" href="{{ url('profile/'.$user->profile->id) }}">
-                      {!! getUserAvatar('img-circle','Avatar',$user) !!} {{ $user->name }}
-                    </a>
-                      {{ nbsp(2) }}
-                      {!! getUserAdminIcons($user,$currentPage) !!}
-                  </td>
-                  <td>{{ $user->profile->occupation }}</td>
-                  <td>{{ $user->profile->city.', '.$user->profile->state }}</td>
+                  @if ($user->profile->city==Null)
+                    <td><i class="fa fa-question text-gray"></i></td>
+                  @else
+                    <td>{!! nameInitials($user->profile->city,2,True).
+                          ($user->profile->state==Null?'':', '.nameInitials($user->profile->state,1,True)).
+                          ($user->profile->country==Null?'':' - '.$user->profile->country) !!}
+                    </td>
+                  @endif
                 @endif
                     <td><a href="{{ url('user/'.$user->id.'/strategies') }}">{{ $user->strategies->count() }}</a></td>
                     <td><a href="{{ url('user/'.$user->id.'/operations') }}">{{ $user->operations->count() }}</a></td>

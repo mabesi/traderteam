@@ -172,9 +172,12 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+      $profile = Profile::find($id);
+      //$request->validate($profile->rules,$profile->messages);
+      $request->validate($profile->rules);
+
       $userChanged = False;
 
-      $profile = Profile::find($id);
       $user = User::find($profile->user->id);
       $avatarName = saveImage($request,'avatar','avatar',getUserId(),getUserAvatarName(),'default.png');
 
@@ -192,16 +195,18 @@ class ProfileController extends Controller
         $user->save();
       }
 
-      $profile->occupation = $request->occupation;
+      $profile->occupation = special_ucwords($request->occupation);
 
       if ($request->mybirthdate) {
         $date = getMysqlDateFromBR($request->mybirthdate);
         $profile->birthdate = $date;
+      } else {
+        $profile->birthdate = Null;
       }
 
-      $profile->city = $request->city;
-      $profile->state = $request->state;
-      $profile->country = $request->country;
+      $profile->city = special_ucwords($request->city);
+      $profile->state = special_ucwords($request->state);
+      $profile->country = strtoupper($request->country);
       $profile->site = $request->site;
       $profile->facebook = $request->facebook;
       $profile->twitter = $request->twitter;
@@ -209,6 +214,8 @@ class ProfileController extends Controller
 
       if ($request->capital){
         $profile->capital = $request->capital;
+      } else {
+        $profile->capital = 100000.00;
       }
 
       if ($profile->save()){

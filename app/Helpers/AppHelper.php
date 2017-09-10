@@ -199,8 +199,44 @@ function getStrategyResult($strategyId)
 
 function getUserAvatar($class="img-circle",$alt="Foto do Perfil",$user=Null,$width=Null,$height=Null)
 {
+  //dd($user);
   $src = asset("/storage/avatar/".($user==Null?Auth::user()->avatar:$user->avatar));
   return getHtmlImage($src,$class,$alt,Null,Null,$width,$height);
+}
+
+function getUserLine($user=Null)
+{
+  if ($user==Null){
+    $user = Auth::user();
+  }
+
+  $avatar = getUserAvatar('img-circle','Avatar',$user).' '.$user->name;
+
+  if ($user->profile == Null){
+    $userLine = '<span class="user-line">'.$avatar.'</span>';
+  } else {
+    $userLine = '<a class="user-line" href="'.url('profile/'.$user->profile->id).'">'.$avatar.'</a>';
+  }
+
+  return $userLine;
+}
+
+function getFieldOrQuestion($profile,$field,$initials=False)
+{
+  if ($profile==Null || $profile->$field==Null){
+    return '<i class="fa fa-question text-gray"></i>';
+  } else {
+    if ($initials){
+      return nameInitials($profile->$field,2,True);
+    } else {
+      return $profile->$field;
+    }
+  }
+}
+
+function getQuestionIcon()
+{
+  return '<i class="fa fa-question text-gray"></i>';
 }
 
 function getHtmlImage($src,$class=Null,$alt=Null,$id=Null,$title=Null,$width=Null,$height=Null,$style=Null)

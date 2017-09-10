@@ -60,12 +60,14 @@
     <label for="state" class="col-sm-3 control-label">Estado</label>
 
     <div class="col-sm-3">
-      <input type="text" name="state" class="form-control" id="state" value="{{ old('state',isset($profile->state)?$profile->state:Null) }}">
+      <input type="text" name="state" class="form-control" id="state"
+       value="{{ old('state',isset($profile->state)?$profile->state:Null) }}">
     </div>
     <label for="country" class="col-sm-3 control-label">País</label>
 
     <div class="col-sm-3">
-      <input type="text" name="country" class="form-control" id="country" value="{{ old('country',isset($profile->country)?$profile->country:'BR') }}" >
+      <input type="text" name="country" class="form-control" id="country" maxlength="2"
+       value="{{ old('country',isset($profile->country)?$profile->country:'BR') }}" >
     </div>
   </div>
   <div class="form-group">
@@ -124,9 +126,11 @@
         <span class="input-group-addon">
           <i class="fa fa-money"></i>
         </span>
-        <input class="form-control" id="capital" name="capital" type="number" step="100" value="{{ old('capital',isset($profile->capital)?$profile->capital:Null) }}">
+        <input class="form-control" id="capital" name="capital" type="number" min="1000" max="10000000" step="100" value="{{ old('capital',isset($profile->capital)?$profile->capital:Null) }}">
       </div>
-      <small class="text-muted">* Valor real ou arbitrário, usado para estatísticas. Caso não seja informado, será utilizado o valor fictício de 100.000,00</small>
+      <small class="text-muted">1) Valor real ou arbitrário, usado para estatísticas. Mínimo:1.000,00 | Máximo 10.000.000,00.
+                                 Caso não seja informado, será utilizado o valor fictício de 100.000,00.<br />2) Este valor será utilizado
+                                 como restrição no montante de suas operações.<br /> 3) Somente você poderá ver esta informação.</small>
     </div>
   </div>
 @endif
