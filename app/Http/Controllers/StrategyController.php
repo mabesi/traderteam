@@ -22,7 +22,7 @@ class StrategyController extends Controller
       return $this->strategies($request);
     }
 
-    public function strategies($request,$userId=Array(),$owner="Todas",$minResult=Null,$minOperations=Null)
+    public function strategies($request,$userId=Array(),$owner="Geral",$minResult=Null,$minOperations=Null)
     {
       $path = $request->path();
 

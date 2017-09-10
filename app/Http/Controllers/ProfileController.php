@@ -53,7 +53,7 @@ class ProfileController extends Controller
      */
     public function create(Request $request)
     {
-
+      return back();
     }
 
     /**
@@ -122,6 +122,10 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
+      if ($id == 'edit'){
+        return $this->modify();  
+      }
+
       $profile = Profile::where('user_id', $id)->first();
       $followingId = getFollowingId();
       //dd($followingId);
@@ -160,8 +164,41 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        //
+      if (isAdmin() || $id == getUserId()){
+        $profile = Profile::where('user_id', $id)->first();
+        $user = User::find($id);
+
+        $data = [
+          'viewname' => 'Editar Perfil',
+          'viewtitle' => 'Editar Perfil',
+          'user' => $user,
+          'profile' => $profile,
+          'profileView' => True,
+        ];
+
+        return view('profile.edit', $data);
+      } else {
+        return back()->with('warnings',['Acesso não autorizado!']);
+      }
     }
+
+    public function modify()
+    {
+        $profile = Profile::where('user_id', getUserId())->first();
+        $user = User::find(getUserId());
+
+        $data = [
+          'viewname' => 'Editar Meu Perfil',
+          'viewtitle' => 'Editar Meu Perfil',
+          'user' => $user,
+          'profile' => $profile,
+          'profileView' => True,
+        ];
+
+        return view('profile.edit', $data);
+    }
+
+
 
     /**
      * Update the specified resource in storage.

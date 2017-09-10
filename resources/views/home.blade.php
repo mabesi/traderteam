@@ -203,7 +203,7 @@
   <div class="row" id="contato">
     <div class="col-sm-12">
       <h2>Contato</h2>
-      <p>Para dúvidas, críticas ou sugestões, envie sua mensagem para <a href="mailto:atendimento.vip@traderteam.com">atendimento.vip@traderteam.com</a></p>
+      <p>Para dúvidas, críticas ou sugestões, entre em contato através do <a href="{{ url('contact') }}" target="_blank">Fale Conosco.</a></p>
     </div>
   </div>
 

@@ -24,10 +24,12 @@
 
       <div class="box-footer">
         <a href="{{ url('strategy?indicator='.$indicator->acronym) }}">
-          <h4>Estratégias Utilizando
+          <h4>
             <small class="label bg-blue }} font-16">
               {{ $indicator->strategies->count() }}
             </small>
+            {{ nbsp(1) }}
+            Estratégias Utilizando
           </h4>
         </a>
       </div>

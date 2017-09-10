@@ -22,7 +22,7 @@ class Profile extends Model
     'facebook' => 'url|nullable|max:50',
     'twitter' => 'url|nullable|max:50',
     'description' => 'string',
-    'capital' => 'numeric|nullable|between:1000,10000000',
+    'capital' => 'numeric|nullable|between:1000,100000000',
     'avatar' => 'image|max:200|mimes:jpeg,jpg,png',
   ];
 

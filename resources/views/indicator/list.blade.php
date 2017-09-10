@@ -53,7 +53,11 @@
                   <a href="{{ url('indicator/'.$indicator->id) }}">
                     {{ $indicator->name.' ('.$indicator->acronym.')' }}
                   </a>
-                  <span class="label bg-primary font-14" title="Estratégias Utilizando">{{ $indicator->strategies_count }}</span>
+
+                  <a href="{{ url('strategy?indicator='.$indicator->acronym) }}">
+                    <span class="label bg-primary font-14" title="Estratégias Utilizando">{{ $indicator->strategies_count }}</span>
+                  </a>
+                  
                   <span class="pull-right font-16">
                     {!! getItemAdminIcons($indicator,'indicator','False') !!}
                   </span>

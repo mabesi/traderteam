@@ -21,7 +21,7 @@
 </div>
 
   <div class="form-group">
-    <label for="avatar" class="col-sm-3 control-label">Imagem do Perfil *</label>
+    <label for="avatar" class="col-sm-3 control-label">Imagem do Perfil</label>
 
     <div class="col-sm-5">
       <input id="avatar" name="avatar" class="btn btn-primary imagepreview" type="file"
@@ -30,7 +30,7 @@
     </div>
     <div class="col-sm-4">
       <img class="profile-user-img img-responsive img-circle avatar"
-       src="{{ asset('/storage/avatar/'.getUserAvatarName($profile->user))}}" />
+       src="{{ asset('/storage/avatar/'.getUserAvatarName($user))}}" />
     </div>
   </div>
 
@@ -126,11 +126,11 @@
         <span class="input-group-addon">
           <i class="fa fa-money"></i>
         </span>
-        <input class="form-control" id="capital" name="capital" type="number" min="1000" max="10000000" step="100" value="{{ old('capital',isset($profile->capital)?$profile->capital:Null) }}">
+        <input class="form-control" id="capital" name="capital" type="number" min="1000" max="100000000" step="100" value="{{ old('capital',isset($profile->capital)?$profile->capital:Null) }}">
       </div>
-      <small class="text-muted">1) Valor real ou arbitrário, usado para estatísticas. Mínimo:1.000,00 | Máximo 10.000.000,00.
-                                 Caso não seja informado, será utilizado o valor fictício de 100.000,00.<br />2) Este valor será utilizado
-                                 como restrição no montante de suas operações.<br /> 3) Somente você poderá ver esta informação.</small>
+      <small class="text-muted text-justify">Obs: Valor real ou arbitrário, usado para estatísticas. Mínimo:1.000,00 | Máximo 100.000.000,00.
+                                 Caso não seja informado, será utilizado o valor fictício de 100.000,00. Este valor será utilizado
+                                 como restrição no montante de suas operações. Somente você poderá ver esta informação.</small>
     </div>
   </div>
 @endif

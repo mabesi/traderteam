@@ -62,8 +62,13 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox" required> Eu concordo com os <a href="{{ url('/terms') }}" target="_blank">termos</a>
+              <input type="checkbox" name="terms" value="1" required> Eu concordo com os <a href="{{ url('/terms') }}" target="_blank">Termos</a>
             </label>
+            @if ($errors->has('terms'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('terms') }}</strong>
+                </span>
+            @endif
           </div>
         </div>
         <!-- /.col -->

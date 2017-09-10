@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('type',1)->default('U');
             $table->unsignedTinyInteger('rank')->default(0);
-            $table->string('avatar',50);
+            $table->string('avatar',50)->default('default.png');
             $table->boolean('confirmed')->default(False);
             $table->boolean('locked')->default(True);
             $table->rememberToken();

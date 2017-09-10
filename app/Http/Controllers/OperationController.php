@@ -16,7 +16,7 @@ class OperationController extends Controller
      */
     public function index(Request $request)
     {
-
+      return $this->operations($request,Null,"Todas");
     }
 
     protected function operations($request,$userId=Array(),$owner="Todas")
@@ -24,6 +24,7 @@ class OperationController extends Controller
       if (count($userId) == 0){
         $strategies = Strategy::orderBy('title')
                                 ->get();
+        $operations = new Operation;                                
       } else {
         $strategies = Strategy::whereIn('user_id',$userId)
                                 ->orderBy('title')

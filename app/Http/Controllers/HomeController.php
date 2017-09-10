@@ -91,6 +91,11 @@ class HomeController extends Controller
       return view('terms');
     }
 
+    public function contact()
+    {
+      return view('contact');
+    }
+
     public function market()
     {
       return view('market');

@@ -37,8 +37,9 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{ url('profile') }}">Meu Perfil</a></li>
+            <li><a href="{{ url('profile/edit') }}">Editar Meu Perfil</a></li>
             <li><a href="{{ url('users') }}">Lista de Usuários</a></li>
-            <li><a href="{{ url('user/following') }}">Seguindo</a></li>
+            <li><a href="{{ url('user/following') }}">Estou Seguindo</a></li>
             <li><a href="{{ url('user/myfollowers') }}">Meus Seguidores</a></li>
             <li><a href="{{ url('users?sort=rank&dir=desc') }}">Top Ranking</a></li>
             <li><a href="{{ url('users?sort=followers_count&dir=desc') }}">Top Seguidores</a></li>
@@ -56,6 +57,7 @@
           <ul class="treeview-menu">
             <li><a href="{{ url('strategy/create') }}">Nova Estratégia</a></li>
             <li><a href="{{ url('mystrategies') }}">Minhas Estratégias</a></li>
+            <li><a href="{{ url('strategy') }}">Lista de Estratégias</a></li>
             <li><a href="{{ url('beststrategies') }}">Melhores Estratégias</a></li>
             <li><a href="{{ url('strategies/following') }}">Estratégias Seguindo</a></li>
             <li><a href="{{ url('strategy-rules') }}">Regras de Definição</a></li>
@@ -72,6 +74,7 @@
           <ul class="treeview-menu">
             <li><a href="{{ url('operation/create') }}">Nova Operação</a></li>
             <li><a href="{{ url('myoperations') }}">Minhas Operações</a></li>
+            <li><a href="{{ url('operation') }}">Lista de Operações</a></li>
             <li><a href="{{ url('myoperations?new=1&changed=1') }}">=> Não Iniciadas</a></li>
             <li><a href="{{ url('myoperations?started=1&moved=1') }}">=> Em Andamento</a></li>
             <li><a href="{{ url('myoperations?stoped=1&closed=1&finished=1') }}">=> Finalizadas</a></li>
