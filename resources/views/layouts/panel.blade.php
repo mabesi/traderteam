@@ -59,7 +59,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 
-<body class="hold-transition skin-green sidebar-mini sidebar-collapse">
+<body class="hold-transition skin-green sidebar-mini {{ (getConfig('sidebar_closed')?'sidebar-collapse':'') }}">
 <div class="wrapper">
 @include('layouts.menu')
 @include('layouts.sidebar')

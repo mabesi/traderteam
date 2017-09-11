@@ -44,6 +44,10 @@ function getUserEmail()
   return Auth::user()->email;
 }
 
+function getProfileId(){
+  return Auth::user()->profile->id;
+}
+
 function getUserAvatarName($user=Null)
 {
   if ($user==Null){
@@ -70,6 +74,12 @@ function getUserTypeLabel($type)
   $label = "<span class='label bg-$colorList[$type]' title='$typeList[$type]'>$type</span>";
 
   return $label;
+}
+
+function getConfig($config)
+{
+  $profile = Auth::user()->profile;
+  return $profile->$config;
 }
 
 function indicatorType($type){
@@ -682,8 +692,8 @@ function getFollowersId($userId=Null)
 
 function feedRss($link,$limit=10,$showDescription=False)
 {
-  //return 'Notícias...';
-  $rss = simplexml_load_file($link);
+  return 'Notícias...';
+  //$rss = simplexml_load_file($link);
   $count = 0;
   $feed = '';
 

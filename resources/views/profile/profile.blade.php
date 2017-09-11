@@ -152,7 +152,9 @@
                     <h3 class="box-title">Informações do Perfil</h3>
                   </div>
 
+                  <div class="box-body">
                   @include('profile.formprofile')
+                </div>
 
                 </div>
 
@@ -163,6 +165,17 @@
 
                   <div class="box-body">
                     @include('profile.changepassword')
+                  </div>
+
+                </div>
+
+                <div class="box box-success">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Configurações</h3>
+                  </div>
+
+                  <div class="box-body">
+                    @include('profile.configurations')
                   </div>
 
                 </div>

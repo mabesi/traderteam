@@ -114,8 +114,19 @@
         <li><a href="{{ route('market') }}"><i class="fa fa-globe"></i> <span>Mercado Mundial</span></a></li>
 
         <li><a href="{{ route('help') }}"><i class="fa fa-question-circle"></i> <span>Ajuda</span></a></li>
+        <li>{{ nbsp(1) }}</li>
+
+        <li><a class="text-olive font-11" href="{{ url('/profile/'.getProfileId().'/toogle-sidebar') }}"
+                title="Clique para manter a barra lateral aberta/recolhida">
+                    <i class="fa fa-arrow-circle-{{ (getConfig('sidebar_closed')?'right':'left') }}"></i>
+                    <span>
+                      {{ (getConfig('sidebar_closed')?'Manter Aberto':'Manter Recolhido') }}
+                    </span>
+              </a>
+        </li>
 
       </ul>
+
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

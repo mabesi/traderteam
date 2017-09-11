@@ -57,5 +57,7 @@ Route::middleware('auth')->group(function(){
   Route::get('user/{id}/unlock', 'UserController@unlock')->name('unlock');
   Route::get('user/myfollowers', 'UserController@myFollowers')->name('myfollowers');
   Route::get('user/following', 'UserController@myFollowing')->name('myfollowing');
-  Route::post('user/{id}/changepassword', 'UserController@changePassword')->name('changepassword');
+  Route::post('user/{id}/changepassword', 'UserController@changePassword');
+  Route::post('profile/{id}/configurations', 'ProfileController@configurations');
+  Route::get('profile/{id}/toogle-sidebar', 'ProfileController@toogleSidebar');
 });

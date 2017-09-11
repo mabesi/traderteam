@@ -28,7 +28,7 @@
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle bg-gray text-primary" data-toggle="dropdown">
               <!-- The user image in the navbar-->
               {!! getUserAvatar('user-image') !!}
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
@@ -52,14 +52,14 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                   <div class="pull-left">
-                    <a href="{{ url('/profile') }}" class="btn btn-default btn-flat">Meu Perfil</a>
+                    <a href="{{ url('/profile') }}" class="btn btn-default btn-flat text-primary">Meu Perfil</a>
                   </div>
                   <div class="pull-right">
 
-                    <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
+                    <a href="{{ route('logout') }}" class="btn btn-default btn-flat text-danger"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
-                        Logout
+                        Sair
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

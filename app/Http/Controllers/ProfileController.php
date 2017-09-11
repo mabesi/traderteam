@@ -123,10 +123,10 @@ class ProfileController extends Controller
     public function show($id)
     {
       if ($id == 'edit'){
-        return $this->modify();  
+        return $this->modify();
       }
 
-      $profile = Profile::where('user_id', $id)->first();
+      $profile = Profile::find($id);
       $followingId = getFollowingId();
       //dd($followingId);
       $following = in_array($id,$followingId);
@@ -216,7 +216,7 @@ class ProfileController extends Controller
       $userChanged = False;
 
       $user = User::find($profile->user->id);
-      $avatarName = saveImage($request,'avatar','avatar',getUserId(),getUserAvatarName(),'default.png');
+      $avatarName = saveImage($request,'avatar','avatar',$id,getUserAvatarName($user),'default.png');
 
       if ($avatarName != false){
         $user->avatar = $avatarName;
@@ -260,6 +260,44 @@ class ProfileController extends Controller
       } else {
         return back()->with('problems', ['Erro ao salvar. As informações não foram atualizadas!']);
       }
+    }
+
+    public function configurations(Request $request, $id)
+    {
+      $profile = Profile::find($id);
+      //$request->validate($profile->rules,$profile->messages);
+      //$request->validate($profile->rules);
+
+      $profile->sidebar_closed = (boolean) $request->sidebar_closed;
+
+      if ($profile->save()){
+        return back()->with('informations', ['As informações foram atualizadas com sucesso!']);
+      } else {
+        return back()->with('problems', ['Erro ao salvar. As informações não foram atualizadas!']);
+      }
+    }
+
+    public function toogleSidebar(Request $request, $id)
+    {
+      $profile = Profile::find($id);
+      //dd($profile);
+      //$request->validate($profile->rules,$profile->messages);
+      //$request->validate($profile->rules);
+
+      if ($profile->user_id==getUserId()){
+
+        $profile->sidebar_closed = !$profile->sidebar_closed;
+
+        if ($profile->save()){
+          return back();
+        } else {
+          return back()->with('problems', ['Erro ao alterar configuração. As informações não foram atualizadas!']);
+        }
+
+      } else {
+        return back()->with('problems', ['Acesso não autorizado!']);
+      }
+
     }
 
     /**
