@@ -228,6 +228,12 @@ class ProfileController extends Controller
         $userChanged = True;
       }
 
+      if (isAdmin()){
+        $user->confirmed = (boolean) $request->confirmed;
+        $user->locked = (boolean) $request->locked;
+        $userChanged = True;
+      }
+
       if ((isAdmin() || $user->id == getUserId()) && $userChanged){
         $user->save();
       }

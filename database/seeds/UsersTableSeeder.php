@@ -23,6 +23,8 @@ class UsersTableSeeder extends Seeder
           'type' => 'S',
           'rank' => '3',
           'avatar' => '1.jpg',
+          'confirmed' => True,
+          'locked' => False,
           'remember_token' => str_random(10),
           'created_at' => date("Y-m-d H:i:s"),
           'updated_at' => date("Y-m-d H:i:s")
@@ -35,6 +37,8 @@ class UsersTableSeeder extends Seeder
           'type' => 'A',
           'rank' => '2',
           'avatar' => '2.jpg',
+          'confirmed' => True,
+          'locked' => False,
           'remember_token' => str_random(10),
           'created_at' => date("Y-m-d H:i:s"),
           'updated_at' => date("Y-m-d H:i:s")
@@ -47,6 +51,8 @@ class UsersTableSeeder extends Seeder
           'type' => 'U',
           'rank' => '1',
           'avatar' => '3.jpg',
+          'confirmed' => True,
+          'locked' => False,
           'remember_token' => str_random(10),
           'created_at' => date("Y-m-d H:i:s"),
           'updated_at' => date("Y-m-d H:i:s")

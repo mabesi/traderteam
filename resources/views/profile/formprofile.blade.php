@@ -135,6 +135,26 @@
   </div>
 @endif
 
+@if (isAdmin())
+
+  <div class="form-group">
+    <label for="type" class="col-sm-3 control-label"><span class="label bg-yellow font-14">Confirmado (Email)</span></label>
+
+    <div class="col-sm-9">
+      <input type="checkbox" name="confirmed" value="1" {{ ($user->confirmed?'CHECKED':'') }}>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="type" class="col-sm-3 control-label"><span class="label bg-red font-14">Bloqueado</span></label>
+
+    <div class="col-sm-9">
+      <input type="checkbox" name="locked" value="1" {{ ($user->locked?'CHECKED':'') }}>
+    </div>
+  </div>
+
+@endif
+
 @if (isSuperAdmin())
   <div class="form-group">
     <label for="type" class="col-sm-3 control-label">Tipo de Usuário *</label>

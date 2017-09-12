@@ -29,6 +29,11 @@ function isNotAdmin()
   }
 }
 
+function getUser()
+{
+  return Auth::user();
+}
+
 function getUserId()
 {
   return Auth::id();
