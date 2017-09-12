@@ -216,7 +216,7 @@ class ProfileController extends Controller
       $userChanged = False;
 
       $user = User::find($profile->user->id);
-      $avatarName = saveImage($request,'avatar','avatar',$id,getUserAvatarName($user),'default.png');
+      $avatarName = saveImage($request,'avatar','avatar',$user->id,getUserAvatarName($user),'default.png');
 
       if ($avatarName != false){
         $user->avatar = $avatarName;
