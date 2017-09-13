@@ -30,9 +30,7 @@
     <p><a href="{{ url('login') }}">Clique aqui</a> para efetuar login.</p>
   </div>
 </div>
-@endif
-
-@if ($user->locked)
+@elseif ($user->locked)
 <div class="row">
   <div class="col-sm-12 text-justify">
     <h2>Conta Bloqueada</h2>
