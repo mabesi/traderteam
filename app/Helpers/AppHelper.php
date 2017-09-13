@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 function isSuperAdmin()
 {
@@ -29,9 +30,13 @@ function isNotAdmin()
   }
 }
 
-function getUser()
+function getUser($id=Null)
 {
-  return Auth::user();
+  if ($id==Null){
+    return Auth::user();
+  } else {
+    return User::find($id);
+  }
 }
 
 function getUserId()

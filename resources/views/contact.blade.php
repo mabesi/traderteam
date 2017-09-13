@@ -6,7 +6,7 @@
 
 @section('content')
 
-@include('layouts.logobanner')
+@include('layouts.logo')
 
 <div class="container">
 
@@ -24,7 +24,7 @@
   </div>
 
 </div>
-
+<br><br><br><br><br>
 <div class="row" id="footer">
   <div class="col-sm-12 text-center">
     <strong>TraderTeam</strong><br>

@@ -74,6 +74,8 @@ class RegisterController extends Controller
           'user_id' => $user->id,
         ]);
 
+        sendConfirmationEmail($user);
+
         return $user;
     }
 }

@@ -135,6 +135,50 @@ class UserController extends Controller
     return back();
   }
 
+  public function verifyUser()
+  {
+    $user = getUser();
+
+    $data = [
+      'user' => $user,
+    ];
+
+    return view('verifyuser',$data);
+  }
+
+  public function confirmation($id,$token)
+  {
+    $user = User::find($id);
+    $hashToken = Hash::make($user->name.$user->email);
+
+    if (Hash::check($user->name.$user->email,hexToStr($token))){
+
+      $data = [
+        'user' => $user,
+        'confirmation' => True,
+      ];
+      $user->confirmed = True;
+      $user->save();
+
+    } else {
+
+      $data = [
+        'user' => $user,
+        'confirmation' => False,
+      ];
+
+    }
+
+    return view('verifyuser',$data);
+  }
+
+  public function sendConfirmation($id)
+  {
+    $user = getUser($id);
+    sendConfirmationEmail($user);
+    return back()->with('informations',['O link de confirmação foi reenviado para o email cadastrado!']);
+  }
+
   public function destroy($id)
   {
     $user = User::find($id);

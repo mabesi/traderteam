@@ -22,6 +22,32 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/contact', 'HomeController@contact')->name('contact');
+Route::get('user/verify', 'UserController@verifyUser')->middleware('auth');
+Route::get('user/{id}/send-confirmation', 'UserController@sendConfirmation');
+Route::get('user/{id}/confirmation/{token}', 'UserController@confirmation');
+
+Route::get('testmail', function () {
+
+  $user = getUser();
+  if (sendConfirmationEmail($user)){
+    return 'Confirmação enviada com sucesso!';
+  } else {
+    return 'Erro ao enviar confirmação';
+  }
+
+});
+
+Route::get('sendmail', function () {
+    $data = array(
+        'name' => "TraderTeam",
+    );
+    Mail::send('emails.welcome', $data, function ($message) {
+        $message->from('pliniomabesi@gmail.com', 'Plinio TraderTeam');
+        $message->to(['pliniomabesi@gmail.com','pliniombs@yahoo.com.br','helberbgs@hotmail.com','fredms_av@yahoo.com.br'])
+                ->subject('Teste de envio de email do site TraderTeam');
+    });
+    return "O email foi enviado com sucesso";
+});
 
 Route::middleware(['auth','VerifyUser'])->group(function(){
 
@@ -58,6 +84,7 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
   Route::get('user/myfollowers', 'UserController@myFollowers')->name('myfollowers');
   Route::get('user/following', 'UserController@myFollowing')->name('myfollowing');
   Route::post('user/{id}/changepassword', 'UserController@changePassword');
+
   Route::post('profile/{id}/configurations', 'ProfileController@configurations');
   Route::get('profile/{id}/toogle-sidebar', 'ProfileController@toogleSidebar');
 });

@@ -29,6 +29,7 @@
             "app/Helpers/ArrayHelper.php",
             "app/Helpers/CurrencyHelper.php",
             "app/Helpers/DateHelper.php",
+            "app/Helpers/EmailHelper.php",
             "app/Helpers/FileHelper.php",
             "app/Helpers/StringHelper.php"
           ]

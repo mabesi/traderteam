@@ -18,11 +18,11 @@ class VerifyUser
         $user = getUser();
 
         if (!$user->confirmed){
-          return redirect('/')->with('warnings', ['Usuário não confirmado!']);
+          return redirect('user/verify')->with('warnings', ['Usuário não confirmado!']);
         }
 
         if ($user->locked){
-          return redirect('/')->with('problems', ['Usuário bloqueado!']);
+          return redirect('user/verify')->with('problems', ['Usuário bloqueado!']);
         }
 
         return $next($request);

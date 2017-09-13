@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->unsignedTinyInteger('rank')->default(0);
             $table->string('avatar',50)->default('default.png');
             $table->boolean('confirmed')->default(False);
-            $table->boolean('locked')->default(True);
+            $table->boolean('locked')->default(False);
             $table->rememberToken();
             $table->timestamps();
         });

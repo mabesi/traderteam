@@ -29,61 +29,74 @@ class HomeController extends Controller
     {
       if (Auth::check()) {
 
-        $following = getFollowingId();
-
-        //$users = Auth::user()->leftJoin('profiles','users.id','=','profiles.user_id')
-          //            ->whereIn('users.id', $following)
-
-        $users = Auth::user()->following->sortByDesc('rank');
-
-        $test = $users->splice(10);
-
-        //dd($users);
-
-        $operations = Operation::whereIn('user_id', $following)
-                                ->orderBy('updated_at','desc')
-                                ->take(12)
-                                ->get();
-
-        $newOperations = Operation::where('user_id',getUserId())
-                                ->whereIn('status',['N','A'])
-                                ->orderBy('updated_at','desc')
-                                ->take(5)
-                                ->get();
-
-        $startedOperations = Operation::where('user_id',getUserId())
-                                ->whereIn('status',['I','M'])
-                                ->orderBy('updated_at','desc')
-                                ->take(8)
-                                ->get();
-
-        $finishedOperations = Operation::where('user_id',getUserId())
-                                ->whereIn('status',['S','E','T'])
-                                ->orderBy('updated_at','desc')
-                                ->take(5)
-                                ->get();
-
-        $notices = Notice::orderBy('updated_at','desc')
-                                ->take(6)
-                                ->get();
-
+        $user = getUser();
         $data = [
-          'users' => $users,
-          'operations' => $operations,
-          'newOperations' => $newOperations,
-          'startedOperations' => $startedOperations,
-          'finishedOperations' => $finishedOperations,
-          'notices' => $notices,
-          'user' => Auth::user(),
+          'user' => $user,
+          'confirmation' => False,
         ];
 
-        return view('index',$data);
+        if (!$user->confirmed || $user->locked){
+          return view('verifyuser',$data);
+        } else {
+          return $this->userPanel();
+        }
 
       } else {
-
         return view('home');
-
       }
+    }
+
+    public function userPanel()
+    {
+      $following = getFollowingId();
+
+      //$users = Auth::user()->leftJoin('profiles','users.id','=','profiles.user_id')
+        //            ->whereIn('users.id', $following)
+
+      $users = Auth::user()->following->sortByDesc('rank');
+
+      $test = $users->splice(10);
+
+      //dd($users);
+
+      $operations = Operation::whereIn('user_id', $following)
+                              ->orderBy('updated_at','desc')
+                              ->take(12)
+                              ->get();
+
+      $newOperations = Operation::where('user_id',getUserId())
+                              ->whereIn('status',['N','A'])
+                              ->orderBy('updated_at','desc')
+                              ->take(5)
+                              ->get();
+
+      $startedOperations = Operation::where('user_id',getUserId())
+                              ->whereIn('status',['I','M'])
+                              ->orderBy('updated_at','desc')
+                              ->take(8)
+                              ->get();
+
+      $finishedOperations = Operation::where('user_id',getUserId())
+                              ->whereIn('status',['S','E','T'])
+                              ->orderBy('updated_at','desc')
+                              ->take(5)
+                              ->get();
+
+      $notices = Notice::orderBy('updated_at','desc')
+                              ->take(6)
+                              ->get();
+
+      $data = [
+        'users' => $users,
+        'operations' => $operations,
+        'newOperations' => $newOperations,
+        'startedOperations' => $startedOperations,
+        'finishedOperations' => $finishedOperations,
+        'notices' => $notices,
+        'user' => Auth::user(),
+      ];
+
+      return view('index',$data);
     }
 
     public function terms()
