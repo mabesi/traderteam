@@ -143,6 +143,8 @@ class UserController extends Controller
       'user' => $user,
     ];
 
+    Auth::logout();
+
     return view('verifyuser',$data);
   }
 

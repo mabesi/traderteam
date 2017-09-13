@@ -36,6 +36,7 @@ class HomeController extends Controller
         ];
 
         if (!$user->confirmed || $user->locked){
+          Auth::logout();
           return view('verifyuser',$data);
         } else {
           return $this->userPanel();
