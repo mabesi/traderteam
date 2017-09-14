@@ -252,7 +252,7 @@ class StrategyController extends Controller
             $message = getMsgDeleteError();
           }
         } else {
-          $message = getMsgAccessForbidden();
+          $message = getMsgDeleteAccessForbidden();
         }
       }
       return response()->json($message);

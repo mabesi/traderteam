@@ -60,6 +60,7 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
   Route::resource('indicator', 'IndicatorController');
   Route::resource('operation', 'OperationController');
   Route::resource('notice', 'NoticeController');
+  Route::resource('configuration', 'ConfigurationController');
 
   Route::get('strategy-rules', 'StrategyController@rules');
   Route::get('strategy-statistics', 'StrategyController@statistics');

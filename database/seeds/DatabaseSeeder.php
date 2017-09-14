@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OperationsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
         $this->call(AnswersTableSeeder::class);
+        $this->call(ConfigurationsTableSeeder::class);
 
         DB::statement("SET foreign_key_checks=1");
     }

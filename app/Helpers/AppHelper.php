@@ -369,6 +369,18 @@ function getMsgAccessForbidden()
   return $data;
 }
 
+function getMsgDeleteAccessForbidden()
+{
+  $data = [
+    'success' => false,
+    'msg' => 'O usuário não possui autorização para deletar este recurso.',
+  ];
+
+  return $data;
+}
+
+
+
 function getMsgDeleteError()
 {
   $data = [

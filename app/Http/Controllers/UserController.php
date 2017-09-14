@@ -192,7 +192,7 @@ class UserController extends Controller
         $data = getMsgDeleteError();
       }
     } else {
-      $data = getMsgAccessForbidden();
+      $data = getMsgDeleteAccessForbidden();
     }
     return response()->json($data);
   }

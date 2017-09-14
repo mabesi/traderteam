@@ -116,6 +116,22 @@
         <li><a href="{{ route('help') }}"><i class="fa fa-question-circle"></i> <span>Ajuda</span></a></li>
         <li>{{ nbsp(1) }}</li>
 
+@if (isAdmin())
+        <li class="treeview">
+          <a href="#"><i class="fa fa-gear text-yellow"></i> <span>Configurações</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            @if (isSuperAdmin())
+            <li><a href="{{ url('configuration/create') }}">Nova Configuração</a></li>
+            @endif
+            <li><a href="{{ url('configuration') }}">Lista de Configurações</a></li>
+          </ul>
+        </li>
+@endif
+
         <li><a class="text-olive font-11" href="{{ url('/profile/'.getProfileId().'/toogle-sidebar') }}"
                 title="Clique para manter a barra lateral aberta/recolhida">
                     <i class="fa fa-arrow-circle-{{ (getConfig('sidebar_closed')?'right':'left') }}"></i>

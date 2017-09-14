@@ -58,6 +58,15 @@ $factory->define(App\Notice::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Configuration::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->sentence(2),
+        'value' => $faker->word(),
+        'content' => $faker->paragraph(),
+    ];
+});
+
 $factory->define(App\Operation::class, function (Faker\Generator $faker) {
 
     return [

@@ -178,7 +178,7 @@ class IndicatorController extends Controller
         }
 
       } else {
-        $message = getMsgAccessForbidden();
+        $message = getMsgDeleteAccessForbidden();
       }
       return response()->json($message);
     }

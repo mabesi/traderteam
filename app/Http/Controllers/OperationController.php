@@ -530,7 +530,7 @@ class OperationController extends Controller
         }
 
       } else {
-        $data = getMsgAccessForbidden();
+        $data = getMsgDeleteAccessForbidden();
       }
       return response()->json($data);
     }
