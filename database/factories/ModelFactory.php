@@ -78,3 +78,23 @@ $factory->define(App\Operation::class, function (Faker\Generator $faker) {
         'result' => $faker->randomFloat(2, -2, 6),
     ];
 });
+
+$factory->define(App\Comment::class, function (Faker\Generator $faker) {
+
+    return [
+        'user_id' => rand(1,15),
+        'operation_id' => rand(1,50),
+        'content' => $faker->sentence(20),
+        'like' => rand(1,50),
+        'dislike' => rand(1,20),
+    ];
+});
+
+$factory->define(App\Answer::class, function (Faker\Generator $faker) {
+
+    return [
+        'user_id' => rand(1,15),
+        'comment_id' => rand(1,300),
+        'content' => $faker->sentence(20),
+    ];
+});

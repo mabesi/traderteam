@@ -24,7 +24,7 @@ class OperationController extends Controller
       if (count($userId) == 0){
         $strategies = Strategy::orderBy('title')
                                 ->get();
-        $operations = new Operation;                                
+        $operations = new Operation;
       } else {
         $strategies = Strategy::whereIn('user_id',$userId)
                                 ->orderBy('title')
@@ -544,4 +544,25 @@ class OperationController extends Controller
 
       return view('operation.rules', $data);
     }
+
+    public function like($id)
+    {
+      $user = getUser();
+      $operation = Operation::find($id);
+      if ($user->id != $operation->user_id){
+        $user->operationsLiked()->attach($id);
+      }
+      return back();
+    }
+
+    public function dislike($id)
+    {
+      $user = getUser();
+      $operation = Operation::find($id);
+      if ($user->id != $operation->user_id){
+        $user->operationsLiked()->detach($id);
+      }
+      return back();
+    }
+
 }

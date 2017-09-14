@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Operation;
+use App\Comment;
 
-class OperationsTableSeeder extends Seeder
+class CommentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class OperationsTableSeeder extends Seeder
      */
     public function run()
     {
-      Operation::truncate();
-      factory(App\Operation::class, 50)->create();
+      Comment::truncate();
+      factory(App\Comment::class, 300)->create();
     }
 }

@@ -25,9 +25,22 @@
   {{ nbsp(1) }}
   <small class="font-10">{{ humanPastTime($operation->updated_at) }}</small>
 
+  <span class="btn btn-default btn-xs font-14 pull-right">
+    @if ($operation->likers->contains('id',getUserId()))
+    <a href="{{ url('operation/'.$operation->id.'/dislike') }}" title="Dislike">
+      <i class="fa fa-thumbs-up text-aqua"></i> {{ $operation->likers->count() }}
+    </a>
+    @else
+    <a href="{{ url('operation/'.$operation->id.'/like') }}" title="Like">
+      <i class="fa fa-thumbs-up text-blue"></i> {{ $operation->likers->count() }}
+    </a>
+    @endif
+  </span>
+
 @if ($operation->user_id==getUserId() || isAdmin())
   <span class="pull-right">
-    {!! getItemAdminIcons($operation,'operation','myoperations') !!}
+    {!! getItemAdminIcons($operation,'operation','myoperations').nbsp(4) !!}
   </span>
 @endif
+
 </div>

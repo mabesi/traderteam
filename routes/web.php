@@ -72,13 +72,15 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
   Route::get('operations/following', 'OperationController@following');
   Route::get('operations/user/{id}', 'OperationController@user');
   Route::get('operation-rules', 'OperationController@rules');
+  Route::get('operation/{id}/like', 'OperationController@like');
+  Route::get('operation/{id}/dislike', 'OperationController@dislike');
 
   Route::get('users', 'UserController@users')->name('users');
   Route::delete('user/{id}', 'UserController@destroy');
   Route::get('user/{id}/followers', 'UserController@followers')->name('followers');
   Route::get('user/{id}/following', 'UserController@following')->name('following');
-  Route::get('user/{id}/follow', 'UserController@follow')->name('follow');
-  Route::get('user/{id}/unfollow', 'UserController@unfollow')->name('unfollow');
+  Route::get('user/{id}/follow', 'UserController@follow');
+  Route::get('user/{id}/unfollow', 'UserController@unfollow');
   Route::get('user/{id}/lock', 'UserController@lock')->name('lock');
   Route::get('user/{id}/unlock', 'UserController@unlock')->name('unlock');
   Route::get('user/myfollowers', 'UserController@myFollowers')->name('myfollowers');

@@ -219,8 +219,10 @@ function getStrategyResult($strategyId)
 
 function getUserAvatar($class="img-circle",$alt="Foto do Perfil",$user=Null,$width=Null,$height=Null)
 {
-  //dd($user);
-  $src = asset("/storage/avatar/".($user==Null?Auth::user()->avatar:$user->avatar));
+  if ($user==Null){
+    $user = getUser();
+  }
+  $src = asset("/storage/avatar/".$user->avatar);
   return getHtmlImage($src,$class,$alt,Null,Null,$width,$height);
 }
 
