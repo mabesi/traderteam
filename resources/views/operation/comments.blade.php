@@ -27,10 +27,12 @@
           {{ $comment->user->name }} <small class="text-muted">({{ $comment->answers->count() }} resp.)</small>
           <span class="text-muted pull-right">
             {{ humanPastTime($comment->updated_at) }}
+@if (isAdmin() || $comment->user_id==getUserId())
             {{ nbsp(4) }}
             <a href="{{ url('comment/'.$comment->id) }}" data-resource="False" class="delete-button" data-token="{{ csrf_token() }}" data-previous="{{ URL::previous() }}">
               <i class="fa text-danger fa-trash"></i>
             </a>
+@endif
           </span>
         </span>
 

@@ -8,10 +8,12 @@
           {{ $answer->user->name }}
           <span class="text-muted pull-right">
             {{ humanPastTime($answer->updated_at) }}
+@if (isAdmin() || $answer->user_id==getUserId())
             {{ nbsp(4) }}
             <a href="{{ url('answer/'.$answer->id) }}" data-resource="False" class="delete-button" data-token="{{ csrf_token() }}" data-previous="{{ URL::previous() }}">
               <i class="fa text-danger fa-trash"></i>
             </a>
+@endif
           </span>
         </span>
         {{ $answer->content }}

@@ -592,10 +592,14 @@ class OperationController extends Controller
     {
       $comment = Comment::find($id);
 
-      if ($comment->delete()){
-        $message = getMsgDeleteSuccess();
+      if (isAdmin() || $comment->user_id==getUserId()){
+        if ($comment->delete()){
+          $message = getMsgDeleteSuccess();
+        } else {
+          $message = getMsgDeleteError();
+        }
       } else {
-        $message = getMsgDeleteError();
+        $message = getMsgDeleteAccessForbidden();
       }
       return response()->json($message);
     }
@@ -620,10 +624,14 @@ class OperationController extends Controller
     {
       $answer = Answer::find($id);
 
-      if ($answer->delete()){
-        $message = getMsgDeleteSuccess();
+      if (isAdmin() || $answer->user_id==getUserId()){
+        if ($answer->delete()){
+          $message = getMsgDeleteSuccess();
+        } else {
+          $message = getMsgDeleteError();
+        }
       } else {
-        $message = getMsgDeleteError();
+        $message = getMsgDeleteAccessForbidden();
       }
       return response()->json($message);
     }
