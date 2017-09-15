@@ -20,8 +20,7 @@ class ConfigurationController extends Controller
      */
     public function index()
     {
-        $configurations = Configuration::orderBy('name')
-                                    ->paginate(10);
+        $configurations = Configuration::paginate(10);
 
         $data = [
           'viewname' => 'Configurações',

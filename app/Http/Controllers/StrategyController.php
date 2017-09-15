@@ -9,6 +9,7 @@ use App\User;
 use App\Strategy;
 use App\Operation;
 use App\Indicator;
+use App\Configuration;
 
 class StrategyController extends Controller
 {
@@ -260,7 +261,10 @@ class StrategyController extends Controller
 
     public function rules()
     {
+      $strategyRules = Configuration::where('name','STRATEGY_RULES')->first();
+
       $data = [
+        'strategyRules' => $strategyRules,
         'viewname' => 'Regras',
         'viewtitle' => 'Regras',
       ];

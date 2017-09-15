@@ -28,7 +28,7 @@
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle bg-gray text-primary" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
               {!! getUserAvatar('user-image') !!}
               <!-- hidden-xs hides the username on small devices so only the image appears. -->

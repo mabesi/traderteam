@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Operation;
 use App\Strategy;
+use App\Configuration;
 use Illuminate\Http\Request;
 
 class OperationController extends Controller
@@ -537,7 +538,11 @@ class OperationController extends Controller
 
     public function rules()
     {
+
+      $operationRules = Configuration::where('name','OPERATION_RULES')->first();
+
       $data = [
+        'operationRules' => $operationRules,
         'viewname' => 'Regras',
         'viewtitle' => 'Regras',
       ];

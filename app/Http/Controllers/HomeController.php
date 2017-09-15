@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Operation;
 use App\Notice;
+use App\Configuration;
 
 class HomeController extends Controller
 {
@@ -117,7 +118,18 @@ class HomeController extends Controller
 
     public function help()
     {
+      $helpUserPanel = Configuration::where('name','HELP_USER_PANEL')->first();
+      $helpProfile = Configuration::where('name','HELP_PROFILE')->first();
+      $helpIndicator = Configuration::where('name','HELP_INDICATOR')->first();
+      $helpStrategy = Configuration::where('name','HELP_STRATEGY')->first();
+      $helpOperation = Configuration::where('name','HELP_OPERATION')->first();
+
       $data = [
+        'helpUserPanel' => $helpUserPanel,
+        'helpProfile' => $helpProfile,
+        'helpIndicator' => $helpIndicator,
+        'helpStrategy' => $helpStrategy,
+        'helpOperation' => $helpOperation,
         'viewname' => 'Ajuda',
         'viewtitle' => 'Ajuda',
       ];

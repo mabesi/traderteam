@@ -20,7 +20,7 @@
       <div class="configuration-value font-16 text-bold">
         {{ $configuration->value }}
       </div>
-      <div id='configuration-description'>{!! $configuration->content !!}</div>
+      <div class="top-20" id='configuration-description'>{!! $configuration->content !!}</div>
     </div>
 
   </div>

@@ -39,8 +39,12 @@
           <label for="name" class="col-sm-3 control-label">Nome *</label>
 
           <div class="col-sm-9">
-            <input type="text" value="{{ old('name',isset($configuration->name)?$configuration->name:Null) }}" name="name"
-             class="form-control" id="name" maxlength="50" >
+@if (isSuperAdmin())
+            <input type="text" value="{{ old('name',isset($configuration->name)?$configuration->name:Null) }}" name="name" class="form-control" id="name" maxlength="50" >
+@else
+            <strong>{{ (isset($configuration->name)?$configuration->name:'') }}</strong>
+            <input type="hidden" value="{{ old('name',isset($configuration->name)?$configuration->name:'') }}" name="name" >
+@endif
           </div>
         </div>
 
