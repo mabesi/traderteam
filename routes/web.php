@@ -71,6 +71,7 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
 
   Route::get('myoperations', 'OperationController@myoperations');
   Route::get('operations/following', 'OperationController@following');
+  Route::get('operations/liked', 'OperationController@liked');
   Route::get('operations/user/{id}', 'OperationController@user');
   Route::get('operation-rules', 'OperationController@rules');
   Route::get('operation/{id}/like', 'OperationController@like');

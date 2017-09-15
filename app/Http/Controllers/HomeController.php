@@ -61,7 +61,12 @@ class HomeController extends Controller
 
       //dd($users);
 
-      $operations = Operation::whereIn('user_id', $following)
+      $operationsFollowing = Operation::whereIn('user_id', $following)
+                              ->orderBy('updated_at','desc')
+                              ->take(12)
+                              ->get();
+
+      $operationsLiked = Auth::user()->operationsLiked()
                               ->orderBy('updated_at','desc')
                               ->take(12)
                               ->get();
@@ -90,7 +95,8 @@ class HomeController extends Controller
 
       $data = [
         'users' => $users,
-        'operations' => $operations,
+        'operationsFollowing' => $operationsFollowing,
+        'operationsLiked' => $operationsLiked,
         'newOperations' => $newOperations,
         'startedOperations' => $startedOperations,
         'finishedOperations' => $finishedOperations,
