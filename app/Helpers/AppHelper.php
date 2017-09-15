@@ -363,7 +363,7 @@ function getMsgAccessForbidden()
 {
   $data = [
     'success' => false,
-    'msg' => 'O usuário não possui acesso a este recurso.',
+    'msg' => 'O usuário não possui acesso a este item.',
   ];
 
   return $data;
@@ -373,19 +373,17 @@ function getMsgDeleteAccessForbidden()
 {
   $data = [
     'success' => false,
-    'msg' => 'O usuário não possui autorização para deletar este recurso.',
+    'msg' => 'O usuário não possui autorização para deletar este item.',
   ];
 
   return $data;
 }
 
-
-
 function getMsgDeleteError()
 {
   $data = [
     'success' => false,
-    'msg' => 'Ocorreu um erro ao deletar o recurso.',
+    'msg' => 'Ocorreu um erro ao deletar o item.',
   ];
 
   return $data;
@@ -395,7 +393,7 @@ function getMsgDeleteErrorVinculated()
 {
   $data = [
     'success' => false,
-    'msg' => 'Este recurso possui registros vinculados, por isso não pode ser deletado.',
+    'msg' => 'Este item possui registros vinculados, por isso não pode ser deletado.',
   ];
 
   return $data;
@@ -405,7 +403,7 @@ function getMsgDeleteErrorLocked()
 {
   $data = [
     'success' => false,
-    'msg' => 'Este recurso está bloqueado, por isso não pode ser deletado.',
+    'msg' => 'Este item está bloqueado, por isso não pode ser deletado.',
   ];
 
   return $data;
@@ -415,7 +413,27 @@ function getMsgDeleteSuccess()
 {
   $data = [
     'success' => true,
-    'msg' => 'O recurso foi deletado com sucesso.',
+    'msg' => 'O item foi deletado com sucesso.',
+  ];
+
+  return $data;
+}
+
+function getMsgAddSuccess()
+{
+  $data = [
+    'success' => true,
+    'msg' => 'O item foi incluído com sucesso.',
+  ];
+
+  return $data;
+}
+
+function getMsgAddError()
+{
+  $data = [
+    'success' => false,
+    'msg' => 'Ocorreu um erro ao incluir o item.',
   ];
 
   return $data;
@@ -549,6 +567,15 @@ function gtimeName($gtime)
   ];
 
   return $gtimeList[$gtime];
+}
+
+function br($qtd)
+{
+  $br = '';
+  for ($i=0;$i<$qtd;$i++){
+    $br .= '<br>';
+  }
+  return $br;
 }
 
 function nbsp($qtd)

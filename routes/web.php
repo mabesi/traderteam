@@ -75,6 +75,10 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
   Route::get('operation-rules', 'OperationController@rules');
   Route::get('operation/{id}/like', 'OperationController@like');
   Route::get('operation/{id}/dislike', 'OperationController@dislike');
+  Route::post('operation/{id}/addcomment', 'OperationController@addComment');
+  Route::delete('comment/{id}', 'OperationController@removeComment');
+  Route::post('comment/{id}/addanswer', 'OperationController@addAnswer');
+  Route::delete('answer/{id}', 'OperationController@removeAnswer');
 
   Route::get('users', 'UserController@users')->name('users');
   Route::delete('user/{id}', 'UserController@destroy');

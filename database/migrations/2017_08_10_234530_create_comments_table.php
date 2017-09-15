@@ -20,8 +20,8 @@ class CreateCommentsTable extends Migration
             $table->integer('operation_id')->unsigned();
             $table->foreign('operation_id')->references('id')->on('operations')->onDelete('cascade');
             $table->text('content');
-            $table->integer('like')->unsigned();
-            $table->integer('dislike')->unsigned();
+            $table->integer('like')->unsigned()->default(0);
+            $table->integer('dislike')->unsigned()->default(0);
             $table->timestamps();
         });
     }

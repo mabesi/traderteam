@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Operation;
+use App\Comment;
+use App\Answer;
 use App\Strategy;
 use App\Configuration;
 use Illuminate\Http\Request;
@@ -568,6 +570,62 @@ class OperationController extends Controller
         $user->operationsLiked()->detach($id);
       }
       return back();
+    }
+
+    public function addComment(Request $request,$id)
+    {
+      $comment = new Comment;
+
+      $comment->user_id = getUserId();
+      $comment->operation_id = $id;
+
+      $comment->content = $request->content;
+
+      if ($comment->save()){
+        return redirect('operation/'.$id.'#comment-'.$comment->id);
+      } else {
+        return back()->with('problems',['Ocorreu um erro ao salvar o comentário!']);
+      }
+    }
+
+    public function removeComment($id)
+    {
+      $comment = Comment::find($id);
+
+      if ($comment->delete()){
+        $message = getMsgDeleteSuccess();
+      } else {
+        $message = getMsgDeleteError();
+      }
+      return response()->json($message);
+    }
+
+    public function addAnswer(Request $request,$id)
+    {
+      $answer = new Answer;
+
+      $answer->user_id = getUserId();
+      $answer->comment_id = $id;
+
+      $answer->content = $request->content;
+
+      if ($answer->save()){
+        return redirect('operation/'.$answer->comment->operation_id.'?comment='.$answer->comment->id.'#answer-'.$answer->id);
+      } else {
+        return back()->with('problems',['Ocorreu um erro ao salvar a resposta!']);
+      }
+    }
+
+    public function removeAnswer($id)
+    {
+      $answer = Answer::find($id);
+
+      if ($answer->delete()){
+        $message = getMsgDeleteSuccess();
+      } else {
+        $message = getMsgDeleteError();
+      }
+      return response()->json($message);
     }
 
 }
