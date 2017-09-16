@@ -22,9 +22,16 @@ class OperationController extends Controller
       return $this->operations($request,Null,"Todas");
     }
 
-    protected function operations($request,$userId=Array(),$owner="Todas")
+    protected function operations($request,$userId=Null,$owner="Todas",$operationId=Null)
     {
-      if (count($userId) == 0){
+
+      //dd($operationId);
+
+      if ($operationId!=Null){
+        $strategies = Strategy::orderBy('title')
+                                ->get();
+        $operations = Operation::whereIn('id',$operationId);
+      } elseif ($userId==Null){
         $strategies = Strategy::orderBy('title')
                                 ->get();
         $operations = new Operation;
@@ -126,14 +133,28 @@ class OperationController extends Controller
     public function myoperations(Request $request)
     {
       $userId[] = getUserId();
+      if (count($userId)==0){
+        $userId = Array(0);
+      }
       return $this->operations($request,$userId,"Minhas Operações");
     }
 
     public function following(Request $request)
     {
       $userId = getFollowingId();
-      //dd($userId);
+      if (count($userId)==0){
+        $userId = Array(0);
+      }
       return $this->operations($request,$userId,"Seguindo");
+    }
+
+    public function liked(Request $request)
+    {
+      $operationId = getLikedOperationId();
+      if (count($operationId)==0){
+        $operationId = Array(0);
+      }
+      return $this->operations($request,Null,"Curtidas",$operationId);
     }
 
     public function user(Request $request,$id)
@@ -582,7 +603,9 @@ class OperationController extends Controller
       $comment->content = $request->content;
 
       if ($comment->save()){
-        return redirect('operation/'.$id.'#comment-'.$comment->id);
+        return redirect('operation/'.$id.'?comment='.$comment->id);
+
+        return redirect('operation/'.$answer->comment->operation_id.'?comment='.$answer->comment->id);
       } else {
         return back()->with('problems',['Ocorreu um erro ao salvar o comentário!']);
       }
@@ -614,7 +637,7 @@ class OperationController extends Controller
       $answer->content = $request->content;
 
       if ($answer->save()){
-        return redirect('operation/'.$answer->comment->operation_id.'?comment='.$answer->comment->id.'#answer-'.$answer->id);
+        return redirect('operation/'.$answer->comment->operation_id.'?comment='.$answer->comment->id);
       } else {
         return back()->with('problems',['Ocorreu um erro ao salvar a resposta!']);
       }

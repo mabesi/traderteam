@@ -30,6 +30,7 @@ class CreateProfilesTable extends Migration
             $table->decimal('capital',10,2)->default(100000.00);
 
             $table->boolean('sidebar_closed')->default(True);
+            $table->boolean('cofounder')->default(False);
 
             $table->timestamps();
         });

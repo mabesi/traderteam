@@ -261,6 +261,10 @@ class ProfileController extends Controller
         $profile->capital = 100000.00;
       }
 
+      if (isSuperAdmin()){
+        $profile->cofounder = (boolean) $request->cofounder;
+      }
+
       if ($profile->save()){
         return back()->with('informations', ['As informações foram atualizadas com sucesso!']);
       } else {

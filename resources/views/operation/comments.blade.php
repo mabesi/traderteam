@@ -1,15 +1,20 @@
 @php
-  $more = request('comments',15);
+  $more = request('comments',10);
   $totalComments = $operation->comments->count();
-  $commentId = request('comment',0);
+  $extra = 10;
+  if ($extra>$totalComments-$more){
+    $extra = $totalComments-$more;
+  }
+  $commentId = request('comment',-1);
+  $amore = request('answers',10);
 @endphp
 
 <div class="box box-widget">
-  <div class="box-header">
+  <div id="comment-0" class="box-header">
     <span class="text-navy font-16">
        @if ($totalComments>$more)
          Comentários ({{ $more.'/'.$operation->comments->count() }})
-         <a class="font-12" href="{{ url('operation/'.$operation->id.'?comments='.($more+15)) }}">Carregar mais...</a>
+         <a class="font-12" href="{{ url('operation/'.$operation->id.'?comment=0&comments='.($more+$extra)) }}">Carregar mais...</a>
        @else
          Comentários ({{ $operation->comments->count() }})
        @endif
@@ -19,12 +24,21 @@
   <div id="operation-comments" class="box-footer box-comments">
 
   @foreach ($operation->comments->sortBy('updated_at')->take(-$more) as $comment)
+
+@php
+$commentAnswers=$comment->answers->count();
+@endphp
+
     <div id="comment-{{ $comment->id }}" class="box-comment">
 
       {!! getUserAvatar("img-circle img-sm","Avatar",$comment->user) !!}
       <div class="comment-text">
         <span class="username">
-          {{ $comment->user->name }} <small class="text-muted">({{ $comment->answers->count() }} resp.)</small>
+          {!! getUserLink($comment->user,True) !!} <small class="text-muted">({{ $commentAnswers }} respostas)
+@if ($commentAnswers>$amore)
+          <a class="font-12" href="{{ url('operation/'.$operation->id.'?comment='.$comment->id.'&comments='.($more+$extra)).'&answers='.$commentAnswers }}">Ver todas...</a>
+@endif
+          </small>
           <span class="text-muted pull-right">
             {{ humanPastTime($comment->updated_at) }}
 @if (isAdmin() || $comment->user_id==getUserId())
@@ -69,6 +83,19 @@
     </div>
   </div>
 
-  {!! br(0) !!}
+  {!! br(50) !!}
 
 </div>
+
+@if ($commentId>=0)
+@push('scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+  var comment = $('{{ "#comment-".$commentId }}');
+  $('html,body').animate({
+    scrollTop: comment.offset().top
+  },700);
+});
+</script>
+@endpush
+@endif

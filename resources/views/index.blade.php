@@ -109,8 +109,8 @@
       <div class="box-body">
         @include('operation.listmin')
       </div>
-      <div class="box-footer">
-        <a href="{{ url('operations/following') }}">Ver Todas</a> |
+      <div class="box-footer font-12">
+        <a href="{{ url('operations/following') }}">Todas</a> |
         <a href="{{ url('operations/following?new=1&changed=1') }}">Não Iniciadas</a> |
         <a href="{{ url('operations/following?started=1&moved=1') }}">Em Andamento</a> |
         <a href="{{ url('operations/following?stoped=1&closed=1&finished=1') }}">Encerradas</a>
@@ -126,8 +126,8 @@
       <div class="box-body">
         @include('operation.listminliked')
       </div>
-      <div class="box-footer">
-        <a href="{{ url('operations/liked') }}">Ver Todas</a> |
+      <div class="box-footer font-12">
+        <a href="{{ url('operations/liked') }}">Todas</a> |
         <a href="{{ url('operations/liked?new=1&changed=1') }}">Não Iniciadas</a> |
         <a href="{{ url('operations/liked?started=1&moved=1') }}">Em Andamento</a> |
         <a href="{{ url('operations/liked?stoped=1&closed=1&finished=1') }}">Encerradas</a>

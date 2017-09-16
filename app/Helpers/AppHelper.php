@@ -86,10 +86,35 @@ function getUserTypeLabel($type)
   return $label;
 }
 
+function getCofounderLabel($cofounder)
+{
+  if ($cofounder){
+    $label = "<span class='label bg-blue' title='Cofundador TraderTeam'><i class='fa fa-institution'></i></span>";
+  } else {
+    $label = "";
+  }
+
+  return $label;
+}
+
 function getConfig($config)
 {
   $profile = Auth::user()->profile;
   return $profile->$config;
+}
+
+function getConfiguration($name,$type='value')
+{
+  $configuration = App\Configuration::where('name',$name)->first();
+  if (!$configuration==Null){
+    if ($type=='value'){
+      return $configuration->value;
+    } elseif ($type=='content'){
+      return $configuration->content;
+    } else {
+      return Null;
+    }
+  }
 }
 
 function indicatorType($type){
@@ -238,6 +263,25 @@ function getUserLine($user=Null)
     $userLine = '<span class="user-line">'.$avatar.'</span>';
   } else {
     $userLine = '<a class="user-line" href="'.url('profile/'.$user->profile->id).'">'.$avatar.'</a>';
+  }
+
+  return $userLine;
+}
+
+function getUserLink($user=Null,$stars=False)
+{
+  if ($user==Null){
+    $user = Auth::user();
+  }
+
+  if ($user->profile == Null){
+    $userLine = $user->name;
+  } else {
+    $userLine = '<a href="'.url('profile/'.$user->profile->id).'">'.$user->name.'</a>';
+  }
+
+  if ($stars){
+    $userLine .= ' '.getRankStars($user->rank);
   }
 
   return $userLine;
@@ -705,6 +749,23 @@ function getChartInterval($interval='D')
   ];
 
   return $typeList[$interval];
+}
+
+function getLikedOperationId($userId=Null)
+{
+  if ($userId==Null){
+    $operations = Auth::user()->operationsLiked;
+  } else {
+    $operations = App\User::find($userId)->operationsLiked;
+  }
+
+  $arrayId = Array();
+
+  foreach ($operations as $operation){
+    $arrayId[] = $operation->id;
+  }
+
+  return $arrayId;
 }
 
 function getFollowingId($userId=Null)

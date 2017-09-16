@@ -1,11 +1,11 @@
 <div class="box box-widget">
   <div class="box-footer box-comments">
-  @foreach ($comment->answers->take(10) as $answer)
+  @foreach ($comment->answers->take(-$amore) as $answer)
     <div id="answer-{{ $answer->id }}" class="box-comment">
       {!! getUserAvatar("img-circle img-sm","Avatar",$answer->user) !!}
       <div class="comment-text">
         <span class="username">
-          {{ $answer->user->name }}
+          {!! getUserLink($answer->user,True) !!}
           <span class="text-muted pull-right">
             {{ humanPastTime($answer->updated_at) }}
 @if (isAdmin() || $answer->user_id==getUserId())

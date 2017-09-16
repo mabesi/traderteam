@@ -26,6 +26,7 @@ class ProfilesTableSeeder extends Seeder
         'twitter' => 'https://www.twitter.com/pliniomabesi',
         'description' => 'Esta é a minha descrição dizendo um pouco sobre mim.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida lorem turpis, vitae porta leo congue ut.<br> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean vitae imperdiet tortor. Donec consectetur velit eu lectus sodales pulvinar. Vestibulum at egestas ex, et accumsan quam. Suspendisse convallis diam nibh, convallis sodales eros aliquam id. Cras ut lectus eu nisi tincidunt dignissim sed eget mauris.',
         'sidebar_closed' => True,
+        'cofounder' => True,
         'created_at' => date("Y-m-d H:i:s"),
         'updated_at' => date("Y-m-d H:i:s"),
       ]);

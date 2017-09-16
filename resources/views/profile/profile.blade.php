@@ -9,6 +9,7 @@
           <div class="box box-primary">
             <div class="box-body box-profile">
               {!! getUserTypeLabel($user->type) !!}
+              {!! getCofounderLabel($profile->cofounder) !!}
 
               {!! getUserAvatar('profile-user-img img-responsive img-circle',$user->name,$user) !!}
 

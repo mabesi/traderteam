@@ -9,7 +9,7 @@ class Profile extends Model
   protected $fillable = [
       'user_id', 'occupation', 'birthdate',
       'city', 'state', 'country', 'site','facebook', 'twitter',
-      'description', 'capital',
+      'description', 'capital', 'cofounder'
   ];
 
   public $rules = [

@@ -137,6 +137,7 @@
 
 @if (isAdmin())
 
+  <hr>
   <div class="form-group">
     <label for="type" class="col-sm-3 control-label"><span class="label bg-yellow font-14">Confirmado (Email)</span></label>
 
@@ -156,6 +157,16 @@
 @endif
 
 @if (isSuperAdmin())
+
+  <hr>
+  <div class="form-group">
+    <label for="cofounder" class="col-sm-3 control-label"><span class="label bg-blue font-14">Co-Fundador</span></label>
+
+    <div class="col-sm-9">
+      <input type="checkbox" name="cofounder" value="1" {{ ($profile->cofounder?'CHECKED':'') }}>
+    </div>
+  </div>
+
   <div class="form-group">
     <label for="type" class="col-sm-3 control-label">Tipo de Usuário *</label>
 
