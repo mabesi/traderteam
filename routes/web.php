@@ -11,11 +11,6 @@
 |
 */
 
-//Route::get('/', function () {
-  //return view('welcome');
-  //return view('index');
-//});
-
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -26,29 +21,6 @@ Route::post('/contact', 'HomeController@sendContact');
 Route::get('user/verify', 'UserController@verifyUser')->middleware('auth');
 Route::get('user/{id}/send-confirmation', 'UserController@sendConfirmation');
 Route::get('user/{id}/confirmation/{token}', 'UserController@confirmation');
-
-Route::get('testmail', function () {
-
-  $user = getUser();
-  if (sendConfirmationEmail($user)){
-    return 'Confirmação enviada com sucesso!';
-  } else {
-    return 'Erro ao enviar confirmação';
-  }
-
-});
-
-Route::get('sendmail', function () {
-    $data = array(
-        'name' => "TraderTeam",
-    );
-    Mail::send('emails.welcome', $data, function ($message) {
-        $message->from('pliniomabesi@gmail.com', 'Plinio TraderTeam');
-        $message->to(['pliniomabesi@gmail.com','pliniombs@yahoo.com.br','helberbgs@hotmail.com','fredms_av@yahoo.com.br'])
-                ->subject('Teste de envio de email do site TraderTeam');
-    });
-    return "O email foi enviado com sucesso";
-});
 
 Route::middleware(['auth','VerifyUser'])->group(function(){
 
@@ -75,8 +47,10 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
   Route::get('operations/liked', 'OperationController@liked');
   Route::get('operations/user/{id}', 'OperationController@user');
   Route::get('operation-rules', 'OperationController@rules');
+  // Like nas Operações
   Route::get('operation/{id}/like', 'OperationController@like');
   Route::get('operation/{id}/dislike', 'OperationController@dislike');
+  // Comentários de Operações
   Route::post('operation/{id}/addcomment', 'OperationController@addComment');
   Route::delete('comment/{id}', 'OperationController@removeComment');
   Route::post('comment/{id}/addanswer', 'OperationController@addAnswer');
@@ -84,14 +58,16 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
 
   Route::get('users', 'UserController@users')->name('users');
   Route::delete('user/{id}', 'UserController@destroy');
-  Route::get('user/{id}/followers', 'UserController@followers')->name('followers');
-  Route::get('user/{id}/following', 'UserController@following')->name('following');
+  // Seguir - Deixar de Seguir - Seguindo Usuários
   Route::get('user/{id}/follow', 'UserController@follow');
   Route::get('user/{id}/unfollow', 'UserController@unfollow');
-  Route::get('user/{id}/lock', 'UserController@lock')->name('lock');
-  Route::get('user/{id}/unlock', 'UserController@unlock')->name('unlock');
+  Route::get('user/{id}/followers', 'UserController@followers')->name('followers');
+  Route::get('user/{id}/following', 'UserController@following')->name('following');
   Route::get('user/myfollowers', 'UserController@myFollowers')->name('myfollowers');
   Route::get('user/following', 'UserController@myFollowing')->name('myfollowing');
+  // Bloqueio - Liberação de Usuários
+  Route::get('user/{id}/lock', 'UserController@lock')->name('lock');
+  Route::get('user/{id}/unlock', 'UserController@unlock')->name('unlock');
   Route::post('user/{id}/changepassword', 'UserController@changePassword');
 
   Route::post('profile/{id}/configurations', 'ProfileController@configurations');

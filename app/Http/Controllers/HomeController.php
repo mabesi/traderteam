@@ -124,6 +124,9 @@ class HomeController extends Controller
         'email' => 'required|email|max:50',
         'subject' => 'required|string|min:5|max:100',
         'message' => 'required|string|min:10|max:1000',
+        'captcha' => 'required|captcha'
+      ],[
+        'captcha.captcha' => 'Validação do captcha incorreta!',
       ]);
 
       $name = $request->name;

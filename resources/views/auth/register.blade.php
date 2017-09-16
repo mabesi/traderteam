@@ -13,7 +13,7 @@
   </div>
 
   <div class="register-box-body">
-    <p class="login-box-msg">Preencha os campos para se registrar</p>
+    <p class="login-box-msg">Preencha os campos abaixo para se registrar</p>
 
     <form action="{{ route('register') }}" method="post">
 
@@ -58,6 +58,17 @@
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
 
+      <div class="form-group has-feedback">
+        <small>Digite os caracteres abaixo no campo ao lado:</small><br>
+        {!! captcha_img() !!}
+        <input type="text" name="captcha" maxlength="10" id="captcha" required><br>
+        @if ($errors->has('captcha'))
+            <span class="label text-danger font-14">
+                <strong>{{ $errors->first('captcha') }}</strong>
+            </span>
+        @endif
+      </div>
+
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
@@ -65,7 +76,7 @@
               <input type="checkbox" name="terms" value="1" required> Eu concordo com os <a href="{{ url('/terms') }}" target="_blank">Termos</a>
             </label>
             @if ($errors->has('terms'))
-                <span class="help-block">
+                <span class="label text-danger">
                     <strong>{{ $errors->first('terms') }}</strong>
                 </span>
             @endif

@@ -53,7 +53,7 @@
           <label for="subject" class="col-sm-2 control-label">Assunto *</label>
 
           <div class="col-sm-10">
-            <input type="subject" value="{{ old('subject') }}" name="subject" class="form-control"
+            <input type="text" value="{{ old('subject') }}" name="subject" class="form-control"
             maxlength="100" id="subject" required>
           </div>
         </div>
@@ -63,6 +63,14 @@
 
           <div class="col-sm-10">
             <textarea class="textarea form-control" rows="6" name="message" id="message" required>{!! old('message') !!}</textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <small>Digite os caracteres abaixo no campo ao lado:</small><br>
+            {!! captcha_img() !!}
+            <input type="text" name="captcha" maxlength="10" id="captcha" required>
           </div>
         </div>
 
