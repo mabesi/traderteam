@@ -247,6 +247,18 @@ function getDaysTo($date)
     return daysBetweenDates($currentDate,$date);
 }
 
+function getBRDate()
+{
+  date_default_timezone_set('America/Belem');
+  return date('d/m/Y');
+}
+
+function getBRDateTime()
+{
+  date_default_timezone_set('America/Belem');
+  return date('d/m/Y H:i:s');
+}
+
 function getMysqlDateFromBR($date)
 {
     $arrayDate = explode('/',$date);

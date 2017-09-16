@@ -141,7 +141,7 @@
         <span class="font-20">Notícias <a class="font-16 text-aqua" href="http://www.infomoney.com.br/mercados/ultimas-noticias" target="_blank">(Infomoney)</a></span>
       </div>
       <div class="box-body">
-        {!! feedRss('http://www.infomoney.com.br/mercados/rss',8) !!}
+        {!! feedRss('http://www.infomoney.com.br/mercados/rss',7) !!}
       </div>
     </div>
   </div>

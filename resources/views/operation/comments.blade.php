@@ -34,7 +34,7 @@ $commentAnswers=$comment->answers->count();
       {!! getUserAvatar("img-circle img-sm","Avatar",$comment->user) !!}
       <div class="comment-text">
         <span class="username">
-          {!! getUserLink($comment->user,True) !!} <small class="text-muted">({{ $commentAnswers }} respostas)
+          {!! getUserLink($comment->user,True) !!} <small class="text-muted">({{ $commentAnswers.($commentAnswers>1?' respostas':' resposta') }})
 @if ($commentAnswers>$amore)
           <a class="font-12" href="{{ url('operation/'.$operation->id.'?comment='.$comment->id.'&comments='.($more+$extra)).'&answers='.$commentAnswers }}">Ver todas...</a>
 @endif

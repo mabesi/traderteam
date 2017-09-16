@@ -12,7 +12,7 @@
 
 @if ($operation->user_id != getUserId())
   <span class="font-12 pull-right">
-      <a href="{{ url('profile/'.$operation->user->id) }}">{{ $operation->user->name }}</a>
+      {!! getUserLink($operation->user) !!}
   </span>
 @endif
 </div>

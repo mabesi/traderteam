@@ -1,4 +1,5 @@
 @foreach ($operations as $operation)
+<hr class="no-padding no-margin">
 <div class="top-bottom-5">
   @include('operation.lineview')
 

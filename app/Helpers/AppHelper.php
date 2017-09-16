@@ -46,12 +46,20 @@ function getUserId()
 
 function getUserName()
 {
-  return Auth::user()->name;
+  if (Auth::check()){
+    return Auth::user()->name;
+  } else {
+    return '';
+  }
 }
 
 function getUserEmail()
 {
-  return Auth::user()->email;
+  if (Auth::check()){
+    return Auth::user()->email;
+  } else {
+    return '';
+  }
 }
 
 function getProfileId(){
@@ -128,17 +136,20 @@ function indicatorType($type){
   return $types[$type];
 }
 
-function getOperationCapital()
+function getInvestimentCapital($user=Null)
 {
-  return 5000.00;
+  if ($user==Null){
+    $user = getUser();
+  }
+
+  if ($user->profile==Null){
+    return 100000.00;
+  } else {
+    return $user->profile->capital;
+  }
 }
 
-function getInvestimentCapital()
-{
-  return 100000.00;
-}
-
-function getUserHitRate($userId=Null,$inTarget=False)
+/**function getUserHitRate($userId=Null,$inTarget=False)
 {
   $totalOperations = getStartedOperations($userId);
 
@@ -146,12 +157,14 @@ function getUserHitRate($userId=Null,$inTarget=False)
                         ->whereDate('exitdate','>=',$dateLastYear)
                         ->sum('result');
   return $result;
-}
+}**/
 
-function getYearUserResult($userId=Null)
+function getYearUserResult($user=Null)
 {
-  if ($userId==Null){
+  if ($user==Null){
     $userId = getUserId();
+  } else {
+    $userId = $user->id;
   }
 
   $now = date('Y-m-d');
@@ -162,10 +175,12 @@ function getYearUserResult($userId=Null)
   return $result;
 }
 
-function getMontlyUserResult($startDate=Null,$userId=Null)
+function getMontlyUserResult($startDate=Null,$user=Null)
 {
-  if ($userId==Null){
+  if ($user==Null){
     $userId = getUserId();
+  } else {
+    $userId = $user->id;
   }
 
   $now = date('Y-m-d');
@@ -222,16 +237,59 @@ function getMontlyUserResult($startDate=Null,$userId=Null)
   return $result;
 }
 
-function getUserResult($userId=Null)
+function getUserResult($user=Null)
 {
-  if ($userId==Null){
+  if ($user==Null){
     $userId = getUserId();
+  } else {
+    $userId = $user->id;
   }
 
   return App\Operation::where('user_id',$userId)
               ->whereNotNull('exitdate')
               ->whereNotNull('realexit')
               ->sum('result');
+}
+
+function getUserAvailableCapital($user=Null)
+{
+  if ($user==Null){
+    $capital = getInvestimentCapital();
+    $lockedCapital = getUserLockedCapital();
+  } else {
+    $capital = getInvestimentCapital($user);
+    $lockedCapital = getUserLockedCapital($user);
+  }
+
+  if ($capital > $lockedCapital){
+    //dd($capital - $lockedCapital);
+    return $capital - $lockedCapital;
+  } else {
+    return 0;
+  }
+}
+
+function getUserLockedCapital($user=Null)
+{
+  if ($user==Null){
+    $userId = getUserId();
+  } else {
+    $userId = $user->id;
+  }
+
+  $totalLockedCapital = 0;
+
+  $operations = App\Operation::where('user_id',$userId)
+                        ->where(function($query){
+                            $query->orWhere('status','I')
+                                  ->orWhere('status','M');
+                        })->get();
+
+  foreach($operations as $operation){
+    $totalLockedCapital += $operation->amount * $operation->preventry;
+  }
+
+  return $totalLockedCapital;
 }
 
 function getStrategyResult($strategyId)
@@ -487,7 +545,7 @@ function getUserLevel($user)
 {
   $followers = $user->followers->count();
   $operations = $user->operations->count();
-  $result = getUserResult($user->id);
+  $result = getUserResult($user);
 
   if ($followers >= 500 && (($operations >= 1000 && $result>=500) || ($operations >= 500 && $result>=1000))){
     $level = 5; //Tubarão
@@ -804,8 +862,8 @@ function getFollowersId($userId=Null)
 
 function feedRss($link,$limit=10,$showDescription=False)
 {
-  return 'Notícias...';
-  //$rss = simplexml_load_file($link);
+  //return 'Notícias...';
+  $rss = simplexml_load_file($link);
   $count = 0;
   $feed = '';
 

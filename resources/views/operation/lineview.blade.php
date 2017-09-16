@@ -25,7 +25,10 @@
   {{ nbsp(1) }}
   <small class="font-10">{{ humanPastTime($operation->updated_at) }}</small>
 
-  <span class="btn btn-default btn-xs font-14 pull-right">
+  <span class="btn btn-default btn-xs font-14 pull-right top-5">
+  @if ($operation->user_id==getUserId())
+    <i class="fa fa-thumbs-up text-navy"></i> {{ $operation->likers->count() }}
+  @else
     @if ($operation->likers->contains('id',getUserId()))
     <a href="{{ url('operation/'.$operation->id.'/dislike') }}" title="Dislike">
       <i class="fa fa-thumbs-up text-aqua"></i> {{ $operation->likers->count() }}
@@ -35,6 +38,7 @@
       <i class="fa fa-thumbs-up text-blue"></i> {{ $operation->likers->count() }}
     </a>
     @endif
+  @endif
   </span>
 
 @if ($operation->user_id==getUserId() || isAdmin())

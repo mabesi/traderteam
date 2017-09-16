@@ -114,6 +114,8 @@
         <li><a href="{{ route('market') }}"><i class="fa fa-globe"></i> <span>Mercado Mundial</span></a></li>
 
         <li><a href="{{ route('help') }}"><i class="fa fa-question-circle"></i> <span>Ajuda</span></a></li>
+
+        <li><a href="{{ route('contact') }}" target="_blank"><i class="fa  fa-bullhorn"></i> <span>Fale Conosco</span></a></li>
         <li>{{ nbsp(1) }}</li>
 
 @if (isAdmin())

@@ -53,8 +53,18 @@
 </p>
 
 @if ($profile->user_id == getUserId())
-<strong><i class="fa  fa-money margin-r-5"></i> Capital de Investimento</strong> <small class="text-muted">(* Somente você vê isto!)</small>
+<hr>
+<strong><i class="fa  text-blue fa-money margin-r-5"></i> Capital de Investimento *</strong>
 <p class="text-muted text-justify">
   {{ formatCurrency($profile->capital) }}
 </p>
+<strong><i class="fa text-red fa-money margin-r-5"></i> Capital Bloqueado *</strong>
+<p class="text-muted text-justify">
+  {{ formatCurrency(getUserLockedCapital()) }}
+</p>
+<strong><i class="fa text-green fa-money margin-r-5"></i> Capital Disponível *</strong>
+<p class="text-muted text-justify">
+  {{ formatCurrency(getUserAvailableCapital()) }}
+</p>
+<small class="text-muted">* Somente você vê isto!</small>
 @endif

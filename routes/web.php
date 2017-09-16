@@ -22,6 +22,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/contact', 'HomeController@contact')->name('contact');
+Route::post('/contact', 'HomeController@sendContact');
 Route::get('user/verify', 'UserController@verifyUser')->middleware('auth');
 Route::get('user/{id}/send-confirmation', 'UserController@sendConfirmation');
 Route::get('user/{id}/confirmation/{token}', 'UserController@confirmation');

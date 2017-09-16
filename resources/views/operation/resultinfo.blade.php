@@ -1,6 +1,6 @@
 @php
 
-  $yearResult = getYearUserResult($user->id);
+  $yearResult = getYearUserResult($user);
 
   if ($yearResult >= 30){
     $baseBar = 20;
@@ -18,14 +18,14 @@
     $baseBar = 90;
   }
 
-  $userResult = getUserResult($user->id);
+  $userResult = getUserResult($user);
 
 @endphp
 
 <div class="row">
   <div class="col-sm-12">
     <div class="text-center">
-      @foreach (getMontlyUserResult(Null,$user->id) as $bar)
+      @foreach (getMontlyUserResult(Null,$user) as $bar)
 
       <div class="progress vertical progress-sm no-margin">
         <div class="progress-bar progress-bar-{{ $bar['color'] }} font-10"

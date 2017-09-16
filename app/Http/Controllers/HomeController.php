@@ -117,6 +117,29 @@ class HomeController extends Controller
       return view('contact');
     }
 
+    public function sendContact(Request $request)
+    {
+      $request->validate([
+        'name' => 'required|string|min:3|max:100',
+        'email' => 'required|email|max:50',
+        'subject' => 'required|string|min:5|max:100',
+        'message' => 'required|string|min:10|max:1000',
+      ]);
+
+      $name = $request->name;
+      $email = $request->email;
+      $subject = $request->subject;
+      $message = $request->message;
+
+      $to = getAdminEmails();
+
+      if (sendContactEmail($to,$email,$name,$subject,$message)){
+        return back()->with('informations',['Sua mensagem foi enviada com sucesso!']);
+      } else {
+        return back()->with('problems',['Ocorreu um erro ao enviar a mensagem!']);
+      }
+    }
+
     public function market()
     {
       return view('market');

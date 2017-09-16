@@ -457,11 +457,19 @@ class OperationController extends Controller
 
         } elseif ($request->realentry){
            if ($request->entrydate){
+
              $operation->realentry = (float) $request->realentry;
-             $entrydate = getMysqlDateFromBR($request->entrydate);
-             $operation->entrydate = $entrydate;
-             $operation->currentstop = $operation->prevstop;
-             $operation->status = 'I';
+
+             if (($operation->amount * $operation->realentry) > getUserAvailableCapital($operation->user)){
+               $request->session()->flash('warnings',['Capital disponível insuficiente para iniciar a operação!']);
+             } else {
+               $entrydate = getMysqlDateFromBR($request->entrydate);
+               $operation->entrydate = $entrydate;
+               $operation->currentstop = $operation->prevstop;
+               $operation->status = 'I';
+             }
+           } else {
+             $request->session()->flash('warnings',['Para iniciar a operação é necessário informar o valor e a data de entrada!']);
            }
         }
 
