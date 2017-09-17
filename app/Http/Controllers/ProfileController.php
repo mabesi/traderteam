@@ -164,9 +164,11 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-      if (isAdmin() || $id == getUserId()){
-        $profile = Profile::where('user_id', $id)->first();
-        $user = User::find($id);
+      $profile = Profile::find($id);
+      
+      if (isAdmin() || $profile->user_id == getUserId()){
+
+        $user = $profile->user;
 
         $data = [
           'viewname' => 'Editar Perfil',

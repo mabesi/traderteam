@@ -36,7 +36,7 @@
 
           <div class="col-sm-10">
             <input type="text" value="{{ old('name',getUserName()) }}" name="name" class="form-control"
-            maxlength="100" id="name" placeholder="Seu Nome" required>
+            maxlength="100" id="name" required>
           </div>
         </div>
 
@@ -45,7 +45,7 @@
 
           <div class="col-sm-10">
             <input type="email" value="{{ old('email',getUserEmail()) }}" name="email" class="form-control"
-            maxlength="50"  id="email" placeholder="Seu E-mail" required>
+            maxlength="50"  id="email" required>
           </div>
         </div>
 

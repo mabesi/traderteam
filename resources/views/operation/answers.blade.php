@@ -8,6 +8,7 @@
           {!! getUserLink($answer->user,True) !!}
           <span class="text-muted pull-right">
             {{ humanPastTime($answer->updated_at) }}
+            {!! nbsp(4).getReportUserIcon($answer->user).nbsp(2) !!}
 @if (isAdmin() || $answer->user_id==getUserId())
             {{ nbsp(4) }}
             <a href="{{ url('answer/'.$answer->id) }}" data-resource="False" class="delete-button" data-token="{{ csrf_token() }}" data-previous="{{ URL::previous() }}">

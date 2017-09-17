@@ -30,6 +30,15 @@ function isNotAdmin()
   }
 }
 
+function isNotSuperAdmin()
+{
+  if (Auth::user()->type!='S'){
+    return True;
+  } else {
+    return False;
+  }
+}
+
 function getUser($id=Null)
 {
   if ($id==Null){
@@ -64,6 +73,32 @@ function getUserEmail()
 
 function getProfileId(){
   return Auth::user()->profile->id;
+}
+
+function lockUserById($id)
+{
+  $user = getUser($id);
+  $user->locked = True;
+  return $user->save();
+}
+
+function unlockUserById($id)
+{
+  $user = getUser($id);
+  $user->locked = False;
+  return $user->save();
+}
+
+function lockUser($user)
+{
+  $user->locked = True;
+  return $user->save();
+}
+
+function unlockUser($user)
+{
+  $user->locked = False;
+  return $user->save();
 }
 
 function getUserAvatarName($user=Null)
@@ -422,31 +457,52 @@ function operationRealOrSimulated($type)
 
 function getUserAdminIcons($user,$resource)
 {
-  if ($user->confirmed){
-    $icons = "<span title='Confirmado' class='text-info'><i class='fa fa-check-square-o'></i></span>";
-  } else {
-    $icons = "<span title='Não Confirmado' class='text-gray'><i class='fa fa-square-o'></i></span>";
-  }
-
-  $icons .= nbsp(2);
+  $icons = '';
 
   if (isAdmin() || $user->id == getUserId()){
-    if ($user->profile!=Null){
-      $icons .= "<a title='Editar Usuário' class='text-primary edit-button' href='".url('profile/'.$user->profile->id.'/edit')."'><i class='fa fa-pencil'></i></a>".nbsp(2);
+
+    if ($user->confirmed){
+      $icons .= "<span title='E-mail Confirmado' class='text-info'><i class='fa fa-check-square-o'></i></span>";
+    } else {
+      $icons .= "<span title='E-mail Não Confirmado' class='text-gray'><i class='fa fa-square-o'></i></span>";
     }
+
+    $icons .= nbsp(2);
+
+    if ($user->profile!=Null){
+      $icons .= "<a title='Editar Perfil de Usuário' class='text-primary edit-button' href='".url('profile/'.$user->profile->id.'/edit')."'><i class='fa fa-pencil'></i></a>".nbsp(2);
+    }
+  }
+
+  if ($user->id != getUserId()){
+    $icons .= getReportUserIcon($user);
+    $icons .= nbsp(3);
   }
 
   if (isAdmin()){
-    $icons .= "<a title='Deletar Usuário' class='text-danger delete-button' href='".url('user/'.$user->id)."' data-token='".csrf_token()."' data-resource='".$resource."' data-previous='".URL::previous()."'><i class='fa fa-trash'></i></a>".nbsp(2);
     if ($user->locked){
-      $icons .= "<a title='Desbloquear Usuário' class='text-warning' href='".url('user/'.$user->id.'/unlock')."'><i class='fa fa-lock'></i></a>";
+      $icons .= "<a title='Desbloquear Usuário' class='text-danger' href='".url('user/'.$user->id.'/unlock')."'><i class='fa fa-lock'></i></a>";
     } else {
       $icons .= "<a title='Bloquear Usuário' class='text-green' href='".url('user/'.$user->id.'/lock')."'><i class='fa fa-unlock'></i></a>";
     }
+    $icons .= nbsp(4);
+    $icons .= "<a title='Deletar Usuário' class='text-danger delete-button' href='".url('user/'.$user->id)."' data-token='".csrf_token()."' data-resource='".$resource."' data-previous='".URL::previous()."'><i class='fa fa-trash'></i></a>";
   }
 
 
   return trim($icons);
+}
+
+function getReportUserIcon($user)
+{
+  if ($user->id != getUserId()){
+    return "<a title='Denunciar Usuário' class='text-warning' href='".url('user/'.$user->id.'/report')."'><i class='fa fa-info'></i></a>";
+  }
+}
+
+function getTotalOpenReports($user)
+{
+  return $user->denounces()->where('finished',False)->count();
 }
 
 function getItemAdminIcons($item,$itemType,$resource)
@@ -858,6 +914,24 @@ function getFollowersId($userId=Null)
   }
 
   return $arrayId;
+}
+
+function getReportReason($id)
+{
+  $reason = [
+    1 => 'Perfil Falso / Clonado',
+    2 => 'Comportamento Inadequado',
+    3 => 'Infração de Regras',
+    4 => 'Racismo e Preconceito',
+    5 => 'Spam',
+    6 => 'Assédio',
+    7 => 'Segurança',
+    8 => 'Conteúdo Impróprio',
+    9 => 'Outros',
+  ];
+
+  return $reason[$id];
+
 }
 
 function feedRss($link,$limit=10,$showDescription=False)

@@ -115,7 +115,7 @@
 
         <li><a href="{{ route('help') }}"><i class="fa fa-question-circle"></i> <span>Ajuda</span></a></li>
 
-        <li><a href="{{ route('contact') }}" target="_blank"><i class="fa  fa-bullhorn"></i> <span>Fale Conosco</span></a></li>
+        <li><a href="{{ route('contact') }}" target="_blank"><i class="fa fa-commenting"></i> <span>Fale Conosco</span></a></li>
         <li>{{ nbsp(1) }}</li>
 
 @if (isAdmin())
@@ -130,6 +130,7 @@
             <li><a href="{{ url('configuration/create') }}">Nova Configuração</a></li>
             @endif
             <li><a href="{{ url('configuration') }}">Lista de Configurações</a></li>
+            <li><a href="{{ url('report') }}">Denúncias</a></li>
           </ul>
         </li>
 @endif

@@ -46,14 +46,16 @@
     <label for="occupation" class="col-sm-3 control-label">Ocupação</label>
 
     <div class="col-sm-9">
-      <input type="text" value="{{ old('occupation',isset($profile->occupation)?$profile->occupation:Null) }}" name="occupation" class="form-control" id="occupation">
+      <input type="text" value="{{ old('occupation',isset($profile->occupation)?$profile->occupation:Null) }}"
+       name="occupation" class="form-control" id="occupation" placeholder="Sua profissão. Ex: Médico, Empresário, Motorista...">
     </div>
   </div>
   <div class="form-group">
     <label for="city" class="col-sm-3 control-label">Cidade</label>
 
     <div class="col-sm-9">
-      <input type="text" name="city" class="form-control" id="city" value="{{ old('city',isset($profile->city)?$profile->city:Null) }}">
+      <input type="text" name="city" class="form-control" id="city"
+       value="{{ old('city',isset($profile->city)?$profile->city:Null) }}" placeholder="Ex: Brasília, São Paulo, Bahia...">
     </div>
   </div>
   <div class="form-group">
@@ -61,13 +63,13 @@
 
     <div class="col-sm-3">
       <input type="text" name="state" class="form-control" id="state"
-       value="{{ old('state',isset($profile->state)?$profile->state:Null) }}">
+       value="{{ old('state',isset($profile->state)?$profile->state:Null) }}" placeholder="Sigla do Estado. Ex: DF">
     </div>
     <label for="country" class="col-sm-3 control-label">País</label>
 
     <div class="col-sm-3">
       <input type="text" name="country" class="form-control" id="country" maxlength="2"
-       value="{{ old('country',isset($profile->country)?$profile->country:'BR') }}" >
+       value="{{ old('country',isset($profile->country)?$profile->country:'') }}" placeholder="Sigla do País. Ex: BR">
     </div>
   </div>
   <div class="form-group">

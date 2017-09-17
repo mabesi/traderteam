@@ -58,6 +58,16 @@ class User extends Authenticatable
       return $this->hasMany('App\Answer');
     }
 
+    public function reports()
+    {
+      return $this->hasMany('App\Report');
+    }
+
+    public function denounces()
+    {
+      return $this->hasMany('App\Report','reported_id');
+    }
+
     public function followers()
     {
       return $this->belongsToMany('App\User','followers','user_id','follower_id');

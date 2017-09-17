@@ -34,6 +34,7 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
   Route::resource('operation', 'OperationController');
   Route::resource('notice', 'NoticeController');
   Route::resource('configuration', 'ConfigurationController');
+  Route::resource('report', 'ReportController');
 
   Route::get('strategy-rules', 'StrategyController@rules');
   Route::get('strategy-statistics', 'StrategyController@statistics');
@@ -61,13 +62,16 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
   // Seguir - Deixar de Seguir - Seguindo Usuários
   Route::get('user/{id}/follow', 'UserController@follow');
   Route::get('user/{id}/unfollow', 'UserController@unfollow');
-  Route::get('user/{id}/followers', 'UserController@followers')->name('followers');
-  Route::get('user/{id}/following', 'UserController@following')->name('following');
+  Route::get('user/{id}/followers', 'UserController@followers');
+  Route::get('user/{id}/following', 'UserController@following');
   Route::get('user/myfollowers', 'UserController@myFollowers')->name('myfollowers');
   Route::get('user/following', 'UserController@myFollowing')->name('myfollowing');
   // Bloqueio - Liberação de Usuários
-  Route::get('user/{id}/lock', 'UserController@lock')->name('lock');
-  Route::get('user/{id}/unlock', 'UserController@unlock')->name('unlock');
+  Route::get('user/{id}/lock', 'UserController@lock');
+  Route::get('user/{id}/unlock', 'UserController@unlock');
+  // Denúncia
+  Route::get('user/{id}/report', 'ReportController@userReport');
+  // Alteração de Senha
   Route::post('user/{id}/changepassword', 'UserController@changePassword');
 
   Route::post('profile/{id}/configurations', 'ProfileController@configurations');

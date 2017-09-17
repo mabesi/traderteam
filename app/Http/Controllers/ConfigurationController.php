@@ -20,16 +20,16 @@ class ConfigurationController extends Controller
      */
     public function index()
     {
-        $configurations = Configuration::paginate(10);
+      $configurations = Configuration::paginate(10);
 
-        $data = [
-          'viewname' => 'Configurações',
-          'viewtitle' => 'Configurações',
-          'configurations' => $configurations,
-          'profileView' => False,
-        ];
+      $data = [
+        'viewname' => 'Configurações',
+        'viewtitle' => 'Configurações',
+        'configurations' => $configurations,
+        'profileView' => False,
+      ];
 
-        return view('configuration.list',$data);
+      return view('configuration.list',$data);
     }
 
     /**
@@ -61,12 +61,12 @@ class ConfigurationController extends Controller
 
       if (isAdmin()){
         if ($configuration->save()){
-          return redirect('configuration')->with('informations', ['O Configuração foi salvo com sucesso!']);
+          return redirect('configuration')->with('informations', ['A Configuração foi salva com sucesso!']);
         } else {
-          return back()->with('problems', ['Erro inesperado. O Configuração não foi salvo!']);
+          return back()->with('problems', ['Erro inesperado. A Configuração não foi salva!']);
         }
       } else {
-        return back()->with('problems', ['Acesso não permitido. O Configuração não foi salvo!']);
+        return back()->with('problems', ['Acesso não permitido. A Configuração não foi salva!']);
       }
     }
 

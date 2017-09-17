@@ -41,8 +41,9 @@ $commentAnswers=$comment->answers->count();
           </small>
           <span class="text-muted pull-right">
             {{ humanPastTime($comment->updated_at) }}
+            {!! nbsp(4).getReportUserIcon($comment->user).nbsp(2) !!}
 @if (isAdmin() || $comment->user_id==getUserId())
-            {{ nbsp(4) }}
+            {{ nbsp(2) }}
             <a href="{{ url('comment/'.$comment->id) }}" data-resource="False" class="delete-button" data-token="{{ csrf_token() }}" data-previous="{{ URL::previous() }}">
               <i class="fa text-danger fa-trash"></i>
             </a>
