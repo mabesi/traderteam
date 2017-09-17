@@ -20,6 +20,9 @@ class ConfigurationsTableSeeder extends Seeder
       factory(App\Configuration::class)->create(['name' => 'HELP_OPERATION','value' => 'Ajuda para Operações']);
       factory(App\Configuration::class)->create(['name' => 'OPERATION_RULES','value' => 'Regras para Registro de Operações']);
       factory(App\Configuration::class)->create(['name' => 'STRATEGY_RULES','value' => 'Regras para Definição de Estratégias']);
+      factory(App\Configuration::class)->create(['name' => 'MAX_HOURLY_COMMENTS','value' => '60']);
+      factory(App\Configuration::class)->create(['name' => 'MAX_DAILY_COMMENTS','value' => '1000']);
+      factory(App\Configuration::class)->create(['name' => 'MAX_OPEN_REPORTS','value' => '10']);
       factory(App\Configuration::class, 15)->create();
     }
 }

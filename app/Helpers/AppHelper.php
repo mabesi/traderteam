@@ -500,9 +500,15 @@ function getReportUserIcon($user)
   }
 }
 
-function getTotalOpenReports($user)
+
+
+function getTotalOpenReports($user=Null)
 {
-  return $user->denounces()->where('finished',False)->count();
+  if ($user==Null){
+    return App\Report::where('finished',False)->count();    
+  } else {
+    return $user->denounces()->where('finished',False)->count();
+  }
 }
 
 function getItemAdminIcons($item,$itemType,$resource)

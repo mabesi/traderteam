@@ -130,7 +130,7 @@
             <li><a href="{{ url('configuration/create') }}">Nova Configuração</a></li>
             @endif
             <li><a href="{{ url('configuration') }}">Lista de Configurações</a></li>
-            <li><a href="{{ url('report') }}">Denúncias</a></li>
+            <li><a href="{{ url('report') }}">Lista de Denúncias</a></li>
           </ul>
         </li>
 @endif

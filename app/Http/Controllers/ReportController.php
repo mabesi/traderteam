@@ -53,7 +53,8 @@ class ReportController extends Controller
 
       if ($report->save()){
         $openReports = getTotalOpenReports($report->reportedUser);
-        if ($openReports > 2) {
+        $maxOpenReports = (integer) nullToZero(getConfiguration('MAX_OPEN_REPORTS'));
+        if ($openReports > $maxOpenReports) {
           lockUser($report->reportedUser);
           $request->session()->flash('warnings',['O usuário '.$report->reportedUser->name.' foi bloqueado por atingir o limite de denúncias!']);
         }

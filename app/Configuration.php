@@ -14,7 +14,7 @@ class Configuration extends Model
 
   public $rules = [
     'name' => 'required|string|min:5|max:50',
-    'value' => 'required_without:content|nullable|string|min:21',
+    'value' => 'required_without:content|nullable|string',
     'content' => 'required_without:value|nullable|string|min:21',
   ];
 

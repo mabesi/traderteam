@@ -19,11 +19,17 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
 
-@if (false)
-          @include('menu.messages')
-          @include('menu.notifications')
-          @include('menu.tasks')
-@endif
+          @if (false)
+            @include('menu.messages')
+            @include('menu.notifications')
+            @include('menu.tasks')
+          @endif
+
+          @if (getTotalOpenReports()>0 && isAdmin())
+            <li class="no-padding">
+              <a href="{{ url('report') }}" title="Existem denúncias abertas!"><i class="fa fa-info-circle text-warning font-16 no-margin"></i></a>
+            </li>
+          @endif
 
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
