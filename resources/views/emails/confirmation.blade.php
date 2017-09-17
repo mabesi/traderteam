@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="utf-8">
-</head>
-<body>
-<h2>TraderTeam</h2>
+@extends('emails.model')
 
-<div>
-    <p>Olá  {!! $name !!}. Seja bem vindo ao TraderTeam!</p>
-    <p>{!! $content !!}</p>
-</div>
+@section('content')
 
-</body>
-</html>
+<h3>Olá  {!! $name !!}. Seja bem vindo ao TraderTeam!</h3>
+<p>{!! $content !!}</p>
+
+@endsection

@@ -25,7 +25,7 @@
             @include('menu.tasks')
           @endif
 
-          @if (getTotalOpenReports()>0 && isAdmin())
+          @if (getTotalOpenDenounces()>0 && isAdmin())
             <li class="no-padding">
               <a href="{{ url('report') }}" title="Existem denúncias abertas!"><i class="fa fa-info-circle text-warning font-16 no-margin"></i></a>
             </li>

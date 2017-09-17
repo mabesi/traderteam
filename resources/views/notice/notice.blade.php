@@ -21,7 +21,7 @@
     </div>
 
     <div class="box-body">
-      <div id='indicator-description'>{!! $notice->content !!}</div>
+      <div id='indicator-description' class="text-justify">{!! $notice->content !!}</div>
     </div>
 
   </div>

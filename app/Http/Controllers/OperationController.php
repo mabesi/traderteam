@@ -231,42 +231,13 @@ class OperationController extends Controller
           $operation->exitdate = $exitdate;
         }
 
-        $preanalysis01 = $request->preanalysis01;
-        $preanalysis02 = $request->preanalysis02;
-
-        $operation->preanalysis = $preanalysis01.'|||'.$preanalysis02;
-
-        $preimage01 = saveImage($request,'preimage01','operations/'.getUserId(),'preimage01',Null,Null);
-        if ($preimage01==False){
-          $preimage01 = '';
-        }
-        $preimage02 = saveImage($request,'preimage02','operations/'.getUserId(),'preimage02',Null,Null);
-        if ($preimage02==False){
-          $preimage02 = '';
-        }
-        $operation->preimage = $preimage01.'|||'.$preimage02;
-
-        $postanalysis01 = $request->postanalysis01;
-        $postanalysis02 = $request->postanalysis02;
-        $operation->postanalysis = $postanalysis01.'|||'.$postanalysis02;
-
-        $postimage01 = saveImage($request,'postimage01','operations/'.getUserId(),'postimage01',Null,Null);
-        if ($postimage01==False){
-          $postimage01 = '';
-        }
-        $postimage02 = saveImage($request,'postimage02','operations/'.getUserId(),'postimage02',Null,Null);
-        if ($postimage02==False){
-          $postimage02 = '';
-        }
-
-        $operation->postimage = $postimage01.'|||'.$postimage02;
-
         $operation->status = 'N';
 
-        $operation->save();
-
-        return redirect('operation/'.$operation->id.'/edit');
-
+        if ($operation->save()){
+          return redirect('operation/'.$operation->id.'/edit')->with('informations',['A operação foi incluída com sucesso!']);
+        } else {
+          return back()->with('problems',['Ocorreu um erro ao salvar a operação!']);
+        }
     }
 
     /**
@@ -277,11 +248,10 @@ class OperationController extends Controller
      */
     public function show(Operation $operation)
     {
+
       $preanalysis = explode('|||',$operation->preanalysis);
       $preanalysis01 = $preanalysis[0];
       $preanalysis02 = $preanalysis[1];
-
-      //dd($preanalysis);
 
       $preimage = explode('|||',$operation->preimage);
       $preimage01 = $preimage[0];
@@ -305,6 +275,7 @@ class OperationController extends Controller
         'postanalysis01' => $postanalysis01,
         'postanalysis02' => $postanalysis02,
         'profileView' => False,
+        'operationView' => True,
       ];
 
       if ($preimage01 != ''){
@@ -323,7 +294,6 @@ class OperationController extends Controller
       $data['user'] = $operation->user;
 
       return view('operation.summary', $data);
-
     }
 
     /**
@@ -332,8 +302,12 @@ class OperationController extends Controller
      * @param  \App\Operation  $operation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Operation $operation)
+    public function edit($id)
     {
+      $operation = Operation::find($id);
+      if ($operation==Null) {
+        return redirect('operation');
+      }
       $strategies = Strategy::where('user_id',getUserId())
                     ->orderBy('title')
                     ->get();
@@ -393,7 +367,7 @@ class OperationController extends Controller
      */
     public function update(Request $request, Operation $operation)
     {
-      $operationDir = 'operations/'.getUserId().'/'.$operation->id;
+      $operationDir = 'operations/'.$operation->user_id.'/'.$operation->id;
       $defaultImage = '../../loading.gif';
 
       if ($operation->status == 'N' || $operation->status == 'A' ){
@@ -552,10 +526,12 @@ class OperationController extends Controller
     {
       if (isAdmin() || $strategy->user_id = getUserId()){
 
+        $directory = 'operations/'.$operation->user_id.'/'.$operation->id;
+
         if (isNotAdmin() && $operation->status != 'N' && $operation->status != 'A'){
           $data = getMsgDeleteErrorLocked();
-        //} elseif ($operation->delete()){
-        } elseif (true){
+        } elseif ($operation->delete()){
+          deleteDir($directory);
           $data = getMsgDeleteSuccess();
         } else {
           $data = getMsgDeleteError();

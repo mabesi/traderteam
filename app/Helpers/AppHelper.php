@@ -3,36 +3,48 @@
 use Illuminate\Support\Facades\Auth;
 use App\User;
 
-function isSuperAdmin()
+function isSuperAdmin($user=Null)
 {
-  if (Auth::user()->type=='S'){
+  if($user==Null){
+    $user = getUser();
+  }
+  if ($user->type=='S'){
     return True;
   } else {
     return False;
   }
 }
 
-function isAdmin()
+function isAdmin($user=Null)
 {
-  if (Auth::user()->type=='A' || isSuperAdmin()){
+  if($user==Null){
+    $user = getUser();
+  }
+  if ($user->type=='A' || isSuperAdmin()){
     return True;
   } else {
     return False;
   }
 }
 
-function isNotAdmin()
+function isNotAdmin($user=Null)
 {
-  if (Auth::user()->type=='U'){
+  if($user==Null){
+    $user = getUser();
+  }
+  if ($user->type=='U'){
     return True;
   } else {
     return False;
   }
 }
 
-function isNotSuperAdmin()
+function isNotSuperAdmin($user=Null)
 {
-  if (Auth::user()->type!='S'){
+  if($user==Null){
+    $user = getUser();
+  }
+  if ($user->type!='S'){
     return True;
   } else {
     return False;
@@ -297,7 +309,6 @@ function getUserAvailableCapital($user=Null)
   }
 
   if ($capital > $lockedCapital){
-    //dd($capital - $lockedCapital);
     return $capital - $lockedCapital;
   } else {
     return 0;
@@ -457,6 +468,10 @@ function operationRealOrSimulated($type)
 
 function getUserAdminIcons($user,$resource)
 {
+  if (isSuperAdmin($user)){
+    return '';
+  }
+
   $icons = '';
 
   if (isAdmin() || $user->id == getUserId()){
@@ -495,18 +510,44 @@ function getUserAdminIcons($user,$resource)
 
 function getReportUserIcon($user)
 {
+  if (isSuperAdmin($user)){
+    return '';
+  }
   if ($user->id != getUserId()){
     return "<a title='Denunciar Usuário' class='text-warning' href='".url('user/'.$user->id.'/report')."'><i class='fa fa-info'></i></a>";
   }
 }
 
-function getTotalOpenReports($user=Null)
+function getTotalOpenDenounces($user=Null)
 {
   if ($user==Null){
     return App\Report::where('finished',False)->count();
   } else {
     return $user->denounces()->where('finished',False)->count();
   }
+}
+
+function getUserOpenReports($user=Null)
+{
+  if ($user==Null){
+    $user = getUser();
+  }
+
+  return $user->reports()->where('finished',False)->count();
+}
+
+function hasOpenReport($reportedUser,$user=Null)
+{
+  if ($user==Null){
+    $user = getUser();
+  }
+
+  $openReports = $user->reports()
+                      ->where('finished',False)
+                      ->where('reported_id',$reportedUser->id)
+                      ->count();
+
+  return ($openReports > 0);
 }
 
 function getItemAdminIcons($item,$itemType,$resource)
@@ -536,6 +577,16 @@ function getMsgDeleteAccessForbidden()
   $data = [
     'success' => false,
     'msg' => 'O usuário não possui autorização para deletar este item.',
+  ];
+
+  return $data;
+}
+
+function getMsgDeleteException()
+{
+  $data = [
+    'success' => false,
+    'msg' => 'Ocorreu um erro de exceção ao tentar deletar o item.',
   ];
 
   return $data;
@@ -829,10 +880,10 @@ function lockOperationFields($field,$status)
     'exitdate' => $endFields,
     'realexit' => $endFields,
 
-    'preimage01' => $prevFields,
-    'preanalysis01' => $prevFields,
-    'preimage02' => $prevFields,
-    'preanalysis02' => $prevFields,
+    'preimage01' => $startFields,
+    'preanalysis01' => $startFields,
+    'preimage02' => $startFields,
+    'preanalysis02' => $startFields,
 
     'postimage01' => $postFields,
     'postanalysis01' => $postFields,

@@ -23,6 +23,7 @@ class ConfigurationsTableSeeder extends Seeder
       factory(App\Configuration::class)->create(['name' => 'MAX_HOURLY_COMMENTS','value' => '60']);
       factory(App\Configuration::class)->create(['name' => 'MAX_DAILY_COMMENTS','value' => '1000']);
       factory(App\Configuration::class)->create(['name' => 'MAX_OPEN_REPORTS','value' => '10']);
+      factory(App\Configuration::class)->create(['name' => 'MAX_REPORTS_SENT','value' => '50']);
       factory(App\Configuration::class, 15)->create();
     }
 }

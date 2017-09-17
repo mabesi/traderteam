@@ -30,7 +30,7 @@
 
         </h3>
       </div>
-      <div class="box-body">
+      <div class="box-body text-justify">
 
         {!! $strategy->description !!}
 
@@ -86,7 +86,7 @@
                     {!! getItemAdminIcons($indicator,'indicator','False') !!}
                   </span>
                 </h5>
-                <div id='indicator-description'>{!! substr($indicator->description, 0, 150) !!}...</div>
+                <div id='indicator-description' class="text-justify">{!! substr($indicator->description, 0, 150) !!}...</div>
               </div>
             </div>
 

@@ -89,6 +89,7 @@
                      <input type="number" step="1" name="amount" class="form-control" id="amount"
                       value="{{ old('amount',isset($operation->amount)?$operation->amount:Null) }}"
                       {{ lockOperationFields('amount',$status) }} required>
+                      <small class="text-muted">Somente você pode ver esta informação!</small>
                    </div>
                  </div>
 
@@ -213,6 +214,18 @@
                 </div>
 
                 <div class="form-group">
+                  <div class="col-sm-offset-3 col-sm-9">
+                    @if (isset($operation->realentry) && isset($operation->amount))
+                    <p>Valor da Operação: <strong>{{ formatCurrency($operation->amount*$operation->realentry) }}</strong></p>
+                    <p>Saldo Atual: <strong>{{ formatCurrency(getUserAvailableCapital($operation->user)) }}</strong></p>
+                    @elseif (isset($operation->preventry) && isset($operation->amount))
+                    <p>Valor da Operação: <strong>{{ formatCurrency($operation->amount*$operation->preventry) }}</strong></p>
+                    <p>Saldo Atual: <strong>{{ formatCurrency(getUserAvailableCapital($operation->user)) }}</strong></p>
+                    @endif
+                  </div>
+                </div>
+
+                <div class="form-group">
                   <label for="entrydate" class="col-sm-3 control-label">Data de Entrada</label>
 
                   <div class="col-sm-9">
@@ -311,7 +324,7 @@
                             <a href="#" class="azoom" title="Clique para aumentar!">
                               <img class="img-max pad preimage01"
                                src="{{ asset('/storage/operations/'.
-                                   (isset($preimage01)?$operation->user_id.'/'.$preimage01:'../../img/loading.gif'))}}" />
+                                   (isset($preimage01)?$operation->user_id.'/'.$operation->id.'/'.$preimage01:'../../img/loading.gif'))}}" />
                             </a>
                           </div>
                         </div>
@@ -353,7 +366,7 @@
                             <a href="#" class="azoom" title="Clique para aumentar!">
                               <img class="img-max pad preimage02"
                                src="{{ asset('/storage/operations/'.
-                                   (isset($preimage02)?$operation->user_id.'/'.$preimage02:'../../img/loading.gif'))}}" />
+                                   (isset($preimage02)?$operation->user_id.'/'.$operation->id.'/'.$preimage02:'../../img/loading.gif'))}}" />
                             </a>
                           </div>
                         </div>
@@ -406,7 +419,7 @@
                         <a href="#" class="azoom" title="Clique para aumentar!">
                           <img class="img-max pad postimage01"
                            src="{{ asset('/storage/operations/'.
-                               (isset($postimage01)?$operation->user_id.'/'.$postimage01:'../../img/loading.gif'))}}" />
+                               (isset($postimage01)?$operation->user_id.'/'.$operation->id.'/'.$postimage01:'../../img/loading.gif'))}}" />
                         </a>
                       </div>
                     </div>
@@ -448,7 +461,7 @@
                         <a href="#" class="azoom" title="Clique para aumentar!">
                           <img class="img-max pad postimage02"
                            src="{{ asset('/storage/operations/'.
-                               (isset($postimage02)?$operation->user_id.'/'.$postimage02:'../../img/loading.gif'))}}" />
+                               (isset($postimage02)?$operation->user_id.'/'.$operation->id.'/'.$postimage02:'../../img/loading.gif'))}}" />
                         </a>
                       </div>
                     </div>

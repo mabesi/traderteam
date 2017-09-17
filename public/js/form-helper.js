@@ -23,22 +23,21 @@ $( document ).ready(function() {
         $.ajax({
           type: "post",
           url: url,
-          data: {_method: 'delete',_token: token},
-          success: function(response){
+          data: {_method: 'delete',_token: token}
+        })
+        .done(function(response){
+          console.log(response.msg);
             if (response.success){
               alert(response.msg);
               if (resource){
                 $(location).attr('href',previous);
-                //history.back();
               } else {
                 location.reload();
               }
             } else {
               alert(response.msg);
             }
-          }
         });
-
       }
       return false;
     }

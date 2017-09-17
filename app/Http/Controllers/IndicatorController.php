@@ -171,7 +171,10 @@ class IndicatorController extends Controller
     {
       if (isAdmin()){
 
+        $image = $indicator->image;
+
         if ($indicator->delete()){
+          deleteFile('indicators/'.$image);
           $message = getMsgDeleteSuccess();
         } else {
           $message = getMsgDeleteError();

@@ -85,7 +85,7 @@
 <div class="row">
 
 
-  <div class="col-sm-5 col-lg-3">
+  <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
       <div class="box-header with-border bg-tt-green">
         <span class="font-20">Usuários (Seguindo)</span>
@@ -101,7 +101,7 @@
     </div>
   </div>
 
-  <div class="col-sm-7 col-lg-3">
+  <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
       <div class="box-header with-border bg-tt-green">
         <span class="font-20">Operações (Seguindo)</span>
@@ -118,7 +118,7 @@
     </div>
   </div>
 
-  <div class="col-sm-7 col-lg-3">
+  <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
       <div class="box-header with-border bg-tt-green">
         <span class="font-20">Operações (Curtidas)</span>
@@ -135,7 +135,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-lg-3">
+  <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
       <div class="box-header with-border bg-tt-green">
         <span class="font-20">Notícias <a class="font-16 text-aqua" href="http://www.infomoney.com.br/mercados/ultimas-noticias" target="_blank">(Infomoney)</a></span>

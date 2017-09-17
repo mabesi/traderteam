@@ -70,7 +70,7 @@
                   <td>
                      {!! getUserLine($user) !!}
                      {{ nbsp(2) }}
-                     {!! getUserAdminIcons($user,$currentPage) !!}
+                     {!! getUserAdminIcons($user,'False') !!}
                   </td>
                   <td>{!! getFieldOrQuestion($user->profile,'occupation',True) !!}</td>
                   @if($user->profile==Null)

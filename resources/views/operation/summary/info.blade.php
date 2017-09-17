@@ -13,7 +13,7 @@
     <strong>Quantidade</strong>
   </div>
   <div class="col-md-9">
-    {{ $operation->amount }}
+    {{ $operation->amount.nbsp(4) }} <small class="text-muted"><--- Só você pode ver isto!</small>
   </div>
 </div>
 @endif

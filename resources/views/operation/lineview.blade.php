@@ -43,7 +43,7 @@
 
 @if ($operation->user_id==getUserId() || isAdmin())
   <span class="pull-right">
-    {!! getItemAdminIcons($operation,'operation','myoperations').nbsp(4) !!}
+    {!! getItemAdminIcons($operation,'operation',(isset($operationView)?'True':'False')).nbsp(4) !!}
   </span>
 @endif
 

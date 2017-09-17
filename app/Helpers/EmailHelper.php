@@ -41,6 +41,31 @@ function sendBasicEmail($to,$fromEmail,$fromName,$subject,$message,$title=Null)
   return ($failures==0);
 }
 
+function sendReportConclusionEmail($report)
+{
+  if ($report->finished){
+
+    $data = array(
+      'userName' => $report->user->name,
+      'reportedName' => $report->reportedUser->name,
+      'reasonName' => getReportReason($report->reason),
+      'resolution' => $report->resolution,
+    );
+
+    $userEmail = $report->user->email;
+
+    Mail::send('emails.report', $data, function ($message) use ($userEmail){
+      $message->from('traderteambr@gmail.com', 'Trader Team')
+      ->to($userEmail)
+      ->subject('Solução de Denúncia');
+    });
+
+    $failures = count(Mail::failures());
+
+    return ($failures==0);
+  }
+}
+
 function sendContactEmail($to,$fromEmail,$fromName,$subject,$usermessage)
 {
   $data = array(

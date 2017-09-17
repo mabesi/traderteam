@@ -20,10 +20,10 @@ class CreateMessagesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('from')->unsigned();
-            $table->foreign('from')->references('id')->on('users');
+            $table->foreign('from')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('to')->unsigned();
-            $table->foreign('to')->references('id')->on('users');
+            $table->foreign('to')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('status',1)->default('U');
             $table->string('subject',60);

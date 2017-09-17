@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="utf-8">
-</head>
-<body>
-<h2>{{ $title }}</h2>
+@extends('emails.model')
+
+@section('content')
+
+<h3>{{ $title }}</h3>
 
 <div>
     {!! $content !!}
 </div>
 
-</body>
-</html>
+@endsection

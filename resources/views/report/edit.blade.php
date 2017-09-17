@@ -45,7 +45,7 @@
             {!! getUserLine($reported) !!}
             @endif
             {!! nbsp(4).getUserAdminIcons($reported,False).nbsp(4) !!}
-            <small class="text-muted">{{ getTotalOpenReports($reported).' denúncia(s) aberta(s)' }}</small>
+            <small class="text-muted">{{ getTotalOpenDenounces($reported).' denúncia(s) aberta(s)' }}</small>
             <input type="hidden" value="{{ $reported->id }}" name="reported_id" >
           </div>
         </div>
@@ -72,7 +72,7 @@
 
           <div class="col-sm-9">
             @if (isset($report))
-              <p>{{ $report->description }}</p>
+              <p class="text-justify">{{ $report->description }}</p>
             @else
             <textarea class="form-control" rows="6" name="description" id="description" >{{ old('description',(isset($report->description)?$report->description:'')) }}</textarea>
             @endif
@@ -149,8 +149,6 @@
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-9">
             <button type="submit" class="btn btn-primary">{{ (isset($report->id)?'Salvar':'Enviar') }} </button>
-            {{ nbsp(2) }}
-            <a class="btn btn-warning" href="{{ url('report'.(isset($report->id)?'/'.$report->id:'')) }}">Cancelar</a>
           </div>
         </div>
       </form>

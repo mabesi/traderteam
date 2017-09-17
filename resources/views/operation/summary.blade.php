@@ -16,11 +16,11 @@
         @include('operation.lineview')
       </div>
 
-      <div class="box-body">
+      <div class="box-body top-10">
 
         @include('operation.summary.info')
 
-        <div class="row">
+        <div class="row top-20">
           <div class="col-lg-6">
             @include('operation.summary.prevision')
           </div>
@@ -34,8 +34,8 @@
   </div> <!-- fim col -->
 
   <div class="col-md-6">
-    @include('operation.summary.preanalysis')
     @include('operation.summary.postanalysis')
+    @include('operation.summary.preanalysis')
   </div> <!-- fim col -->
 
 </div><!-- fim row -->

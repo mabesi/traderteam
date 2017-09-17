@@ -10,7 +10,7 @@
             <div class="box-body box-profile">
               {!! getUserTypeLabel($user->type) !!}
               {!! getCofounderLabel($profile->cofounder) !!}
-              <span class="pull-right">{!! getUserAdminIcons($user,True) !!}</span>
+              <span class="pull-right">{!! getUserAdminIcons($user,'True') !!}</span>
 
               {!! getUserAvatar('profile-user-img img-responsive img-circle',$user->name,$user) !!}
 

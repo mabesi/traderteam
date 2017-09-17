@@ -16,9 +16,9 @@
             </a>
           </h4>
         </div>
-        <div id="collapse03" class="panel-collapse collapse">
+        <div id="collapse03" class="panel-collapse collapse in">
           <div class="box-body">
-            <div>
+            <div class="col-lg-4">
               <a href="#" class="azoom" title="Clique para aumentar!">
                 <img class="img-max pad postimage01"
                 src="{{ asset('/storage/operations/'.
@@ -26,7 +26,7 @@
                 $postimage01:'../../img/loading.gif'))}}" />
               </a>
             </div>
-            <div>
+            <div class="col-lg-8 text-justify">
               {!! (isset($postanalysis01)?$postanalysis01:Null) !!}
             </div>
           </div>
@@ -53,7 +53,7 @@
                 $postimage02:'../../img/loading.gif'))}}" />
               </a>
             </div>
-            <div>
+            <div class="text-justify">
               {!! (isset($postanalysis02)?$postanalysis02:Null) !!}
             </div>
           </div>

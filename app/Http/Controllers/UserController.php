@@ -186,10 +186,24 @@ class UserController extends Controller
     $user = User::find($id);
 
     if (isAdmin()){
-      if ($user->delete()){
-        $data = getMsgDeleteSuccess();
-      } else {
-        $data = getMsgDeleteError();
+
+      $avatar = $user->avatar;
+      $operationDirectory = 'operations/'.$id;
+
+      try{
+
+        if ($user->delete()){
+
+          deleteAvatar($avatar);
+          deleteDir($operationDirectory);
+
+          $data = getMsgDeleteSuccess();
+
+        } else {
+          $data = getMsgDeleteError();
+        }
+      } catch (Exception $e){
+        $data = getMsgDeleteException();
       }
     } else {
       $data = getMsgDeleteAccessForbidden();
@@ -210,9 +224,6 @@ class UserController extends Controller
     } else {
 
       $password = $request->password;
-
-      //dd($password.' - '.bcrypt($password).' - '.Auth::user()->password);
-      //dd(Hash::make($password).' - '.Auth::user()->password);
 
       if (!Hash::check($password,Auth::user()->password)){
         return back()->with('problems', ['Senha atual incorreta!']);

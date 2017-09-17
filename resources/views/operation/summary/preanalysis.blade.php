@@ -17,7 +17,7 @@
             </h4>
           </div>
 
-          <div id="collapse01" class="panel-collapse collapse in">
+          <div id="collapse01" class="panel-collapse collapse {{ ($operation->realexit?'':'in') }}">
             <div class="box-body">
               <div class="col-lg-4">
                 <a href="#" class="azoom" title="Clique para aumentar!">
@@ -27,7 +27,7 @@
                   $preimage01:'../../img/loading.gif'))}}" />
                 </a>
               </div>
-              <div class="col-lg-8">
+              <div class="col-lg-8 text-justify">
                 {!! (isset($preanalysis01)?$preanalysis01:Null) !!}
               </div>
             </div>
@@ -54,7 +54,7 @@
                   $preimage02:'../../img/loading.gif'))}}" />
                 </a>
               </div>
-              <div>
+              <div class="text-justify">
                 {!! (isset($preanalysis02)?$preanalysis02:Null) !!}
               </div>
             </div>

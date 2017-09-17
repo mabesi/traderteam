@@ -18,7 +18,7 @@ class CreateOperationsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('strategy_id')->unsigned();
-            $table->foreign('strategy_id')->references('id')->on('strategies');
+            $table->foreign('strategy_id')->references('id')->on('strategies')->onDelete('cascade');
             $table->string('gtime',1);
             $table->string('stock',50);
             $table->integer('amount')->unsigned();
@@ -27,8 +27,8 @@ class CreateOperationsTable extends Migration
             $table->decimal('preventry',10,2);
             $table->decimal('prevtarget',10,2);
             $table->decimal('prevstop',10,2);
-            $table->text('preanalysis');
-            $table->string('preimage',100);
+            $table->text('preanalysis')->default('|||');
+            $table->string('preimage',100)->default('|||');
             $table->decimal('realentry',10,2)->nullable();
             $table->decimal('currentstop',10,2)->nullable();
             $table->decimal('realexit',10,2)->nullable();

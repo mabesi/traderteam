@@ -48,17 +48,35 @@ class ReportController extends Controller
     {
       $report = new Report;
       $request->validate($report->rules,$report->messages);
+
+      $reportedUser = getUser($request->reported_id);
+
+      if (hasOpenReport($reportedUser)){
+        return back()->with('warnings', ['Você já possui denúncia(s) aberta(s) contra este usuário! Por favor aguarde pela conclusão.']);
+      }
+
+      $userOpenReports = getUserOpenReports();
+      $maxReportsSent = (integer) nullToZero(getConfiguration('MAX_REPORTS_SENT'));
+
+      if ($userOpenReports > $maxReportsSent) {
+        return back()->with('warnings', ['Você atingiu o limite de envio de denúncias. Por favor aguarde pela conclusão ou entre em contato pelo Fale Conosco.']);
+      }
+
       $report->fill($request->all());
       $report->user_id = getUserId();
 
       if ($report->save()){
-        $openReports = getTotalOpenReports($report->reportedUser);
+
+        $openReports = getTotalOpenDenounces($report->reportedUser);
         $maxOpenReports = (integer) nullToZero(getConfiguration('MAX_OPEN_REPORTS'));
+
         if ($openReports > $maxOpenReports) {
           lockUser($report->reportedUser);
           $request->session()->flash('warnings',['O usuário '.$report->reportedUser->name.' foi bloqueado por atingir o limite de denúncias!']);
         }
+
         return redirect('report/'.$report->id.'/edit')->with('informations', ['A denúncia foi salva com sucesso!']);
+
       } else {
         return back()->with('problems', ['Erro inesperado. A denúncia não foi salva!']);
       }
@@ -106,8 +124,12 @@ class ReportController extends Controller
     {
       $request->validate($report->rules,$report->messages);
       $report->fill($request->all());
+      $report->finished = (boolean) $request->finished;
 
       if ($report->save()){
+        if ($report->finished){
+          sendReportConclusionEmail($report);
+        }
         return redirect('report/'.$report->id.'/edit')->with('informations', ['A denúncia foi salva com sucesso!']);
       } else {
         return back()->with('problems', ['Erro inesperado. A denúncia não foi salva!']);
