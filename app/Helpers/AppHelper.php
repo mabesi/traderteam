@@ -500,12 +500,10 @@ function getReportUserIcon($user)
   }
 }
 
-
-
 function getTotalOpenReports($user=Null)
 {
   if ($user==Null){
-    return App\Report::where('finished',False)->count();    
+    return App\Report::where('finished',False)->count();
   } else {
     return $user->denounces()->where('finished',False)->count();
   }
