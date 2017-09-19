@@ -991,8 +991,8 @@ function getReportReason($id)
 
 function feedRss($link,$limit=10,$showDescription=False)
 {
-  //return 'Notícias...';
-  $rss = simplexml_load_file($link);
+  return 'Notícias...';
+  //$rss = simplexml_load_file($link);
   $count = 0;
   $feed = '';
 

@@ -47,7 +47,8 @@ class HomeController extends Controller
         }
 
       } else {
-        return view('home');
+        //return view('home');
+        return view('frontend.index');
       }
     }
 

@@ -27,7 +27,7 @@ class CreateOperationsTable extends Migration
             $table->decimal('preventry',10,2);
             $table->decimal('prevtarget',10,2);
             $table->decimal('prevstop',10,2);
-            $table->text('preanalysis')->default('|||');
+            $table->text('preanalysis')->nullable();
             $table->string('preimage',100)->default('|||');
             $table->decimal('realentry',10,2)->nullable();
             $table->decimal('currentstop',10,2)->nullable();
