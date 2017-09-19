@@ -88,13 +88,15 @@
   <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
       <div class="box-header with-border bg-tt-green">
-        <span class="font-20">Usuários (Seguindo)</span>
+        <span class="font-20">Usuários <small class="font-14">(Seguindo)</small></span>
+        <a class="pull-right font-20 text-warning" title="Ver Todos"
+          href="{{ url('users') }}"><i class="fa fa-th-list"></i>
+        </a>
       </div>
       <div class="box-body">
         @include('user.list')
       </div>
       <div class="box-footer">
-        <a href="{{ url('users') }}">Ver Todos</a> |
         <a href="{{ url('user/following') }}">Seguindo</a> |
         <a href="{{ url('user/myfollowers') }}">Seguidores</a>
       </div>
@@ -104,13 +106,15 @@
   <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
       <div class="box-header with-border bg-tt-green">
-        <span class="font-20">Operações (Seguindo)</span>
+        <span class="font-20">Operações <small class="font-14">(Seguindo)</small></span>
+        <a class="pull-right font-20 text-warning" title="Ver Todas"
+          href="{{ url('operations/following') }}"><i class="fa fa-th-list"></i>
+        </a>
       </div>
       <div class="box-body">
         @include('operation.listmin')
       </div>
       <div class="box-footer font-12">
-        <a href="{{ url('operations/following') }}">Todas</a> |
         <a href="{{ url('operations/following?new=1&changed=1') }}">Não Iniciadas</a> |
         <a href="{{ url('operations/following?started=1&moved=1') }}">Em Andamento</a> |
         <a href="{{ url('operations/following?stoped=1&closed=1&finished=1') }}">Encerradas</a>
@@ -121,13 +125,15 @@
   <div class="col-sm-6 col-lg-3">
     <div class="box box-solid">
       <div class="box-header with-border bg-tt-green">
-        <span class="font-20">Operações (Curtidas)</span>
+        <span class="font-20">Operações <small class="font-14">(Curtidas)</small></span>
+        <a class="pull-right font-20 text-warning" title="Ver Todas"
+          href="{{ url('operations/liked') }}"><i class="fa fa-th-list"></i>
+        </a>
       </div>
       <div class="box-body">
         @include('operation.listminliked')
       </div>
       <div class="box-footer font-12">
-        <a href="{{ url('operations/liked') }}">Todas</a> |
         <a href="{{ url('operations/liked?new=1&changed=1') }}">Não Iniciadas</a> |
         <a href="{{ url('operations/liked?started=1&moved=1') }}">Em Andamento</a> |
         <a href="{{ url('operations/liked?stoped=1&closed=1&finished=1') }}">Encerradas</a>
@@ -141,7 +147,7 @@
         <span class="font-20">Notícias <a class="font-16 text-aqua" href="http://www.infomoney.com.br/mercados/ultimas-noticias" target="_blank">(Infomoney)</a></span>
       </div>
       <div class="box-body">
-        {!! feedRss('http://www.infomoney.com.br/mercados/rss',7) !!}
+        {!! feedRss('http://www.infomoney.com.br/mercados/rss',6) !!}
       </div>
     </div>
   </div>

@@ -25,7 +25,7 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="text-center">
-      @foreach (getMontlyUserResult(Null,$user) as $bar)
+      @foreach (getMontlyUserResult(Null,$user,(getConfig('sidebar_closed')?12:10)) as $bar)
 
       <div class="progress vertical progress-sm no-margin">
         <div class="progress-bar progress-bar-{{ $bar['color'] }} font-10"

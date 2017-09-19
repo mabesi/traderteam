@@ -222,7 +222,7 @@ function getYearUserResult($user=Null)
   return $result;
 }
 
-function getMontlyUserResult($startDate=Null,$user=Null)
+function getMontlyUserResult($startDate=Null,$user=Null,$bars=12)
 {
   if ($user==Null){
     $userId = getUserId();
@@ -233,7 +233,7 @@ function getMontlyUserResult($startDate=Null,$user=Null)
   $now = date('Y-m-d');
 
   if ($startDate==Null){
-    $startDate = firstDayOfMonth(alterDate($now,'Y-m-d',0,-11,0));
+    $startDate = firstDayOfMonth(alterDate($now,'Y-m-d',0,-($bars-1),0));
   } else {
     $startDate = firstDayOfMonth($startDate);
   }

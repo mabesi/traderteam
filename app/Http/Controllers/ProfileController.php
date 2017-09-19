@@ -94,9 +94,13 @@ class ProfileController extends Controller
         $profile->birthdate = getMysqlDate($request->mybirthdate);
       }
 
-      $profile->city = $request->city;
-      $profile->state = $request->state;
-      $profile->country = $request->country;
+      $profile->city = special_ucwords($request->city);
+      if (strlen($request->state)==2){
+        $profile->state = strtoupper($request->state);
+      } else {
+        $profile->state = special_ucwords($request->state);
+      }
+      $profile->country = strtoupper($request->country);
       $profile->site = $request->site;
       $profile->facebook = $request->facebook;
       $profile->twitter = $request->twitter;
@@ -165,7 +169,7 @@ class ProfileController extends Controller
     public function edit($id)
     {
       $profile = Profile::find($id);
-      
+
       if (isAdmin() || $profile->user_id == getUserId()){
 
         $user = $profile->user;
@@ -250,7 +254,11 @@ class ProfileController extends Controller
       }
 
       $profile->city = special_ucwords($request->city);
-      $profile->state = special_ucwords($request->state);
+      if (strlen($request->state)==2){
+        $profile->state = strtoupper($request->state);
+      } else {
+        $profile->state = special_ucwords($request->state);
+      }
       $profile->country = strtoupper($request->country);
       $profile->site = $request->site;
       $profile->facebook = $request->facebook;

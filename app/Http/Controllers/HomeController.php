@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Profile;
+use App\Indicator;
+use App\Strategy;
 use App\Operation;
 use App\Notice;
 use App\Configuration;
@@ -171,14 +174,57 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
-      $search = $request->q;
+      $search = trim($request->q);
+
+      if (strlen($search) < 3){
+
+        $request->session()->flash('warnings',['Para a maior parte dos itens o termo de busca deve conter pelo menos 3 caracteres']);
+
+        $indicators = Indicator::where('acronym',$search)
+                                ->get();
+
+        $users = [];
+        $profiles = [];
+        $strategies = [];
+        $notices = [];
+
+      } else {
+
+        $indicators = Indicator::where('acronym',$search)
+                                ->orWhere('name','like',"%$search%")
+                                ->get();
+
+        $users = User::where('name','like',"%$search%")
+                      ->orWhere('email',$search)
+                      ->get();
+
+        $profiles = Profile::where('occupation','like',"%$search%")
+                            ->orWhere('city',$search)
+                            ->get();
+
+        $strategies = Strategy::where('title','like',"%$search%")
+                              ->get();
+
+        if (isAdmin()){
+          $notices = Notice::where('title','like',"%$search%")->get();
+        } else {
+          $notices = Notice::where('title','like',"%$search%")
+                            ->where('onlyadmin',False)->get();
+        }
+      }
+
 
       $data = [
         'viewname' => 'Pesquisa',
         'viewtitle' => 'Pesquisa',
         'q' => $search,
+        'users' => $users,
+        'profiles' => $profiles,
+        'indicators' => $indicators,
+        'strategies' => $strategies,
+        'notices' => $notices,
       ];
 
-      return view('search',$data);
+      return view('search.search',$data);
     }
 }
