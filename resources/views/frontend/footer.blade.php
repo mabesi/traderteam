@@ -11,7 +11,13 @@
                     <li><a class="wow fadeInUp" href="https://instagram.com/" data-wow-delay="0.6s"><i class="fa fa-instagram"></i></a></li>
                 </ul>
             </div>
-            <div class="text-center wow fadeInUp" style="font-size: 14px;">Copyright &copy TraderTeam 2017</div>
+            <div class="text-center wow fadeInUp font-14">Copyright &copy TraderTeam 2017</div>
+
+            <div class="text-center wow fadeInUp font-12">
+              <a href="{{ url('register') }}">Criar uma Conta |
+                <a href="{{ url('terms') }}">Termos e Condições
+                </div>
+
             <a href="#" class="scrollToTop"><i class="pe-7s-up-arrow pe-va"></i></a>
         </div>
     </div>

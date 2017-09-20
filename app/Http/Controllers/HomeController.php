@@ -52,6 +52,11 @@ class HomeController extends Controller
       }
     }
 
+    public function index2()
+    {
+      return view('home');
+    }
+
     public function userPanel()
     {
       $following = getFollowingId();
