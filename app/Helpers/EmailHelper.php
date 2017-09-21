@@ -66,19 +66,18 @@ function sendReportConclusionEmail($report)
   }
 }
 
-function sendContactEmail($to,$fromEmail,$fromName,$subject,$usermessage)
+function sendContactEmail($to,$fromEmail,$fromName,$usermessage)
 {
   $data = array(
       'name' => $fromName,
       'email' => $fromEmail,
-      'subject' => $subject,
       'usermessage' => $usermessage,
   );
 
-  Mail::send('emails.contact', $data, function ($message) use ($to,$subject){
+  Mail::send('emails.contact', $data, function ($message) use ($to){
       $message->from('traderteambr@gmail.com', 'Trader Team')
               ->to($to)
-              ->subject('[Fale Conosco] '.$subject);
+              ->subject('[Fale Conosco]');
   });
 
   $failures = count(Mail::failures());

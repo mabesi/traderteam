@@ -13,6 +13,6 @@ class AnswersTableSeeder extends Seeder
     public function run()
     {
       Answer::truncate();
-      factory(App\Answer::class, 200)->create();
+      factory(App\Answer::class, 300)->create();
     }
 }

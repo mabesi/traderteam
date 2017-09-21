@@ -16,6 +16,7 @@
       method="POST"
       enctype="multipart/form-data">
 
+
       <ul class="nav nav-tabs">
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
         <li><div class="pad">
@@ -51,19 +52,22 @@
 
                   @if (isset($operation->id))
                     <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" value="{{ $operation->user_id }}" name="user_id" >
+                  @else
+                    <input type="hidden" value="{{ getUserId() }}" name="user_id" >
                   @endif
 
                   <div class="form-group">
                    <label for="strategy" class="col-sm-3 control-label">Estratégia *</label>
 
                    <div class="col-sm-9">
-                     <select id="strategy" name="strategy" class="form-control" data-placeholder="Informe qual a estratégia utilizada"
-                      style="width: 100%;" {{ lockOperationFields('strategy',$status) }} required>
+                     <select id="strategy_id" name="strategy_id" class="form-control" data-placeholder="Informe qual a estratégia utilizada"
+                      style="width: 100%;" {{ lockOperationFields('strategy_id',$status) }} required>
                        <option value=""></option>
                        @foreach ($strategies as $strategy)
                          <option
                            value="{{ $strategy->id }}"
-                           {{ ($strategy->id==(isset($operation->strategy_id)?$operation->strategy_id:'')?'selected':'') }} >
+                           {{ ($strategy->id==(old('strategy_id',isset($operation->strategy_id)?$operation->strategy_id:''))?'selected':'') }} >
                            {{ $strategy->title }}
                          </option>
                        @endforeach
@@ -178,7 +182,7 @@
                    <label for="preventry" class="col-sm-3 control-label">Preço de Entrada *</label>
 
                    <div class="col-sm-9">
-                     <input type="number" step=".01" name="preventry" class="form-control" id="preventry"
+                     <input type="number" step=".001" name="preventry" class="form-control" id="preventry"
                       value="{{ old('preventry',isset($operation->preventry)?number_format($operation->preventry,2):Null) }}"
                       {{ lockOperationFields('preventry',$status) }} required>
                    </div>
@@ -188,7 +192,7 @@
                    <label for="prevtarget" class="col-sm-3 control-label">Preço do Alvo *</label>
 
                    <div class="col-sm-9">
-                     <input type="number" step=".01" name="prevtarget" class="form-control" id="prevtarget"
+                     <input type="number" step=".001" name="prevtarget" class="form-control" id="prevtarget"
                       value="{{ old('prevtarget',isset($operation->prevtarget)?number_format($operation->prevtarget,2):Null) }}"
                       {{ lockOperationFields('prevtarget',$status) }} required>
                    </div>
@@ -198,7 +202,7 @@
                    <label for="prevstop" class="col-sm-3 control-label">Preço de Stop *</label>
 
                    <div class="col-sm-9">
-                     <input type="number" step=".01" name="prevstop" class="form-control" id="prevstop"
+                     <input type="number" step=".001" name="prevstop" class="form-control" id="prevstop"
                       value="{{ old('prevstop',isset($operation->prevstop)?number_format($operation->prevstop,2):Null) }}"
                       {{ lockOperationFields('prevstop',$status) }} required>
                    </div>
@@ -240,7 +244,7 @@
                   <label for="realentry" class="col-sm-3 control-label">Preço de Entrada</label>
 
                   <div class="col-sm-9">
-                    <input type="number" step=".01" name="realentry" class="form-control" id="realentry"
+                    <input type="number" step=".001" name="realentry" class="form-control" id="realentry"
                      value="{{ old('realentry',isset($operation->realentry)?$operation->realentry:Null) }}"
                      {{ lockOperationFields('realentry',$status) }} >
                   </div>
@@ -250,7 +254,7 @@
                   <label for="currentstop" class="col-sm-3 control-label">Stop Atual</label>
 
                   <div class="col-sm-9">
-                    <input type="number" step=".01" name="currentstop" class="form-control" id="currentstop"
+                    <input type="number" step=".001" name="currentstop" class="form-control" id="currentstop"
                       value="{{ old('currentstop',isset($operation->currentstop)?$operation->currentstop:Null) }}"
                       {{ lockOperationFields('currentstop',$status) }} >
                   </div>
@@ -271,7 +275,7 @@
                   <label for="realexit" class="col-sm-3 control-label">Preço de Saída</label>
 
                   <div class="col-sm-9">
-                    <input type="number" step=".01" name="realexit" class="form-control" id="realexit"
+                    <input type="number" step=".001" name="realexit" class="form-control" id="realexit"
                      value="{{ old('realexit',isset($operation->realexit)?$operation->realexit:Null) }}"
                      {{ lockOperationFields('realexit',$status) }} >
                   </div>

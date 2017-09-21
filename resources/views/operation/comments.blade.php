@@ -13,10 +13,13 @@
   <div id="comment-0" class="box-header">
     <span class="text-navy font-16">
        @if ($totalComments>$more)
-         Comentários ({{ $more.'/'.$operation->comments->count() }})
+         Comentários ({{ $more.'/'.$totalComments }})
          <a class="font-12" href="{{ url('operation/'.$operation->id.'?comment=0&comments='.($more+$extra)) }}">Carregar mais...</a>
        @else
-         Comentários ({{ $operation->comments->count() }})
+         Comentários ({{ $totalComments }})
+       @endif
+       @if ($totalComments==0 && $operation->user_id!=getUserId())
+        {{ nbsp(2) }} Seja o primeiro a comentar!
        @endif
      </span>
   </div>
@@ -84,7 +87,7 @@ $commentAnswers=$comment->answers->count();
     </div>
   </div>
 
-  {!! br(50) !!}
+  {!! br(0) !!}
 
 </div>
 

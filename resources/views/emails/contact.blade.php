@@ -11,7 +11,6 @@
 @endif
 <p>Criada em: <strong>{{ getBRDateTime() }}</strong></p>
 <p></p>
-<p>Assunto: <strong>{{ $subject }}</strong></p>
 <p class="text-justify">Mensagem: {{ $usermessage }}</p>
 
 @endsection

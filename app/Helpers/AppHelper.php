@@ -744,15 +744,14 @@ function operationStatus($status)
 function statusClass($status)
 {
   $classList = [
-    'P' => 'secondary',
-    'C' => 'danger',
-    'N' => 'info',
-    'A' => 'warning',
-    'I' => 'primary',
-    'M' => 'warning',
-    'S' => 'danger',
-    'E' => 'primary',
-    'T' => 'success',
+    'P' => 'secondary text-danger',
+    'N' => 'default text-green text-bold',
+    'A' => 'warning text-bold',
+    'I' => 'info text-bold',
+    'M' => 'warning text-bold',
+    'S' => 'danger text-bold',
+    'E' => 'primary text-bold',
+    'T' => 'success text-bold',
   ];
 
   return $classList[$status];
@@ -827,6 +826,8 @@ function lockOperationFields($field,$status)
         $stopField = ' disabled';
         $endFields = ' disabled';
         $postFields = ' disabled';
+        $preImageFields = ' disabled';
+        $postImageFields = ' disabled';
           break;
       case 'N':
       case 'A':
@@ -835,23 +836,29 @@ function lockOperationFields($field,$status)
         $stopField = ' disabled';
         $endFields = ' disabled';
         $postFields = ' disabled';
+        $preImageFields = '';
+        $postImageFields = ' disabled';
           break;
       case 'I':
       case 'M':
-        $prevFields = ' disabled';
-        $startFields = ' disabled';
+        $prevFields = ' readonly';
+        $startFields = ' readonly';
         $stopField = '';
         $endFields = '';
         $postFields = ' disabled';
+        $preImageFields = ' disabled';
+        $postImageFields = ' disabled';
           break;
       case 'S':
       case 'E':
       case 'T':
-        $prevFields = ' disabled';
-        $startFields = ' disabled';
-        $stopField = ' disabled';
-        $endFields = ' disabled';
+        $prevFields = ' readonly';
+        $startFields = ' readonly';
+        $stopField = ' readonly';
+        $endFields = ' readonly';
         $postFields = '';
+        $preImageFields = ' disabled';
+        $postImageFields = '';
           break;
       default:
         $prevFields = '';
@@ -859,10 +866,12 @@ function lockOperationFields($field,$status)
         $stopField = ' disabled';
         $endFields = ' disabled';
         $postFields = ' disabled';
+        $preImageFields = ' disabled';
+        $postImageFields = ' disabled';
   }
 
   $fieldStatus = [
-    'strategy' => $prevFields,
+    'strategy_id' => $prevFields,
     'stock' => $prevFields,
     'amount' => $prevFields,
     'buyorsell' => $prevFields,
@@ -880,14 +889,14 @@ function lockOperationFields($field,$status)
     'exitdate' => $endFields,
     'realexit' => $endFields,
 
-    'preimage01' => $startFields,
+    'preimage01' => $preImageFields,
     'preanalysis01' => $startFields,
-    'preimage02' => $startFields,
+    'preimage02' => $preImageFields,
     'preanalysis02' => $startFields,
 
-    'postimage01' => $postFields,
+    'postimage01' => $postImageFields,
     'postanalysis01' => $postFields,
-    'postimage02' => $postFields,
+    'postimage02' => $postImageFields,
     'postanalysis02' => $postFields,
   ];
 

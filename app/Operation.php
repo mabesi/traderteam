@@ -9,8 +9,41 @@ class Operation extends Model
 {
   protected $fillable = [
       'user_id', 'strategy_id', 'stock', 'amount', 'gtime', 'buyorsell', 'realorsimulated',
-      'preventry', 'prevtarget', 'prevstop', 'realentry', 'realexit','currentstop',
-      'entrydate', 'exitdate','result', 'preanalysis', 'preimage', 'postanalysis', 'postimage',
+      'preventry', 'prevtarget', 'prevstop',
+      'realentry', 'realexit','currentstop',
+      'entrydate', 'exitdate',
+      'result',
+      'preanalysis', 'preimage',
+      'postanalysis', 'postimage',
+  ];
+
+  public $rules = [
+    'user_id' => 'required|numeric|min:1',
+    'strategy_id' => 'required|numeric|min:1',
+    'stock' => 'required|alpha_num|between:5,10',
+    'amount' => 'required|numeric|min:1',
+    'buyorsell' => 'required|alpha|in:C,V|size:1',
+    'realorsimulated' => 'required|alpha|in:R,S|size:1',
+    'gtime' => 'required|alpha_num|in:1,4,D,S,M|size:1',
+    'preventry' => 'required|different:prevtarget|numeric|min:0.001',
+    'prevtarget' => 'required|different:prevstop|numeric|min:0.001',
+    'prevstop' => 'required|numeric|min:0.001',
+    'realentry' => 'required_with:entrydate|numeric|min:0.001',
+    'entrydate' => 'required_with:realentry|date',
+    'realexit' => 'required_with:exitdate|numeric|min:0.001',
+    'exitdate' => 'required_with:realexit|date',
+    'currentstop' => 'different:realentry|nullable|numeric|min:0.001',
+    'preanalysis01' => 'required_with:preimage01|string|nullable',
+    'preanalysis02' => 'required_with:preimage02|string|nullable',
+    'preimage01' => 'image|max:500|mimes:jpeg,jpg,png',
+    'preimage02' => 'image|max:500|mimes:jpeg,jpg,png',
+    'postanalysis01' => 'required_with:postimage01|string|nullable',
+    'postanalysis02' => 'required_with:postimage02|string|nullable',
+    'postimage01' => 'image|max:500|mimes:jpeg,jpg,png',
+    'postimage02' => 'image|max:500|mimes:jpeg,jpg,png',
+  ];
+
+  public $messages = [
   ];
 
   public function user()

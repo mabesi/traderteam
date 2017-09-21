@@ -130,8 +130,7 @@ class HomeController extends Controller
     {
       $request->validate([
         'name' => 'required|string|min:3|max:100',
-        'email' => 'required|email|max:50',
-        'subject' => 'required|string|min:5|max:100',
+        'email_contact' => 'required|email|max:60',
         'message' => 'required|string|min:10|max:1000',
         'captcha' => 'required|captcha'
       ],[
@@ -139,13 +138,12 @@ class HomeController extends Controller
       ]);
 
       $name = $request->name;
-      $email = $request->email;
-      $subject = $request->subject;
+      $email = $request->email_contact;
       $message = $request->message;
 
       $to = getAdminEmails();
 
-      if (sendContactEmail($to,$email,$name,$subject,$message)){
+      if (sendContactEmail($to,$email,$name,$message)){
         return back()->with('informations',['Sua mensagem foi enviada com sucesso!']);
       } else {
         return back()->with('problems',['Ocorreu um erro ao enviar a mensagem!']);

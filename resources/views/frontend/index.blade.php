@@ -1,6 +1,9 @@
 @extends('frontend.model')
 
 @section('content')
+
+@include('layouts.errors')
+
   <!-- /.preloader -->
   <div id="preloader"></div>
   <div id="top"></div>
@@ -46,21 +49,39 @@
 
                       <div class="signup-header wow fadeInRight">
                           <h3 class="form-title text-center">Login</h3>
-                          <form class="form-header" action="http://moxdesign.us10.list-manage.com/subscribe/post" role="form" method="POST" id="#">
-                              <input type="hidden" name="u" value="503bdae81fde8612ff4944435">
-                              <input type="hidden" name="id" value="bfdba52708">
+
+                          <form class="form-header" action="{{ route('login') }}" method="post">
+
+                              {{ csrf_field() }}
+
                               <div class="form-group">
-                                  <input class="form-control input-lg" name="MERGE1" id="name" type="text" placeholder="Email" required>
+                                <input id="email" type="email" name="email" class="form-control input-lg" placeholder="Email" value="{{ old('email')}}" required>
+                                @if ($errors->has('email'))
+                                    <span class="help-block font-12">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
                               </div>
+
                               <div class="form-group">
-                                  <input class="form-control input-lg" name="MERGE0" id="email" type="email" placeholder="Senha" required>
+                                <input id="password" type="password" class="form-control input-lg" placeholder="Senha" name="password" required>
+                                @if ($errors->has('password'))
+                                    <span class="help-block font-12">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
                               </div>
+
                               <div class="form-group last">
                                   <input type="submit" class="btn btn-warning btn-block btn-lg" value="Entrar">
                               </div>
-                              <p class="privacy text-center">Ainda não faz parte?<br>
-                                <a href="privacy.html">Clique aqui</a> para se juntar ao cardume!</p>
+
+                              <p class="privacy">
+                                <a href="{{ route('register') }}">Registrar-se</a> |
+                                <a href="{{ route('password.request') }}">Lembrar senha</a>
+                              </p>
                           </form>
+
                       </div>
 
                   </div>
@@ -369,20 +390,56 @@
 
                       <!-- /.contact form -->
                       <div class="col-sm-7 contact-right">
-                          <form method="POST" id="contact-form" class="form-horizontal" action="contactengine.php" onSubmit="alert( 'Thank you for your feedback!' );">
+
+                        <form id="contact-form" class="form-horizontal pad" action="{{ url('contact') }}" method="POST">
+
+                        {{ csrf_field() }}
+
                               <div class="form-group">
-                                  <input type="text" name="Name" id="Name" class="form-control wow fadeInUp" placeholder="Nome" required/>
+                                <input type="text" value="{{ old('name',getUserName()) }}" name="name" class="form-control wow fadeInUp"
+                                maxlength="100" id="name" placeholder="Nome *" required>
+                                @if ($errors->has('name'))
+                                    <span class="help-block font-12">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
                               </div>
                               <div class="form-group">
-                                  <input type="text" name="Email" id="Email" class="form-control wow fadeInUp" placeholder="E-mail" required/>
+                                <input type="email" value="{{ old('email-contact',getUserEmail()) }}" name="email_contact" class="form-control wow fadeInUp"
+                                maxlength="60"  id="email_contact" placeholder="E-mail *" required>
+                                @if ($errors->has('email_contact'))
+                                    <span class="help-block font-12">
+                                        <strong>{{ $errors->first('email_contact') }}</strong>
+                                    </span>
+                                @endif
                               </div>
                               <div class="form-group">
-                                  <textarea name="Message" rows="20" cols="20" id="Message" class="form-control input-message wow fadeInUp"  placeholder="Mensagem" required></textarea>
+                                <textarea class="form-control input-message wow fadeInUp" rows="6" name="message" id="message" placeholder="Mensagem *" required>{!! old('message') !!}</textarea>
+                                @if ($errors->has('message'))
+                                    <span class="help-block font-12">
+                                        <strong>{{ $errors->first('message') }}</strong>
+                                    </span>
+                                @endif
+                              </div>
+                              <div class="form-group">
+                                <small>Digite os caracteres abaixo no campo ao lado:</small><br>
+                                <div class="col-xs-5 col-sm-4">
+                                  {!! captcha_img() !!}
+                                </div>
+                                <div class="col-xs-7 col-sm-8">
+                                  <input type="text" name="captcha" maxlength="10" id="captcha" required>
+                                </div>
+                                @if ($errors->has('captcha'))
+                                    <span class="help-block font-12">
+                                        <strong>{{ $errors->first('captcha') }}</strong>
+                                    </span>
+                                @endif
                               </div>
                               <div class="form-group">
                                   <input type="submit" name="submit" value="Enviar" class="btn btn-success wow fadeInUp" />
                               </div>
                           </form>
+
                       </div>
                   </div>
               </div>

@@ -25,8 +25,6 @@ class OperationController extends Controller
     protected function operations($request,$userId=Null,$owner="Todas",$operationId=Null)
     {
 
-      //dd($operationId);
-
       if ($operationId!=Null){
         $strategies = Strategy::orderBy('title')
                                 ->get();
@@ -163,8 +161,6 @@ class OperationController extends Controller
       return $this->operations($request,$userId,"Usuário");
     }
 
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -175,8 +171,6 @@ class OperationController extends Controller
       $strategies = Strategy::where('user_id',getUserId())
                     ->orderBy('title')
                     ->get();
-
-      //dd($strategies);
 
       $data = [
         'viewname' => 'Nova Operação',
@@ -198,10 +192,12 @@ class OperationController extends Controller
     {
         $operation = new Operation;
 
-        $operation->user_id = getUserId();
+        $request->validate($operation->rules,$operation->messages);
 
-        $operation->strategy_id = $request->strategy;
-        $operation->stock = $request->stock;
+        $operation->user_id = $request->user_id;
+
+        $operation->strategy_id = $request->strategy_id;
+        $operation->stock = strtoupper($request->stock);
         $operation->amount = $request->amount;
         $operation->buyorsell = $request->buyorsell;
         $operation->realorsimulated = $request->realorsimulated;
@@ -230,6 +226,11 @@ class OperationController extends Controller
           $exitdate = getMysqlDateFromBR($request->exitdate);
           $operation->exitdate = $exitdate;
         }
+
+        $operation->preanalysis = "|||";
+        $operation->preimage = "|||";
+        $operation->postanalysis = "|||";
+        $operation->postimage = "|||";
 
         $operation->status = 'N';
 
@@ -367,6 +368,8 @@ class OperationController extends Controller
      */
     public function update(Request $request, Operation $operation)
     {
+      $request->validate($operation->rules,$operation->messages);
+
       $operationDir = 'operations/'.$operation->user_id.'/'.$operation->id;
       $defaultImage = '../../loading.gif';
 
@@ -403,7 +406,7 @@ class OperationController extends Controller
         }
         $operation->preimage = $preimage01.'|||'.$preimage02;
 
-        if ($request->strategy != $operation->strategy_id ||
+        if ($request->strategy_id != $operation->strategy_id ||
             $request->stock != $operation->stock ||
             $request->amount != $operation->amount ||
             $request->buyorsell != $operation->buyorsell ||
@@ -414,7 +417,7 @@ class OperationController extends Controller
             $request->prevstop != (float) $operation->prevstop
             ){
 
-          $operation->strategy_id = $request->strategy;
+          $operation->strategy_id = $request->strategy_id;
           $operation->stock = $request->stock;
           $operation->amount = $request->amount;
           $operation->buyorsell = $request->buyorsell;
