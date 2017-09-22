@@ -113,9 +113,11 @@ class ProfileController extends Controller
       //Status: 0: , 1: , 2: , 3:
       $profile->status = 0;
 
-      $profile->save();
-
-      return redirect('profile');
+      if ($profile->save()){
+        return redirect('profile')->with('informations', ['O pefil foi salvo com sucesso!']);
+      } else {
+        return back()->with('problems', ['Erro inesperado. O perfil não foi salvo!']);
+      }
     }
 
     /**
@@ -285,10 +287,14 @@ class ProfileController extends Controller
         $profile->cofounder = (boolean) $request->cofounder;
       }
 
-      if ($profile->save()){
-        return back()->with('informations', ['As informações foram atualizadas com sucesso!']);
+      if (isAdmin() || $profile->user_id==getUserId()){
+        if ($profile->save()){
+          return redirect('profile')->with('informations', ['O pefil foi salvo com sucesso!']);
+        } else {
+          return back()->with('problems', ['Erro inesperado. O perfil não foi salvo!']);
+        }
       } else {
-        return back()->with('problems', ['Erro ao salvar. As informações não foram atualizadas!']);
+        return back()->with('problems', ['Acesso não permitido. O perfil não foi salvo!']);
       }
     }
 
@@ -300,10 +306,14 @@ class ProfileController extends Controller
 
       $profile->sidebar_closed = (boolean) $request->sidebar_closed;
 
-      if ($profile->save()){
-        return back()->with('informations', ['As informações foram atualizadas com sucesso!']);
+      if (isAdmin() || $profile->user_id==getUserId()){
+        if ($profile->save()){
+          return back()->with('informations', ['As informações foram atualizadas com sucesso!']);
+        } else {
+          return back()->with('problems', ['Erro ao salvar. As informações não foram atualizadas!']);
+        }
       } else {
-        return back()->with('problems', ['Erro ao salvar. As informações não foram atualizadas!']);
+        return back()->with('problems', ['Acesso não permitido. As informações não foram atualizadas!']);
       }
     }
 

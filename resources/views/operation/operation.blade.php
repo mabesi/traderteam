@@ -210,7 +210,7 @@
 
                  @if (isset($operation))
                  <div class="form-group">
-                   <label for="prevstop" class="col-sm-3 control-label">Retorno / Risco</label>
+                   <label for="prevstop" class="col-sm-3 control-label">Risco/Retorno</label>
 
                    <div class="col-sm-9">
                      @include('operation.riskreturn')

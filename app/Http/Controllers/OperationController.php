@@ -113,7 +113,6 @@ class OperationController extends Controller
                                 ->paginate(10);
 
       $where = array_merge($where,$statusWhere);
-      //dd($where);
 
       $data = [
         'viewname' => 'Lista de Operações ('.$owner.')',
@@ -313,8 +312,6 @@ class OperationController extends Controller
       $preanalysis01 = $preanalysis[0];
       $preanalysis02 = $preanalysis[1];
 
-      //dd($preanalysis);
-
       $preimage = explode('|||',$operation->preimage);
       $preimage01 = $preimage[0];
       $preimage02 = $preimage[1];
@@ -364,7 +361,6 @@ class OperationController extends Controller
      */
     public function update(Request $request, Operation $operation)
     {
-      //dd($request->exitdate.' - '.$request->entrydate);
       $request->validate($operation->rules,$operation->messages);
 
       $operationDir = 'operations/'.$operation->user_id.'/'.$operation->id;
@@ -557,8 +553,6 @@ class OperationController extends Controller
       if (!$operation->save()){
         return back()->with('problems',['Ocorreu um erro ao salvar a operação.']);
       }
-
-      //dd($operation);
 
       if ($operation->status == 'S' || $operation->status == 'E' || $operation->status == 'T'){
 

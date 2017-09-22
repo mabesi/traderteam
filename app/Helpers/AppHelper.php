@@ -345,7 +345,11 @@ function getUserLockedCapital($user=Null)
                         })->get();
 
   foreach($operations as $operation){
-    $totalLockedCapital += $operation->amount * $operation->preventry;
+    if ($operation->buyorsell=='C'){
+      $totalLockedCapital += ($operation->amount * $operation->preventry) + getDefaultFees();
+    } else {
+      $totalLockedCapital += (($operation->amount * $operation->preventry) * 1.2) + getDefaultFees(True);
+    }
   }
 
   return $totalLockedCapital;

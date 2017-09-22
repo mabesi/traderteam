@@ -50,15 +50,6 @@
         </div>
 
         <div class="form-group">
-          <label for="subject" class="col-sm-2 control-label">Assunto *</label>
-
-          <div class="col-sm-10">
-            <input type="text" value="{{ old('subject') }}" name="subject" class="form-control"
-            maxlength="100" id="subject" required>
-          </div>
-        </div>
-
-        <div class="form-group">
           <label for="message" class="col-sm-2 control-label">Mensagem *</label>
 
           <div class="col-sm-10">
