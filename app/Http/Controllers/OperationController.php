@@ -209,22 +209,18 @@ class OperationController extends Controller
         $operation->prevtarget = (float) $request->prevtarget;
         $operation->prevstop = (float) $request->prevstop;
 
-        if ($request->realentry){
-          $operation->realentry = (float) $request->realentry;
-        }
-
-        if ($request->entrydate){
-           $entrydate = getMysqlDateFromBR($request->entrydate);
-           $operation->entrydate = $entrydate;
-        }
-
-        if ($request->realexit){
-          $operation->realexit = (float) $request->realexit;
-        }
-
-        if ($request->exitdate){
-          $exitdate = getMysqlDateFromBR($request->exitdate);
-          $operation->exitdate = $exitdate;
+        if ($operation->buyorsell=='C'){
+          if ($operation->prevtarget <= $operation->preventry){
+            return back()->with('warnings',['O preço do alvo deve ser maior que o preço de entrada!']);
+          } elseif ($operation->prevstop >= $operation->preventry){
+            return back()->with('warnings',['O preço do stop deve ser menor que o preço de entrada!']);
+          }
+        } else {
+          if ($operation->prevtarget >= $operation->preventry){
+            return back()->with('warnings',['O preço do alvo deve ser mmenor que o preço de entrada!']);
+          } elseif ($operation->prevstop <= $operation->preventry){
+            return back()->with('warnings',['O preço do stop deve ser maior que o preço de entrada!']);
+          }
         }
 
         $operation->preanalysis = "|||";
@@ -368,6 +364,7 @@ class OperationController extends Controller
      */
     public function update(Request $request, Operation $operation)
     {
+      //dd($request->exitdate.' - '.$request->entrydate);
       $request->validate($operation->rules,$operation->messages);
 
       $operationDir = 'operations/'.$operation->user_id.'/'.$operation->id;
@@ -430,6 +427,20 @@ class OperationController extends Controller
           $operation->prevtarget = (float) $request->prevtarget;
           $operation->prevstop = (float) $request->prevstop;
 
+          if ($operation->buyorsell=='C'){
+            if ($operation->prevtarget <= $operation->preventry){
+              return back()->with('warnings',['O preço do alvo deve ser maior que o preço de entrada!']);
+            } elseif ($operation->prevstop >= $operation->preventry){
+              return back()->with('warnings',['O preço de stop deve ser menor que o preço de entrada!']);
+            }
+          } else {
+            if ($operation->prevtarget >= $operation->preventry){
+              return back()->with('warnings',['O preço do alvo deve ser mmenor que o preço de entrada!']);
+            } elseif ($operation->prevstop <= $operation->preventry){
+              return back()->with('warnings',['O preço de stop deve ser maior que o preço de entrada!']);
+            }
+          }
+
           $operation->status = 'A';
 
         } elseif ($request->realentry){
@@ -443,6 +454,21 @@ class OperationController extends Controller
                $entrydate = getMysqlDateFromBR($request->entrydate);
                $operation->entrydate = $entrydate;
                $operation->currentstop = $operation->prevstop;
+
+               if ($operation->buyorsell=='C'){
+                 if ($operation->prevtarget <= $operation->preventry){
+                   return back()->with('warnings',['O preço do alvo deve ser maior que o preço de entrada!']);
+                 } elseif ($operation->prevstop >= $operation->preventry){
+                   return back()->with('warnings',['O preço de stop deve ser menor que o preço de entrada!']);
+                 }
+               } else {
+                 if ($operation->prevtarget >= $operation->preventry){
+                   return back()->with('warnings',['O preço do alvo deve ser mmenor que o preço de entrada!']);
+                 } elseif ($operation->prevstop <= $operation->preventry){
+                   return back()->with('warnings',['O preço de stop deve ser maior que o preço de entrada!']);
+                 }
+               }
+
                $operation->status = 'I';
              }
            } else {
@@ -460,10 +486,27 @@ class OperationController extends Controller
         }
 
         if ($request->realexit){
+
           if ($request->exitdate){
+
             $operation->realexit = (float) $request->realexit;
             $exitdate = getMysqlDateFromBR($request->exitdate);
             $operation->exitdate = $exitdate;
+            $today = getMysqlDate();
+
+            if ($operation->exitdate <= $operation->entrydate){
+              return back()->with('warnings',['A data de saída deve ser posterior à data de entrada!']);
+            } elseif ($operation->exitdate > $today){
+              return back()->with('warnings',['A data de saída não pode ser posterior à data atual!']);
+            }
+
+            if ($request->fees){
+              $operation->fees = (float) $request->fees;
+            } else {
+              $sellOperation = ($operation->buyorsell=='V');
+              $operation->fees = getDefaultFees($sellOperation);
+            }
+
             if (($operation->buyorsell=='C' && $operation->realexit <= $operation->currentstop) ||
                 ($operation->buyorsell=='V' && $operation->realexit >= $operation->currentstop)
               ) {
@@ -475,10 +518,12 @@ class OperationController extends Controller
             } else {
               $operation->status = 'E';
             }
+
           }
+
         }
 
-      } elseif ($operation->status == 'C' || $operation->status == 'E' || $operation->status == 'T' ) {
+      } elseif ($operation->status == 'S' || $operation->status == 'E' || $operation->status == 'T' ) {
 
         $postimage = explode('|||',$operation->postimage);
 
@@ -509,14 +554,38 @@ class OperationController extends Controller
         $operation->postimage = $postimage01.'|||'.$postimage02;
       }
 
-      $operation->save();
-
-      if ($operation->status == 'S' || $operation->status == 'E' || $operation->status == 'T'){
-        $operation->result = $operation->capitalReturn();
-        $operation->save();
+      if (!$operation->save()){
+        return back()->with('problems',['Ocorreu um erro ao salvar a operação.']);
       }
 
-      return redirect('operation/'.$operation->id);
+      //dd($operation);
+
+      if ($operation->status == 'S' || $operation->status == 'E' || $operation->status == 'T'){
+
+        $operation->result = $operation->capitalReturn();
+
+        if ($operation->save()){
+
+          $profile = $operation->user->profile;
+          $profile->capital += $operation->profit();
+
+          if ($profile->save()){
+            $request->session()->flash('informations',['O capital de investimento foi atualizado com sucesso.']);
+          } else {
+            $request->session()->flash('warnings',['Ocorreu um erro ao atualizar o capital de investimento.']);
+          }
+
+          return redirect('operation/'.$operation->id)->with('informations',['A operação foi salva com sucesso.']);
+
+        } else {
+          return back()->with('problems',['Ocorreu um erro ao salvar a operação.']);
+        }
+      } else {
+
+        return redirect('operation/'.$operation->id)->with('informations',['A operação foi salva com sucesso.']);
+
+      }
+
     }
 
     /**

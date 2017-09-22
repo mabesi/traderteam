@@ -1,23 +1,9 @@
 <div class="font-20">
-  <small class="label bg-{{ ($operation->buyorsell=='C'?'blue':'red') }}">{{$operation->buyorsell}}</small>
-  <small class="label bg-{{ ($operation->realorsimulated=='R'?'black':'green') }}">{{$operation->realorsimulated}}</small>
+  <small title="C: Compra / V: Venda" class="label bg-{{ ($operation->buyorsell=='C'?'blue':'red') }}">{{$operation->buyorsell}}</small>
+  <small title="R: Operação Real / S: Operação Simulada" class="label bg-{{ ($operation->realorsimulated=='R'?'black':'green') }}">{{$operation->realorsimulated}}</small>
   <a class="font-26" href="{{ url('operation/'.$operation->id) }}"><strong>{{ $operation->stock }}</strong></a>
   {{ nbsp(1) }}
-  <span class="font-12 label bg-{{ ($operation->riskReturn()>=3?'green':($operation->riskReturn()>=1?'primary':'maroon')) }}">
-    {{ $operation->riskReturn() }}
-  </span>
-  {{ nbsp(1) }}
-  <span class="font-14">
-    %O:{{ $operation->prevRisk() }}/{{ $operation->prevReturn() }}
-    {{ nbsp(1) }}
-    %C:{{ $operation->prevCapitalRisk() }}/{{ $operation->prevCapitalReturn() }}
-  </span>
-@if ($operation->status=='E' || $operation->status=='S' || $operation->status=='T')
-  {{ nbsp(1) }}
-  <span class="font-14 label bg-{{ ($operation->result==0?'gray':($operation->result>0?'green':'red')) }}">
-    {{ $operation->result }}%
-  </span>
-@endif
+  @include('operation.riskreturn')
   {{ nbsp(1) }}
   <small class="btn btn-xs btn-{{ statusClass($operation->status) }}">
     {{ operationStatus($operation->status) }}

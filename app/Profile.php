@@ -14,7 +14,7 @@ class Profile extends Model
 
   public $rules = [
     'occupation' => 'string|nullable|between:3,50',
-    'birthdate' => 'date',
+    'birthdate' => 'date_format:d/m/Y',
     'city' => 'required_with:state,country|string|between:2,60',
     'state' => 'required_with:city,country|string|between:2,50',
     'country' => 'required_with:city,state|string|size:2',

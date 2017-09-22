@@ -172,6 +172,19 @@ function getConfiguration($name,$type='value')
   }
 }
 
+function getDefaultFees($sell=False)
+{
+  $brokerage = (float) getConfiguration('BROKERAGE_FEE');
+  $brokerage *= 2;
+  $retalRate = (float) getConfiguration('STOCKS_RENTAL_RATE');
+
+  if ($sell){
+    return $brokerage + $retalRate;
+  } else {
+    return $brokerage;
+  }
+}
+
 function indicatorType($type){
   $types = [
     'T' => 'Tendência',
@@ -555,8 +568,8 @@ function getItemAdminIcons($item,$itemType,$resource)
   $icons = '';
 
   if (isAdmin() || $item->user_id == getUserId()){
-    $icons .= "<a class='text-primary edit-button' href='".url($itemType.'/'.$item->id.'/edit')."'><i class='fa fa-pencil'></i></a>".nbsp(2);
-    $icons .= "<a class='text-danger delete-button' href='".url($itemType.'/'.$item->id)."' data-token='".csrf_token()."' data-resource='".$resource."' data-previous='".URL::previous()."'><i class='fa fa-trash'></i></a>";
+    $icons .= "<a title='Editar Registro' class='text-primary edit-button' href='".url($itemType.'/'.$item->id.'/edit')."'><i class='fa fa-pencil'></i></a>".nbsp(2);
+    $icons .= "<a title='Deletar Registro' class='text-danger delete-button' href='".url($itemType.'/'.$item->id)."' data-token='".csrf_token()."' data-resource='".$resource."' data-previous='".URL::previous()."'><i class='fa fa-trash'></i></a>";
   }
 
   return trim($icons);
@@ -888,6 +901,7 @@ function lockOperationFields($field,$status)
 
     'exitdate' => $endFields,
     'realexit' => $endFields,
+    'fees' => $endFields,
 
     'preimage01' => $preImageFields,
     'preanalysis01' => $startFields,

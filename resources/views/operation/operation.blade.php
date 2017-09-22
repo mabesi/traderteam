@@ -208,6 +208,16 @@
                    </div>
                  </div>
 
+                 @if (isset($operation))
+                 <div class="form-group">
+                   <label for="prevstop" class="col-sm-3 control-label">Retorno / Risco</label>
+
+                   <div class="col-sm-9">
+                     @include('operation.riskreturn')
+                   </div>
+                 </div>
+                 @endif
+
               </div>
             </div>
 
@@ -220,11 +230,9 @@
                 <div class="form-group">
                   <div class="col-sm-offset-3 col-sm-9">
                     @if (isset($operation->realentry) && isset($operation->amount))
-                    <p>Valor da Operação: <strong>{{ formatCurrency($operation->amount*$operation->realentry) }}</strong></p>
-                    <p>Saldo Atual: <strong>{{ formatCurrency(getUserAvailableCapital($operation->user)) }}</strong></p>
+                    <p>Valor da Operação: <strong>{{ formatCurrency($operation->amount*$operation->realentry) }}</strong> | Saldo Atual: <strong>{{ formatCurrency(getUserAvailableCapital($operation->user)) }}</strong></p>
                     @elseif (isset($operation->preventry) && isset($operation->amount))
-                    <p>Valor da Operação: <strong>{{ formatCurrency($operation->amount*$operation->preventry) }}</strong></p>
-                    <p>Saldo Atual: <strong>{{ formatCurrency(getUserAvailableCapital($operation->user)) }}</strong></p>
+                    <p>Valor da Operação: <strong>{{ formatCurrency($operation->amount*$operation->preventry) }}</strong> | Saldo Atual: <strong>{{ formatCurrency(getUserAvailableCapital($operation->user)) }}</strong></p>
                     @endif
                   </div>
                 </div>
@@ -278,6 +286,19 @@
                     <input type="number" step=".001" name="realexit" class="form-control" id="realexit"
                      value="{{ old('realexit',isset($operation->realexit)?$operation->realexit:Null) }}"
                      {{ lockOperationFields('realexit',$status) }} >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="fees" class="col-sm-3 control-label">Taxas</label>
+
+                  <div class="col-sm-9">
+                    <input type="number" step=".01" min="5.0" name="fees" class="form-control" id="fees"
+                     value="{{ old('fees',isset($operation->fees)?$operation->fees:Null) }}"
+                     {{ lockOperationFields('fees',$status) }} >
+                     <small class="text-muted">Mínimo: R$ 5,00. Caso não seja informado será utilizado o valor padrão.<br>
+                          Corretagem: R$ {{ getConfiguration('BROKERAGE_FEE') }} x2
+                           (+ Aluguel: R$ {{ getConfiguration('STOCKS_RENTAL_RATE') }} para vendas)</small>
                   </div>
                 </div>
 

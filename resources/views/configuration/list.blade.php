@@ -28,9 +28,11 @@
                       </span>
                     </h4>
 
-@if ($configuration->content!=Null)
-                    <p>{!! (strlen($configuration->content)>150?substr($configuration->content, 0, 150).'...':$configuration->content) !!}</p>
-@endif
+                    <p>
+                    @if ($configuration->content!=Null)
+                      {!! (strlen($configuration->content)>150?substr($configuration->content, 0, 150).'...':$configuration->content) !!}
+                    @endif
+                    </p>
 
               </div>
           @endforeach

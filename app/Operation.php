@@ -11,7 +11,7 @@ class Operation extends Model
       'user_id', 'strategy_id', 'stock', 'amount', 'gtime', 'buyorsell', 'realorsimulated',
       'preventry', 'prevtarget', 'prevstop',
       'realentry', 'realexit','currentstop',
-      'entrydate', 'exitdate',
+      'entrydate', 'fees','exitdate',
       'result',
       'preanalysis', 'preimage',
       'postanalysis', 'postimage',
@@ -25,14 +25,15 @@ class Operation extends Model
     'buyorsell' => 'required|alpha|in:C,V|size:1',
     'realorsimulated' => 'required|alpha|in:R,S|size:1',
     'gtime' => 'required|alpha_num|in:1,4,D,S,M|size:1',
-    'preventry' => 'required|different:prevtarget|numeric|min:0.001',
-    'prevtarget' => 'required|different:prevstop|numeric|min:0.001',
+    'preventry' => 'required|numeric|min:0.001',
+    'prevtarget' => 'required|numeric|min:0.001',
     'prevstop' => 'required|numeric|min:0.001',
-    'realentry' => 'required_with:entrydate|numeric|min:0.001',
-    'entrydate' => 'required_with:realentry|date',
-    'realexit' => 'required_with:exitdate|numeric|min:0.001',
-    'exitdate' => 'required_with:realexit|date',
-    'currentstop' => 'different:realentry|nullable|numeric|min:0.001',
+    'realentry' => 'required_with:entrydate|numeric|min:0.001|nullable',
+    'entrydate' => 'required_with:realentry|date_format:d/m/Y|nullable',
+    'realexit' => 'required_with:exitdate|numeric|min:0.001|nullable',
+    'fees' => 'numeric|min:5.0|nullable',
+    'exitdate' => 'required_with:realexit|date_format:d/m/Y|nullable',
+    'currentstop' => 'different:realentry|nullable|numeric|min:0.001|nullable',
     'preanalysis01' => 'required_with:preimage01|string|nullable',
     'preanalysis02' => 'required_with:preimage02|string|nullable',
     'preimage01' => 'image|max:500|mimes:jpeg,jpg,png',
@@ -138,6 +139,26 @@ class Operation extends Model
     return 0;
   }
 
+  public function profit()
+  {
+    if ($this->status == 'S' || $this->status == 'E' || $this->status == 'T'){
+
+      $entry = $this->realentry;
+      $exit = $this->realexit;
+
+      if ($this->buyorsell == 'C'){
+        $result = ($exit - $entry) * $this->amount;
+      }else{
+        $result = ($entry - $exit) * $this->amount;
+      }
+
+      $result -= $this->fees;
+
+      return $result;
+    }
+    return 0;
+  }
+
   public function capitalReturn()
   {
     if ($this->status == 'S' || $this->status == 'E' || $this->status == 'T'){
@@ -148,14 +169,7 @@ class Operation extends Model
         $capital = getInvestimentCapital();
       }
 
-      $entry = $this->realentry;
-      $exit = $this->realexit;
-
-      if ($this->buyorsell == 'C'){
-        $result = ($exit - $entry) * $this->amount;
-      }else{
-        $result = ($entry - $exit) * $this->amount;
-      }
+      $result = $this->profit();
 
       $capitalResult = $result * 100 / $capital;
 

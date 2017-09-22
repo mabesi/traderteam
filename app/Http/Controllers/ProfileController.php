@@ -266,9 +266,19 @@ class ProfileController extends Controller
       $profile->description = $request->mydescription;
 
       if ($request->capital){
-        $profile->capital = $request->capital;
+        $capital = (float) $request->capital;
+        $lockedCapital = getUserLockedCapital($profile->user);
+        if ($capital >= $lockedCapital){
+          $profile->capital = $capital;
+        } else {
+          return back()->with('problems',['Capital de investimento inválido. Valor inferior ao saldo bloqueado.']);
+        }
       } else {
-        $profile->capital = 100000.00;
+        if ($lockedCapital >= 100000.00){
+          $profile->capital = $lockedCapital;
+        } else {
+          $profile->capital = 100000.00;
+        }
       }
 
       if (isSuperAdmin()){

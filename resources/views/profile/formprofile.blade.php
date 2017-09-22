@@ -128,7 +128,7 @@
         <span class="input-group-addon">
           <i class="fa fa-money"></i>
         </span>
-        <input class="form-control" id="capital" name="capital" type="number" min="1000" max="100000000" step="100" value="{{ old('capital',isset($profile->capital)?$profile->capital:Null) }}">
+        <input class="form-control" id="capital" name="capital" type="number" min="1000" max="100000000" step="0.01" value="{{ old('capital',isset($profile->capital)?$profile->capital:Null) }}">
       </div>
       <small class="text-muted text-justify">Obs: Valor real ou arbitrário, usado para estatísticas. Mínimo:1.000,00 | Máximo 100.000.000,00.
                                  Caso não seja informado, será utilizado o valor fictício de 100.000,00. Este valor será utilizado

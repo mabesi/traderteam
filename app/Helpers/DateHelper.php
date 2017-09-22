@@ -253,6 +253,12 @@ function getBRDate()
   return date('d/m/Y');
 }
 
+function getMysqlDate()
+{
+  date_default_timezone_set('America/Belem');
+  return date('Y-m-d');
+}
+
 function getBRDateTime()
 {
   date_default_timezone_set('America/Belem');
@@ -296,19 +302,6 @@ function getBRDateFromMysql($date=Null,$withTime=False)
 function getDateTimeFromString($date)
 {
   return date("d-m-Y H:i:s", strtotime($date));
-}
-
-function getMysqlDate($date)
-{
-    $arrayDate = explode('/',$date);
-    $day = $arrayDate[0];
-    $month = $arrayDate[1];
-    $year = $arrayDate[2];
-    if ($year<2000){
-        $year = $year + 2000;
-    }
-    $timestamp = mktime(0,0,0,$month,$day,$year);
-    return date('Y-m-d', $timestamp);
 }
 
 function getPHPDate($date)

@@ -24,6 +24,8 @@ class ConfigurationsTableSeeder extends Seeder
       factory(App\Configuration::class)->create(['name' => 'MAX_DAILY_COMMENTS','value' => '1000']);
       factory(App\Configuration::class)->create(['name' => 'MAX_OPEN_REPORTS','value' => '10']);
       factory(App\Configuration::class)->create(['name' => 'MAX_REPORTS_SENT','value' => '50']);
+      factory(App\Configuration::class)->create(['name' => 'STOCKS_RENTAL_RATE','value' => '20.00']);
+      factory(App\Configuration::class)->create(['name' => 'BROKERAGE_FEE','value' => '10.00']);
       factory(App\Configuration::class, 15)->create();
     }
 }
