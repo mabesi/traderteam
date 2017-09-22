@@ -19,7 +19,7 @@
                   <div class="logo wow fadeInDown "> <a href=""><img src="{{ asset('backyard/images/logo.png') }}" alt="logo"></a></div>
                 </div>
                 <div class="col-md-9">
-                  <div class="wow fadeInUp "><img class="site-name" src="{{ asset('backyard/images/site-name.png') }}" alt="logo"></div>
+                  <div class="wow fadeInRight "><img class="site-name" src="{{ asset('backyard/images/site-name.png') }}" alt="logo"></div>
                 </div>
               </div>
               <div class="row">
