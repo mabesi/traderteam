@@ -297,7 +297,7 @@
                      value="{{ old('fees',isset($operation->fees)?$operation->fees:Null) }}"
                      {{ lockOperationFields('fees',$status) }} >
                      <small class="text-muted">Mínimo: R$ 5,00. Caso não seja informado será utilizado o valor padrão.<br>
-                          Corretagem: R$ {{ getConfiguration('BROKERAGE_FEE') }} x2
+                          Padrão: R$ {{ getConfiguration('BROKERAGE_FEE') }} x2
                            (+ Aluguel: R$ {{ getConfiguration('STOCKS_RENTAL_RATE') }} para vendas)</small>
                   </div>
                 </div>
