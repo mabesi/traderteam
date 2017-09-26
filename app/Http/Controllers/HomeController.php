@@ -21,7 +21,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth')->except('index','index2','terms','contact','sendContact');
     }
 
     /**
@@ -61,14 +61,9 @@ class HomeController extends Controller
     {
       $following = getFollowingId();
 
-      //$users = Auth::user()->leftJoin('profiles','users.id','=','profiles.user_id')
-        //            ->whereIn('users.id', $following)
-
       $users = Auth::user()->following->sortByDesc('rank');
 
       $test = $users->splice(10);
-
-      //dd($users);
 
       $operationsFollowing = Operation::whereIn('user_id', $following)
                               ->orderBy('updated_at','desc')

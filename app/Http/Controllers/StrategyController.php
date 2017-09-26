@@ -163,11 +163,12 @@ class StrategyController extends Controller
       $strategy->title = $request->title;
       $strategy->description = $request->description;
 
-      $strategy->save();
-
-      $strategy->indicators()->attach($request->indicators);
-
-      return redirect('strategy/'.$strategy->id);
+      if ($strategy->save()){
+        $strategy->indicators()->attach($request->indicators);
+        return redirect('strategy/'.$strategy->id)->with('informations', ['A estratégia foi salva com sucesso!']);
+      } else {
+        return back()->with('problems', ['Erro inesperado. A estratégia não foi salva!']);
+      }
     }
 
     /**
@@ -225,12 +226,18 @@ class StrategyController extends Controller
 
       $strategy->title = $request->title;
       $strategy->description = $request->description;
-      $strategy->save();
 
-      $strategy->indicators()->detach();
-      $strategy->indicators()->attach($request->indicators);
-
-      return redirect('strategy/'.$strategy->id);
+      if (isAdmin() || $strategy->user_id = getUserId()){
+        if ($strategy->save()){
+          $strategy->indicators()->detach();
+          $strategy->indicators()->attach($request->indicators);
+          return redirect('strategy/'.$strategy->id)->with('informations', ['A estratégia foi salva com sucesso!']);
+        } else {
+          return back()->with('problems', ['Erro inesperado. A estratégia não foi salva!']);
+        }
+      } else {
+        return back()->with('problems', ['Acesso não permitido. A estratégia não foi salva!']);
+      }
     }
 
     /**

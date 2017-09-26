@@ -36,8 +36,10 @@
             <div class="col-xs-12 col-sm-4 col-md-4">
               <span class="pull-right">
                 <a href="{{ url('indicator') }}" class="btn btn-primary">Ver Todos</a>
+                @if (isAdmin())
                 {{ nbsp(2) }}
                 <a href="{{ url('indicator/create') }}" class="btn btn-success">Novo Indicador</a>
+                @endif
               </span>
             </div>
 
@@ -57,7 +59,7 @@
                   <a href="{{ url('strategy?indicator='.$indicator->acronym) }}">
                     <span class="label bg-primary font-14" title="Estratégias Utilizando">{{ $indicator->strategies_count }}</span>
                   </a>
-                  
+
                   <span class="pull-right font-16">
                     {!! getItemAdminIcons($indicator,'indicator','False') !!}
                   </span>

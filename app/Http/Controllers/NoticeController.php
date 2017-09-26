@@ -8,6 +8,11 @@ use Validator;
 
 class NoticeController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('OnlyAdmin')->except('index','show');
+    }
+
     /**
      * Display a listing of the resource.
      *

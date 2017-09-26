@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Storage;
 
 class IndicatorController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('OnlyAdmin')->except('index','show');
+  }
 
   public function indicators($request)
   {
@@ -95,14 +99,17 @@ class IndicatorController extends Controller
       $indicator->description = $request->description;
       $indicator->type = $request->type;
 
-      //saveImage($request,$fieldName,$dir,$imageName,$oldName=Null,$default=Null)
-      //saveImage($request,'avatar','avatar',getUserId(),getUserAvatarName(),'default.png');
       $indicator->image = saveImage($request,'image','indicators',$indicator->acronym);
 
-      $indicator->save();
-
-      //return redirect('indicator/'.$indicator->id.'/edit');
-      return redirect('indicator');
+      if (isAdmin()){
+        if ($indicator->save()){
+          return redirect('indicator')->with('informations', ['O indicador foi salvo com sucesso!']);
+        } else {
+          return back()->with('problems', ['Erro inesperado. O indicador não foi salvo!']);
+        }
+      } else {
+        return back()->with('problems', ['Acesso não permitido. O indicador não foi salvo!']);
+      }
     }
 
     /**
@@ -155,10 +162,15 @@ class IndicatorController extends Controller
 
       $indicator->image = saveImage($request,'image','indicators',$indicator->acronym,$indicator->image,'loading.gif');
 
-      $indicator->save();
-
-      //return redirect('indicator/'.$indicator->id.'/edit');
-      return redirect('indicator');
+      if (isAdmin()){
+        if ($indicator->save()){
+          return redirect('indicator')->with('informations', ['O indicador foi salvo com sucesso!']);
+        } else {
+          return back()->with('problems', ['Erro inesperado. O indicador não foi salvo!']);
+        }
+      } else {
+        return back()->with('problems', ['Acesso não permitido. O indicador não foi salvo!']);
+      }
     }
 
     /**

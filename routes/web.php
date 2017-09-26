@@ -59,6 +59,7 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
   Route::delete('answer/{id}', 'OperationController@removeAnswer');
 
   Route::get('users', 'UserController@users')->name('users');
+  Route::get('user/{id}', 'UserController@show');
   Route::delete('user/{id}', 'UserController@destroy');
   // Seguir - Deixar de Seguir - Seguindo Usuários
   Route::get('user/{id}/follow', 'UserController@follow');

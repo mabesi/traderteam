@@ -9,6 +9,16 @@ use App\User;
 
 class UserController extends Controller
 {
+  public function show(Request $request,$id)
+  {
+    $user = User::find($id);
+
+    if ($user->profile!=Null){
+      return redirect('profile/'.$user->profile->id);
+    } else {
+      return back()->with('problems',['O perfil do usuário não foi encontrado!']);
+    }
+  }
 
   public function users(Request $request,$userId=Array(),$follow=Null,$mainUser=Null)
   {
@@ -115,24 +125,36 @@ class UserController extends Controller
   {
     $user = User::find($id);
 
-    if($user != Null){
-      $user->locked = True;
-      $user->save();
+    if (isAdmin()){
+      if($user != Null){
+        $user->locked = True;
+        if ($user->save()){
+          return back();
+        } else {
+          return back()->with('problems', ['Erro inesperado. O usuário não foi bloqueado!']);
+        }
+      }
+    } else {
+      return back()->with('problems', ['Acesso não permitido. O usuário não foi bloqueado!']);
     }
-
-    return back();
   }
 
   public function unlock($id)
   {
     $user = User::find($id);
 
-    if($user != Null){
-      $user->locked = False;
-      $user->save();
+    if (isAdmin()){
+      if($user != Null){
+        $user->locked = False;
+        if ($user->save()){
+          return back();
+        } else {
+          return back()->with('problems', ['Erro inesperado. O usuário não foi desbloqueado!']);
+        }
+      }
+    } else {
+      return back()->with('problems', ['Acesso não permitido. O usuário não foi desbloqueado!']);
     }
-
-    return back();
   }
 
   public function verifyUser()

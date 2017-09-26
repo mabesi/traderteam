@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('OnlyAdmin')->except('store','userReport');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -75,7 +80,7 @@ class ReportController extends Controller
           $request->session()->flash('warnings',['O usuário '.$report->reportedUser->name.' foi bloqueado por atingir o limite de denúncias!']);
         }
 
-        return redirect('report/'.$report->id.'/edit')->with('informations', ['A denúncia foi salva com sucesso!']);
+        return redirect($report->origin_url)->with('informations', ['A denúncia foi salva com sucesso!']);
 
       } else {
         return back()->with('problems', ['Erro inesperado. A denúncia não foi salva!']);
