@@ -1,7 +1,7 @@
 @extends('layouts.blank')
 
 @push('css')
-  <link rel="stylesheet" href="{{ asset('/adminlte2/plugins/iCheck/square/blue.css') }}">
+  <link rel="stylesheet" href="{{ asset('/adminlte/plugins/iCheck/square/blue.css') }}">
   <link rel="stylesheet" href="{{ asset('/css/loginlogout.css') }}">
 @endpush
 
