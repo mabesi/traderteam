@@ -1,9 +1,5 @@
 @extends('layouts.panel')
 
-@push('css')
-  <link rel="stylesheet" href="{{ asset('/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
-@endpush
-
 @section('content')
 
 <div class="row">

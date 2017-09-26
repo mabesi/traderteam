@@ -1,8 +1,8 @@
 @extends('layouts.panel')
 
 @push('css')
-  <link rel="stylesheet" href="{{ asset('/adminlte2/plugins/select2/select2.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/adminlte/plugins/select2/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 @endpush
 
 @section('content')
@@ -82,9 +82,9 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset("/adminlte2/plugins/select2/select2.full.min.js") }}"></script>
-<script src="{{ asset("/adminlte2/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.pt-BR.js") }}"></script>
-<script src="{{ asset("/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js") }}"></script>
+<script src="{{ asset("/adminlte/plugins/select2/select2.full.min.js") }}"></script>
+<script src="{{ asset("/adminlte/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.pt-BR.js") }}"></script>
+<script src="{{ asset("/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js") }}"></script>
 <script>
   $(function () {
     $('.select2').select2();

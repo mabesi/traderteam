@@ -358,8 +358,7 @@ function getUserLockedCapital($user=Null)
 function getStrategyResult($strategyId)
 {
   return App\Operation::where('strategy_id',$strategyId)
-              //->whereNotNull('exitdate')
-              //->whereNotNull('realexit')
+              ->whereNotNull('realexit')
               ->sum('result');
 }
 

@@ -1,5 +1,5 @@
 @push('css')
-<link rel="stylesheet" href="{{ asset('/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+<link rel="stylesheet" href="{{ asset('/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 @endpush
 
 <form class="form-horizontal" action="{{ url('/profile'.(isset($profile->id)?'/'.$profile->id:'')) }}" method="POST" enctype="multipart/form-data">
@@ -205,10 +205,10 @@
 @push('scripts')
 <script src="{{ asset("/js/form-helper.js") }}"></script>
 <script src="{{ asset("/js/img-helper.js") }}"></script>
-<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.js") }}"></script>
-<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.date.extensions.js") }}"></script>
-<script src="{{ asset("/adminlte2/plugins/input-mask/jquery.inputmask.extensions.js") }}"></script>
-<script src="{{ asset("/adminlte2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js") }}"></script>
+<script src="{{ asset("/adminlte/plugins/input-mask/jquery.inputmask.js") }}"></script>
+<script src="{{ asset("/adminlte/plugins/input-mask/jquery.inputmask.date.extensions.js") }}"></script>
+<script src="{{ asset("/adminlte/plugins/input-mask/jquery.inputmask.extensions.js") }}"></script>
+<script src="{{ asset("/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js") }}"></script>
 <script>
   $(function () {
     $('.textarea').wysihtml5();

@@ -66,7 +66,7 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset("/adminlte2/plugins/iCheck/icheck.min.js") }}"></script>
+<script src="{{ asset("/adminlte/plugins/iCheck/icheck.min.js") }}"></script>
 <script>
   $(function () {
     $('input').iCheck({
