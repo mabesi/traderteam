@@ -163,6 +163,7 @@ class UserController extends Controller
 
     $data = [
       'user' => $user,
+      'userId' => $user->id;
     ];
 
     Auth::logout();

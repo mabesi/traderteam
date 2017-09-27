@@ -55,7 +55,7 @@ function sendReportConclusionEmail($report)
     $userEmail = $report->user->email;
 
     Mail::send('emails.report', $data, function ($message) use ($userEmail){
-      $message->from('traderteambr@gmail.com', 'Trader Team')
+      $message->from('contato@traderteam.com.br', 'Trader Team')
       ->to($userEmail)
       ->subject('Solução de Denúncia');
     });
@@ -75,7 +75,7 @@ function sendContactEmail($to,$fromEmail,$fromName,$usermessage)
   );
 
   Mail::send('emails.contact', $data, function ($message) use ($to){
-      $message->from('traderteambr@gmail.com', 'Trader Team')
+      $message->from('contato@traderteam.com.br', 'Trader Team')
               ->to($to)
               ->subject('[Fale Conosco]');
   });
@@ -98,7 +98,7 @@ function sendConfirmationEmail($user)
   );
 
   Mail::send('emails.confirmation', $data, function ($message) use ($user){
-      $message->from('pliniomabesi@gmail.com', 'TraderTeam');
+      $message->from('contato@traderteam.com.br', 'TraderTeam');
       $message->to($user->email)
               ->subject('Confirmação de email TraderTeam');
   });

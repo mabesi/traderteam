@@ -18,7 +18,7 @@
       <h2>Confirmação de E-mail</h2>
 
       <p>Caro usuário, você ainda não confirmou seu e-mail.</p>
-      <p>Caso não tenha recebido o link de confirmação <a href="{{ url('user/'.getUserId().'/send-confirmation') }}">clique aqui</a> para que o mesmo seja reenviado.</p>
+      <p>Caso não tenha recebido o link de confirmação <a href="{{ url('user/'.$userId.'/send-confirmation') }}">clique aqui</a> para que o mesmo seja reenviado.</p>
 
     </div>
   </div>

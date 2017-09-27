@@ -5,8 +5,8 @@
 </head>
 <body style="color:#3f3f3f;">
 
-  <div style="font-size:30px;font-weight:bold;padding:15px;border-bottom:5px solid #008D4C;background-color:#2F4F4F;color:#fff">
-    Trader Team <span style="font-size:14px;font-weight:normal;">Um time de traders contra o imprevis&iacute;vel!<span>
+  <div style="font-size:30px;font-weight:bold;padding:10px;border-bottom:5px solid #008D4C;background-color:#2F4F4F;color:#fff">
+    <img src={{ asset('img/logo-mini.png') }} width="40px" /> Trader Team <span style="font-size:14px;font-weight:normal;">Um time de traders contra o imprevis&iacute;vel!<span>
   </div>
 
   <div style="margin:10px 50px 5px 50px;">

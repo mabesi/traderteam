@@ -41,11 +41,11 @@
         </div>
 
         <div class="form-group">
-          <label for="email" class="col-sm-2 control-label">Email *</label>
+          <label for="email_contact" class="col-sm-2 control-label">Email *</label>
 
           <div class="col-sm-10">
-            <input type="email" value="{{ old('email',getUserEmail()) }}" name="email" class="form-control"
-            maxlength="50"  id="email" required>
+            <input type="email_contact" value="{{ old('email_contact',getUserEmail()) }}" name="email_contact" class="form-control"
+            maxlength="50"  id="email_contact" required>
           </div>
         </div>
 

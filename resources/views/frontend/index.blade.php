@@ -38,8 +38,8 @@
 
                       <!-- /.header button -->
                       <div class="head-btn wow fadeInLeft">
-                          <a href="#howto" class="btn-default">Como funciona?</a>
-                          <a href="#mission" class="btn-default">Missão, Visão e Valores</a>
+                          <a href="#howto" class="btn btn-default">Como funciona?</a>
+                          <a href="#mission" class="btn btn-default">Missão, Visão e Valores</a>
                       </div>
 
                   </div>
