@@ -59,6 +59,8 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
   Route::delete('answer/{id}', 'OperationController@removeAnswer');
 
   Route::get('users', 'UserController@users')->name('users');
+  Route::get('user/myfollowers', 'UserController@myFollowers')->name('myfollowers');
+  Route::get('user/following', 'UserController@myFollowing')->name('myfollowing');
   Route::get('user/{id}', 'UserController@show');
   Route::delete('user/{id}', 'UserController@destroy');
   // Seguir - Deixar de Seguir - Seguindo Usuários
@@ -66,8 +68,6 @@ Route::middleware(['auth','VerifyUser'])->group(function(){
   Route::get('user/{id}/unfollow', 'UserController@unfollow');
   Route::get('user/{id}/followers', 'UserController@followers');
   Route::get('user/{id}/following', 'UserController@following');
-  Route::get('user/myfollowers', 'UserController@myFollowers')->name('myfollowers');
-  Route::get('user/following', 'UserController@myFollowing')->name('myfollowing');
   // Bloqueio - Liberação de Usuários
   Route::get('user/{id}/lock', 'UserController@lock');
   Route::get('user/{id}/unlock', 'UserController@unlock');
