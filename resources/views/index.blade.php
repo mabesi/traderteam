@@ -43,7 +43,10 @@
       <div class="box-header with-border bg-tt-green">
         <span class="font-20">Operações Não Iniciadas</span>
         <a class="pull-right font-20 text-warning" title="Ver Todas"
-          href="{{ url('myoperations?new=1&changed=1') }}"><i class="fa fa-th-list"></i>
+          href="{{ url('myoperations?new=1&changed=1') }}">{{ nbsp(2) }}<i class="fa fa-th-list"></i>
+        </a>
+        <a class="pull-right font-20 text-warning" title="Incluir Nova Operação"
+          href="{{ url('operation/create') }}"><i class="fa fa-plus-circle"></i>
         </a>
       </div>
       <div class="box-body">
