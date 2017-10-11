@@ -668,6 +668,12 @@ function getMsgAddError()
   return $data;
 }
 
+function updateUserLevel($user)
+{
+  $user->rank = getUserLevel($user);
+  $user->save();
+}
+
 function getUserLevel($user)
 {
   $followers = $user->followers->count();
@@ -680,7 +686,7 @@ function getUserLevel($user)
     $level = 4; //Estrategista
   } elseif ($followers >= 50 && (($operations >= 100 && $result >= 50) || ($operations >= 50 && $result>=100))){
     $level = 3; //Analista
-  } elseif ($followers >= 10 && (($operations >= 50 && $result > 10) || ($operations >= 10 && $result>=50))){
+  } elseif ($followers >= 1 && (($operations >= 20 && $result > 5) || ($operations >= 10 && $result>=20))){
     $level = 2; //Operador
   } elseif ($operations > 0) {
     $level = 1; //Sardinha

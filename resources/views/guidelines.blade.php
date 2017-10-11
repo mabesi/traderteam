@@ -3,6 +3,9 @@
   $totalOperations=$user->operations->count();
   $totalFollowing=$user->following->count();
   $welcomeBox = session('welcome-box','');
+  if ($welcomeBox==''){
+      updateUserLevel($user);
+  }
 @endphp
 
 @if ($totalOperations==0)

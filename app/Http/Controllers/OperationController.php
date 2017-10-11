@@ -230,6 +230,7 @@ class OperationController extends Controller
         $operation->status = 'N';
 
         if ($operation->save()){
+          updateUserLevel($operation->user);
           return redirect('operation/'.$operation->id.'/edit')->with('informations',['A operação foi incluída com sucesso!']);
         } else {
           return back()->with('problems',['Ocorreu um erro ao salvar a operação!']);
@@ -560,6 +561,8 @@ class OperationController extends Controller
 
         if ($operation->save()){
 
+          updateUserLevel($operation->user);
+
           $profile = $operation->user->profile;
           $profile->capital += $operation->profit();
 
@@ -593,10 +596,12 @@ class OperationController extends Controller
       if (isAdmin() || $strategy->user_id = getUserId()){
 
         $directory = 'operations/'.$operation->user_id.'/'.$operation->id;
+        $user = $operation->user;
 
         if (isNotAdmin() && $operation->status != 'N' && $operation->status != 'A'){
           $data = getMsgDeleteErrorLocked();
         } elseif ($operation->delete()){
+          updateUserLevel($user);
           deleteDir($directory);
           $data = getMsgDeleteSuccess();
         } else {

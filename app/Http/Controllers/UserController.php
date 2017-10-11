@@ -112,12 +112,16 @@ class UserController extends Controller
   public function follow($id)
   {
     Auth::user()->following()->attach($id);
+    $user = getUser($id);
+    updateUserLevel($user);
     return back();
   }
 
   public function unfollow($id)
   {
     Auth::user()->following()->detach($id);
+    $user = getUser($id);
+    updateUserLevel($user);
     return back();
   }
 
