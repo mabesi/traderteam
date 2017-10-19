@@ -26,6 +26,10 @@ class UserController extends Controller
 
     if (count($userId) > 0){
       $users->whereIn('users.id',$userId);
+    } else {
+    	if ($follow != Null) {
+    	  $follow = "Nenhum usuário Seguindo/Seguidor. Exibindo todos!";
+    	}
     }
 
     if ($request->has('sort')){
@@ -106,6 +110,7 @@ class UserController extends Controller
   public function myFollowing(Request $request)
   {
     $userId = getFollowingId();
+    //dd($userId);
     return $this->users($request,$userId,"Estou Seguindo");
   }
 

@@ -85,8 +85,8 @@
                     </td>
                   @endif
                 @endif
-                    <td><a href="{{ url('user/'.$user->id.'/strategies') }}">{{ $user->strategies->count() }}</a></td>
-                    <td><a href="{{ url('user/'.$user->id.'/operations') }}">{{ $user->operations->count() }}</a></td>
+                <td><a href="{{ url('strategies/user/'.$user->id) }}">{{ $user->strategies->count() }}</a></td>
+                <td><a href="{{ url('operations/user/'.$user->id) }}">{{ $user->operations->count() }}</a></td>
                     <td><a href="{{ url('user/'.$user->id.'/followers') }}">{{ $user->followers->count() }}</a></td>
                     <td>{{ getBRDateFromMysql($user->created_at,True) }}</td>
                   </tr>

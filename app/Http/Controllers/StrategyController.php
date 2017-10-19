@@ -41,7 +41,7 @@ class StrategyController extends Controller
       $strategies = Strategy::leftJoin('operations','strategies.id','=','operations.strategy_id')
                               ->select(DB::raw('strategies.*,sum(result) as sumresult'))
                               ->withCount('operations')
-                              ->groupBy('strategies.id','strategies.title','strategies.description','strategies.user_id');
+                              ->groupBy('strategies.id','strategies.title','strategies.description','strategies.user_id','strategies.created_at','strategies.updated_at');
 
       if ($minResult!=Null){
         $strategies->havingRaw('sum(result) >= '.$minResult);
