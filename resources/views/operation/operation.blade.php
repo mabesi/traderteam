@@ -539,7 +539,7 @@
 <script>
   $(function () {
     $('.textarea').wysihtml5();
-    $('[data-mask]').inputmask();
+    //$('[data-mask]').inputmask();
   });
 </script>
 @endpush
