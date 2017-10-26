@@ -19,7 +19,7 @@
 
           <div id="collapse01" class="panel-collapse collapse {{ ($operation->realexit?'':'in') }}">
             <div class="box-body">
-              <div class="col-lg-4">
+              <div>
                 <a href="#" class="azoom" title="Clique para aumentar!">
                   <img class="img-max pad preimage01"
                   src="{{ asset('/storage/operations/'.
@@ -27,7 +27,7 @@
                   $preimage01:'../../img/loading.gif'))}}" />
                 </a>
               </div>
-              <div class="col-lg-8 text-justify">
+              <div class="text-justify">
                 {!! (isset($preanalysis01)?$preanalysis01:Null) !!}
               </div>
             </div>

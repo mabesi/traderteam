@@ -249,19 +249,19 @@ function getDaysTo($date)
 
 function getBRDate()
 {
-  date_default_timezone_set('America/Belem');
+  //date_default_timezone_set('America/Sao_Paulo');
   return date('d/m/Y');
 }
 
 function getMysqlDate()
 {
-  date_default_timezone_set('America/Belem');
+  //date_default_timezone_set('America/Sao_Paulo');
   return date('Y-m-d');
 }
 
 function getBRDateTime()
 {
-  date_default_timezone_set('America/Belem');
+  //date_default_timezone_set('America/Sao_Paulo');
   return date('d/m/Y H:i:s');
 }
 

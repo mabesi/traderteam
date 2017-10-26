@@ -65,7 +65,7 @@ return [
     */
 
     //'timezone' => 'UTC',
-    'timezone' => 'America/Belem',
+    'timezone' => 'America/Sao_Paulo',
 
     /*
     |--------------------------------------------------------------------------

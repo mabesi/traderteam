@@ -29,15 +29,16 @@
 @endif
         </div></li>
         <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-        <li class="active"><a class="btn btn-info" href="#operation" data-toggle="tab"><b>Operação</b></a></li>
+        <li class="active"><a class="btn btn-info" href="#prevision" data-toggle="tab"><b>Previsão</b></a></li>
         <li><a class="btn btn-danger" href="#preanalysis" data-toggle="tab"><b>Pré-Análise</b></a></li>
+        <li><a class="btn btn-primary" href="#register" data-toggle="tab"><b>Registro</b></a></li>
         <li><a class="btn btn-success" href="#postanalysis" data-toggle="tab"><b>Pós-Análise</b></a></li>
       </ul>
 
       <div class="tab-content pad">
 
         <!-- /.tab-pane -->
-        <div class="tab-pane active" id="operation">
+        <div class="tab-pane active" id="prevision">
 
           <div class="row">
 
@@ -45,8 +46,10 @@
             <div class="col-md-6">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Previsão da Operação</h3>
+                  <h3 class="box-title">Dados da Operação</h3>
                 </div>
+                
+                <div class="box-content pad">
 
                   {{ csrf_field() }}
 
@@ -177,46 +180,7 @@
                      </div>
                    </div>
                  </div>
-
-                 <div class="form-group">
-                   <label for="preventry" class="col-sm-3 control-label">Preço de Entrada *</label>
-
-                   <div class="col-sm-9">
-                     <input type="number" step=".001" name="preventry" class="form-control" id="preventry"
-                      value="{{ old('preventry',isset($operation->preventry)?number_format($operation->preventry,2):Null) }}"
-                      {{ lockOperationFields('preventry',$status) }} required>
-                   </div>
                  </div>
-
-                 <div class="form-group">
-                   <label for="prevtarget" class="col-sm-3 control-label">Preço do Alvo *</label>
-
-                   <div class="col-sm-9">
-                     <input type="number" step=".001" name="prevtarget" class="form-control" id="prevtarget"
-                      value="{{ old('prevtarget',isset($operation->prevtarget)?number_format($operation->prevtarget,2):Null) }}"
-                      {{ lockOperationFields('prevtarget',$status) }} required>
-                   </div>
-                 </div>
-
-                 <div class="form-group">
-                   <label for="prevstop" class="col-sm-3 control-label">Preço de Stop *</label>
-
-                   <div class="col-sm-9">
-                     <input type="number" step=".001" name="prevstop" class="form-control" id="prevstop"
-                      value="{{ old('prevstop',isset($operation->prevstop)?number_format($operation->prevstop,2):Null) }}"
-                      {{ lockOperationFields('prevstop',$status) }} required>
-                   </div>
-                 </div>
-
-                 @if (isset($operation))
-                 <div class="form-group">
-                   <label for="prevstop" class="col-sm-3 control-label">Risco/Retorno</label>
-
-                   <div class="col-sm-9">
-                     @include('operation.riskreturn')
-                   </div>
-                 </div>
-                 @endif
 
               </div>
             </div>
@@ -224,101 +188,68 @@
             <div class="col-md-6">
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Registro da Operação</h3>
+                  <h3 class="box-title">Pontos de Entrada e Saída</h3>
                 </div>
 
-                <div class="form-group">
-                  <div class="col-sm-offset-3 col-sm-9">
-                    @if (isset($operation->realentry) && isset($operation->amount))
-                    <p>Valor da Operação: <strong>{{ formatCurrency($operation->amount*$operation->realentry) }}</strong> | Saldo Atual: <strong>{{ formatCurrency(getUserAvailableCapital($operation->user)) }}</strong></p>
-                    @elseif (isset($operation->preventry) && isset($operation->amount))
-                    <p>Valor da Operação: <strong>{{ formatCurrency($operation->amount*$operation->preventry) }}</strong> | Saldo Atual: <strong>{{ formatCurrency(getUserAvailableCapital($operation->user)) }}</strong></p>
-                    @endif
-                  </div>
-                </div>
+                <div class="box-content pad">
 
-                <div class="form-group">
-                  <label for="entrydate" class="col-sm-3 control-label">Data de Entrada</label>
+                  <div class="form-group">
+                    <label for="preventry" class="col-sm-3 control-label">Preço de Entrada *</label>
 
-                  <div class="col-sm-9">
-                    <input type="date" name="entrydate" class="form-control" id="entrydate"
-                    value="{{ old('entrydate',isset($operation->entrydate)?getBRDateFromMysql($operation->entrydate):Null) }}"
-                    data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""
-                    {{ lockOperationFields('entrydate',$status) }} >
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="realentry" class="col-sm-3 control-label">Preço de Entrada</label>
-
-                  <div class="col-sm-9">
-                    <input type="number" step=".001" name="realentry" class="form-control" id="realentry"
-                     value="{{ old('realentry',isset($operation->realentry)?$operation->realentry:Null) }}"
-                     {{ lockOperationFields('realentry',$status) }} >
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="currentstop" class="col-sm-3 control-label">Stop Atual</label>
-
-                  <div class="col-sm-9">
-                    <input type="number" step=".001" name="currentstop" class="form-control" id="currentstop"
-                      value="{{ old('currentstop',isset($operation->currentstop)?$operation->currentstop:Null) }}"
-                      {{ lockOperationFields('currentstop',$status) }} >
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="exitdate" class="col-sm-3 control-label">Data de Saída</label>
-
-                  <div class="col-sm-9">
-                    <input type="date" name="exitdate" class="form-control" id="exitdate"
-                    value="{{ old('exitdate',isset($operation->exitdate)?getBRDateFromMysql($operation->exitdate):Null) }}"
-                    data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""
-                    {{ lockOperationFields('exitdate',$status) }} >
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="realexit" class="col-sm-3 control-label">Preço de Saída</label>
-
-                  <div class="col-sm-9">
-                    <input type="number" step=".001" name="realexit" class="form-control" id="realexit"
-                     value="{{ old('realexit',isset($operation->realexit)?$operation->realexit:Null) }}"
-                     {{ lockOperationFields('realexit',$status) }} >
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="fees" class="col-sm-3 control-label">Taxas</label>
-
-                  <div class="col-sm-9">
-                    <input type="number" step=".01" min="5.0" name="fees" class="form-control" id="fees"
-                     value="{{ old('fees',isset($operation->fees)?$operation->fees:Null) }}"
-                     {{ lockOperationFields('fees',$status) }} >
-                     <small class="text-muted">Mínimo: R$ 5,00. Caso não seja informado será utilizado o valor padrão.<br>
-                          Padrão: R$ {{ getConfiguration('BROKERAGE_FEE') }} x2
-                           (+ Aluguel: R$ {{ getConfiguration('STOCKS_RENTAL_RATE') }} para vendas)</small>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <br>
-                    <label for="status" class="col-sm-3 control-label"><br>Status</label>
                     <div class="col-sm-9">
-                      <br />
-                      <button type="button" class="btn btn-lg btn-block btn-{{ statusClass($status) }} ">
-                        {{ operationStatus($status) }}
-                      </button>
+                      <input type="number" step=".001" name="preventry" class="form-control" id="preventry"
+                       value="{{ old('preventry',isset($operation->preventry)?number_format($operation->preventry,2):Null) }}"
+                       {{ lockOperationFields('preventry',$status) }} required>
                     </div>
-                </div>
+                  </div>
 
+                  <div class="form-group">
+                    <label for="prevtarget" class="col-sm-3 control-label">Preço do Alvo *</label>
+
+                    <div class="col-sm-9">
+                      <input type="number" step=".001" name="prevtarget" class="form-control" id="prevtarget"
+                       value="{{ old('prevtarget',isset($operation->prevtarget)?number_format($operation->prevtarget,2):Null) }}"
+                       {{ lockOperationFields('prevtarget',$status) }} required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="prevstop" class="col-sm-3 control-label">Preço de Stop *</label>
+
+                    <div class="col-sm-9">
+                      <input type="number" step=".001" name="prevstop" class="form-control" id="prevstop"
+                       value="{{ old('prevstop',isset($operation->prevstop)?number_format($operation->prevstop,2):Null) }}"
+                       {{ lockOperationFields('prevstop',$status) }} required>
+                    </div>
+                  </div>
+
+                  @if (isset($operation))
+                  <div class="form-group">
+                    <label for="prevstop" class="col-sm-3 control-label">Risco/Retorno</label>
+
+                    <div class="col-sm-9">
+                      @include('operation.riskreturn')
+                    </div>
+                  </div>
+                  @endif
+
+                  <div class="form-group">
+                    <br>
+                      <label for="status" class="col-sm-3 control-label"><br>Status</label>
+                      <div class="col-sm-9">
+                        <br />
+                        <button type="button" class="btn btn-lg btn-block btn-{{ statusClass($status) }} ">
+                          {{ operationStatus($status) }}
+                        </button>
+                      </div>
+                  </div>
+                </div>
 
               </div>
             </div>
 
           </div>
-        </div><!-- end operation-->
+        </div><!-- end prevision-->
         <!-- /.tab-pane -->
 
         <!-- /.tab-pane -->
@@ -416,6 +347,119 @@
 
               </div><!-- end box-->
         </div><!-- end preanalysis-->
+
+
+
+        <div class="tab-pane" id="register">
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Entrada na Operação</h3>
+                </div>
+
+                <div class="box-content pad">
+
+                  <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                      @if (isset($operation->realentry) && isset($operation->amount))
+                      <p>Valor da Operação: <strong>{{ formatCurrency($operation->amount*$operation->realentry) }}</strong> | Saldo Atual: <strong>{{ formatCurrency(getUserAvailableCapital($operation->user)) }}</strong></p>
+                      @elseif (isset($operation->preventry) && isset($operation->amount))
+                      <p>Valor da Operação: <strong>{{ formatCurrency($operation->amount*$operation->preventry) }}</strong> | Saldo Atual: <strong>{{ formatCurrency(getUserAvailableCapital($operation->user)) }}</strong></p>
+                      @endif
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="entrydate" class="col-sm-3 control-label">Data de Entrada</label>
+
+                    <div class="col-sm-9">
+                      <input type="text" name="entrydate" class="form-control" id="entrydate"
+                      value="{{ old('entrydate',isset($operation->entrydate)?getBRDateFromMysql($operation->entrydate):Null) }}"
+                      placeholder="dd/mm/aaaa"
+                      {{ lockOperationFields('entrydate',$status) }} >
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="realentry" class="col-sm-3 control-label">Preço de Entrada</label>
+
+                    <div class="col-sm-9">
+                      <input type="number" step=".001" name="realentry" class="form-control" id="realentry"
+                       value="{{ old('realentry',isset($operation->realentry)?$operation->realentry:Null) }}"
+                       {{ lockOperationFields('realentry',$status) }} >
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="currentstop" class="col-sm-3 control-label">Stop Atual</label>
+
+                    <div class="col-sm-9">
+                      <input type="number" step=".001" name="currentstop" class="form-control" id="currentstop"
+                        value="{{ old('currentstop',isset($operation->currentstop)?$operation->currentstop:Null) }}"
+                        {{ lockOperationFields('currentstop',$status) }} >
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Encerramento da Operação</h3>
+                </div>
+
+                <div class="box-content pad">
+
+                  <div class="form-group">
+                    <label for="exitdate" class="col-sm-3 control-label">Data de Saída</label>
+
+                    <div class="col-sm-9">
+                      <input type="text" name="exitdate" class="form-control" id="exitdate"
+                      value="{{ old('exitdate',isset($operation->exitdate)?getBRDateFromMysql($operation->exitdate):Null) }}"
+                      placeholder="dd/mm/aaaa"
+                      {{ lockOperationFields('exitdate',$status) }} >
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="realexit" class="col-sm-3 control-label">Preço de Saída</label>
+
+                    <div class="col-sm-9">
+                      <input type="number" step=".001" name="realexit" class="form-control" id="realexit"
+                       value="{{ old('realexit',isset($operation->realexit)?$operation->realexit:Null) }}"
+                       {{ lockOperationFields('realexit',$status) }} >
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="fees" class="col-sm-3 control-label">Taxas</label>
+
+                    <div class="col-sm-9">
+                      <input type="number" step=".01" min="5.0" name="fees" class="form-control" id="fees"
+                       value="{{ old('fees',isset($operation->fees)?$operation->fees:Null) }}"
+                       {{ lockOperationFields('fees',$status) }} >
+                       <small class="text-muted">Mínimo: R$ 5,00. Caso não seja informado será utilizado o valor padrão.<br>
+                            Padrão: R$ {{ getConfiguration('BROKERAGE_FEE') }} x2
+                             (+ Aluguel: R$ {{ getConfiguration('STOCKS_RENTAL_RATE') }} para vendas)</small>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div><!-- end register-->
+        <!-- /.tab-pane -->
+
+
+
 
         <div class="tab-pane" id="postanalysis">
 

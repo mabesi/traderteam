@@ -11,7 +11,7 @@
 
   <div class="col-sm-6 col-lg-3">
     <div class="box box-solid bg-gray">
-      <div class="box-header with-border bg-navy">
+      <div class="box-header with-border bg-tt-gray">
         <span class="font-20">Evolução de Resultados</span>
       </div>
       <div class="box-body">
@@ -24,10 +24,32 @@
   </div>
 
   <div class="col-sm-6 col-lg-3">
+
     <div class="box box-solid">
       <div class="box-header with-border bg-yellow">
+        <span class="font-20">Quadro de Avisos</span>
+        <a class="pull-right font-20 text-olive" title="Ver Todos"
+          href="{{ url('notice') }}">{{ nbsp(2) }}<i class="fa fa-th-list"></i>
+        </a>
+        @if (isAdmin())
+        <a class="pull-right font-20 text-olive" title="Incluir Novo Aviso"
+          href="{{ url('notice/create') }}"><i class="fa fa-plus-circle"></i>
+        </a>
+        @endif
+      </div>
+      <div class="box-body">
+        @include('notice.listmin')
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sm-6 col-lg-3">
+
+    <div class="box box-solid">
+      <div class="box-header with-border bg-olive">
         <span class="font-20">Operações em Andamento</span>
-        <a class="pull-right font-20 text-olive" title="Ver Todas"
+        <a class="pull-right font-20 text-yellow" title="Ver Todas"
           href="{{ url('myoperations?started=1&moved=1') }}"><i class="fa fa-th-list"></i>
         </a>
       </div>
@@ -35,6 +57,7 @@
         @include('operation.listmin-started')
       </div>
     </div>
+
   </div>
 
   <div class="col-sm-6 col-lg-3">
@@ -68,21 +91,6 @@
 
   </div>
 
-  <div class="col-sm-6 col-lg-3">
-
-    <div class="box box-solid">
-      <div class="box-header with-border bg-tt-green">
-        <span class="font-20">Quadro de Avisos</span>
-        <a class="pull-right font-20 text-warning" title="Ver Todos"
-          href="{{ url('notice') }}"><i class="fa fa-th-list"></i>
-        </a>
-      </div>
-      <div class="box-body">
-        @include('notice.listmin')
-      </div>
-    </div>
-
-  </div>
 </div>
 
 <div class="row">

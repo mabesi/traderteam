@@ -8,7 +8,7 @@
 
 <div class="row">
 
-  <div class="col-md-6">
+  <div class="col-md-5 col-lg-4">
 
     <div class="box">
 
@@ -21,10 +21,10 @@
         @include('operation.summary.info')
 
         <div class="row top-20">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             @include('operation.summary.prevision')
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             @include('operation.summary.register')
           </div>
         </div>
@@ -33,7 +33,7 @@
     </div>
   </div> <!-- fim col -->
 
-  <div class="col-md-6">
+  <div class="col-md-7 col-lg-8">
     @include('operation.summary.postanalysis')
     @include('operation.summary.preanalysis')
   </div> <!-- fim col -->

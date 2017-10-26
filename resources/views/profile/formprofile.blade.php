@@ -38,7 +38,8 @@
     <label for="mybirthdate" class="col-sm-3 control-label">Data de Nascimento</label>
 
     <div class="col-sm-9">
-      <input type="date" name="mybirthdate" class="form-control" id="mybirthdate" value="{{ old('mybirthdate',isset($profile->birthdate)?getBRDateFromMysql($profile->birthdate):Null) }}" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+      <input type="text" name="mybirthdate" class="form-control" id="mybirthdate" value="{{ old('mybirthdate',isset($profile->birthdate)?getBRDateFromMysql($profile->birthdate):Null) }}"
+          placeholder="dd/mm/aaaa" >
     </div>
   </div>
 
