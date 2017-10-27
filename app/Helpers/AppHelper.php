@@ -3,6 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use App\User;
 
+function dpln($var)
+{
+  if (isSuperAdmin()){
+    dd($var);
+  }
+}
+
 function isSuperAdmin($user=Null)
 {
   if($user==Null){

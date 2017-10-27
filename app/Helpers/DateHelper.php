@@ -82,8 +82,6 @@ if (! function_exists('humanPastTime')) {
 
     } elseif ($days > 0) {
 
-      //return "Chegou aqui...";
-
       if ($popularTime) {
         if ($days == 1) {
           return 'Ontem';
@@ -98,7 +96,7 @@ if (! function_exists('humanPastTime')) {
 
     } elseif ($hours > 0) {
 
-      if ($hours + $hourNow > 24 && $popularTime){
+      if ($hours >= $hourNow && $popularTime){
         return 'Ontem';
       } elseif ($hours > 1){
         return $hours.' horas';

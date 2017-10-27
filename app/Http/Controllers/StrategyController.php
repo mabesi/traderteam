@@ -110,7 +110,7 @@ class StrategyController extends Controller
 
       $strategyTotalOperations = Operation::select(DB::raw('count(*) as operations, strategy_id'))
                                   ->groupBy('strategy_id')
-                                  ->havingRaw('operations > 0')
+                                  ->havingRaw('count(*) > 0')
                                   ->get();
 
       $avgOperations = round($strategyTotalOperations->avg('operations'));
