@@ -418,7 +418,7 @@ function monthsBetweenDates($date1,$date2)
     }
 }
 
-function alterDate($date,$format,$days=0,$months=0,$years=0)
+function alterDate($date,$format,$days=0,$months=0,$years=0,$withTime=False)
 {
     $anoMesDia = explode('-',$date);
 
@@ -426,7 +426,14 @@ function alterDate($date,$format,$days=0,$months=0,$years=0)
     $month = $anoMesDia[1];
     $day = $anoMesDia[2];
 
-    $timestamp = mktime(0,0,0,$month+$months,$day+$days,$year+$years);
+    if ($withTime){
+      $hours = date('g');
+      $minutes = date('i');
+      $seconds = date('s');
+      $timestamp = mktime($hours,$minutes,$seconds,$month+$months,$day+$days,$year+$years);
+    } else {
+      $timestamp = mktime(0,0,0,$month+$months,$day+$days,$year+$years);
+    }
 
     return date($format, $timestamp);
 }

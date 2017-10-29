@@ -53,6 +53,20 @@ class Strategy extends Model
                   ->sum('result');
     }
 
+    function getHitRate()
+    {
+      $totalOperations = Operation::where('strategy_id',$this->id)
+                                    //->whereNotNull('realentry')
+                                    ->count();
+
+      if ($totalOperations == 0) return 0;
+
+      $targetOperations =  Operation::where('strategy_id',$this->id)
+                                    ->where('status','T')
+                                    ->count();
+      return $targetOperations * 100 / $totalOperations;
+    }
+
     function getIndicatorsId()
     {
       $indicators = $this->indicators->implode('id',',');

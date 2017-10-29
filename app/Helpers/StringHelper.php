@@ -16,7 +16,10 @@ function special_ucwords($string)
     $return[] = $word;
   }
 
-  return implode(' ', $return);
+  $term = implode(' ', $return);
+  $term = ucfirst($term);
+
+  return $term;
 }
 
 function nameInitials($string,$maxwords=1,$link=False)

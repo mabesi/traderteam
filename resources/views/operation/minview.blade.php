@@ -10,8 +10,13 @@
   {{ nbsp(1) }}
   <small class="font-10 text-muted">{{ humanPastTime($operation->updated_at) }}</small>
 
+  <span class="pull-right font-12">
+    {{ nbsp(1) }}
+    @include('operation.hascomments')
+  </span>
+
 @if ($operation->user_id != getUserId())
-  <span class="font-10 pull-right">
+  <span class="font-9 pull-right">
       {!! getUserLink($operation->user) !!}
   </span>
 @endif

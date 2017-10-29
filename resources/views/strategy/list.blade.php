@@ -43,8 +43,9 @@
 
 @if (!$profileView)
     <div class="col-sm-2 col-lg-2">
-      <div class="font-14 text-bold">
-        Operações: {{ $strategy->operations_count }}</a>
+      <div class="font-11 text-bold">
+        Operações: {{ $strategy->operations_count }}<br />
+        No Alvo: {{ $strategy->getHitRate() }}%
       </div>
     </div>
 @endif

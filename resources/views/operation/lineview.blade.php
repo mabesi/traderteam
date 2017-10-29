@@ -27,6 +27,11 @@
   @endif
   </span>
 
+  <span class="pull-right">
+    @include('operation.hascomments')
+    {{ nbsp(1) }}
+  </span>
+
 @if ($operation->user_id==getUserId() || isAdmin())
   <span class="pull-right">
     {!! getItemAdminIcons($operation,'operation',(isset($operationView)?'True':'False')).nbsp(4) !!}

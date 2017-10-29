@@ -43,7 +43,7 @@
       </div>
 
       <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} has-feedback">
-        <input id="password" type="password" class="form-control" placeholder="Senha" name="password" required>
+        <input id="password" type="password" class="form-control" placeholder="Senha (min: 8 caracteres)" name="password" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 
         @if ($errors->has('password'))
