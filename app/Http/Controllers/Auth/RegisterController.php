@@ -77,6 +77,9 @@ class RegisterController extends Controller
           'user_id' => $user->id,
         ]);
 
+        $user->locked = True;
+        $user->save();
+
         //if (env('APP_ENV')=='production' || env('APP_ENV')=='local' ){
         //}
         sendConfirmationEmail($user);
