@@ -1025,12 +1025,67 @@ function getReportReason($id)
   ];
 
   return $reason[$id];
+}
 
+function getCommentsId($operation)
+{
+  $arrayId = Array();
+
+  foreach ($operation->comments as $comment){
+    $arrayId[] = $comment->id;
+  }
+
+  return $arrayId;
+}
+
+function hasNewAnswers($operation,$hours=2)
+{
+  $commentsId = getCommentsId($operation);
+
+  if (count($commentsId)==0){
+      return False;
+  } else {
+
+    $timestamp = strtotime("-".$hours." hours");
+    $dateTime = date('Y-m-d H:i:s',$timestamp);
+    $totalAnswers = App\Answer::whereIn('comment_id',$commentsId)
+                                ->where('created_at', '>=', $dateTime)
+                                ->count();
+    if ($totalAnswers > 0){
+      return True;
+    } else {
+      return False;
+    }
+  }
+}
+
+function hasNewComments($operation,$hours=2)
+{
+  $timestamp = strtotime("-".$hours." hours");
+  $dateTime = date('Y-m-d H:i:s',$timestamp);
+
+  $totalComments = $operation->comments->where('created_at', '>=', $dateTime)->count()>0;
+
+  if ($totalComments > 0){
+    return True;
+  } else {
+    return False;
+  }
+}
+
+function hasNewCommentsOrAnswers($operation,$hours=2)
+{
+  if (hasNewComments($operation,$hours) || hasNewAnswers($operation,$hours)) {
+    return True;
+  } else {
+    return False;
+  }
 }
 
 function feedRss($link,$limit=10,$showDescription=False)
 {
-  return 'Notícias...';
+  return "Notícias...";
+
   //$rss = simplexml_load_file($link);
   $count = 0;
   $feed = '';

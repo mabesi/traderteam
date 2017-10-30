@@ -45,7 +45,7 @@
     <div class="col-sm-2 col-lg-2">
       <div class="font-11 text-bold">
         Operações: {{ $strategy->operations_count }}<br />
-        No Alvo: {{ $strategy->getHitRate() }}%
+        No Alvo: {{ formatRealNumber($strategy->getHitRate(),2) }}%
       </div>
     </div>
 @endif

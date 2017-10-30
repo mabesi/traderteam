@@ -69,7 +69,7 @@ class RegisterController extends Controller
     {
         $user = User::create([
             'name' => special_ucwords($data['name']),
-            'email' => $data['email'],
+            'email' => strtolower($data['email']),
             'password' => bcrypt($data['password']),
         ]);
 
