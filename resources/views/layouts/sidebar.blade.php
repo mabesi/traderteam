@@ -111,7 +111,17 @@
         </li>
 @endif
 
-        <li><a href="{{ route('market') }}"><i class="fa fa-globe"></i> <span>Mercado Mundial</span></a></li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-globe"></i> <span>Mercado</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('market') }}">Cotações e Gráficos</a></li>
+            <li><a href="{{ route('metatrader') }}" target="_blank">Metatrader Web</a></li>
+          </ul>
+        </li>
 
         <li><a href="{{ route('help') }}"><i class="fa fa-question-circle"></i> <span>Ajuda</span></a></li>
 

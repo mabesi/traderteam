@@ -150,6 +150,11 @@ class HomeController extends Controller
       return view('market');
     }
 
+    public function metatrader()
+    {
+      return view('metatrader');
+    }
+
     public function help()
     {
       $helpUserPanel = Configuration::where('name','HELP_USER_PANEL')->first();
