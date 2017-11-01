@@ -7,6 +7,13 @@
   <div class="box-body">
     <div id="accordion02" class="box-group">
 
+@if ($postanalysis01 == Null && $postanalysis02 == Null)
+  <div class="">
+    A pós-análise para esta operação ainda não foi publicada!
+  </div>
+@else
+
+  @if ($postanalysis01 != Null)
       <div class="panel box box-success">
         <div class="box-header with-border">
           <h4 class="box-title">
@@ -27,12 +34,14 @@
               </a>
             </div>
             <div class="text-justify">
-              {!! (isset($postanalysis01)?$postanalysis01:Null) !!}
+              {!! $postanalysis01 !!}
             </div>
           </div>
         </div>
       </div>
+  @endif
 
+  @if ($postanalysis02 != Null)
       <div class="panel box box-success">
         <div class="box-header with-border">
           <h4 class="box-title">
@@ -54,11 +63,14 @@
               </a>
             </div>
             <div class="text-justify">
-              {!! (isset($postanalysis02)?$postanalysis02:Null) !!}
+              {!! $postanalysis02 !!}
             </div>
           </div>
         </div>
       </div>
+
+  @endif
+@endif
 
     </div>
   </div>
