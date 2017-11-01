@@ -68,11 +68,14 @@ if (! function_exists('humanPastTime')) {
         if ($popularTime) {
           if ($monthNow == $monthPastDateTime + 1 || $monthNow == $monthPastDateTime - 11) {
             return 'Mês passado';
+          } else {
+            return 'Dois meses';
           }
         } else {
           $humanInterval = $months.' mês';
         }
       }
+
 
       if ($days > 0) {
         $humanInterval .= ' e '.$days.' '.($days==1?'dia':'dias');

@@ -504,8 +504,8 @@ class OperationController extends Controller
               $operation->fees = getDefaultFees($sellOperation);
             }
 
-            if (($operation->buyorsell=='C' && $operation->realexit <= $operation->currentstop) ||
-                ($operation->buyorsell=='V' && $operation->realexit >= $operation->currentstop)
+            if (($operation->buyorsell=='C' && ($operation->realexit <= $operation->currentstop && $operation->currentstop <= $operation->realentry)) ||
+                ($operation->buyorsell=='V' && ($operation->realexit >= $operation->currentstop && $operation->currentstop >= $operation->realentry))
               ) {
               $operation->status = 'S';
             } elseif (($operation->buyorsell=='C' && $operation->realexit >= $operation->prevtarget) ||
