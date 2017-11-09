@@ -411,6 +411,20 @@ class OperationController extends Controller
             $request->prevstop != (float) $operation->prevstop
             ){
 
+          if ($request->strategy_id != $operation->strategy_id ||
+              $request->stock != $operation->stock ||
+              $request->buyorsell != $operation->buyorsell ||
+              $request->gtime != $operation->gtime ||
+              $request->preventry != (float) $operation->preventry ||
+              $request->prevtarget != (float) $operation->prevtarget ||
+              $request->prevstop != (float) $operation->prevstop
+              ){
+
+            $operation->preanalysis = "|||";
+            $operation->preimage = "|||";
+            $operation->status = 'A';
+          }
+
           $operation->strategy_id = $request->strategy_id;
           $operation->stock = $request->stock;
           $operation->amount = $request->amount;
@@ -437,8 +451,6 @@ class OperationController extends Controller
               return back()->with('warnings',['O preço de stop deve ser maior que o preço de entrada!']);
             }
           }
-
-          $operation->status = 'A';
 
         } elseif ($request->realentry){
            if ($request->entrydate){
