@@ -610,7 +610,7 @@ class OperationController extends Controller
         $directory = 'operations/'.$operation->user_id.'/'.$operation->id;
         $user = $operation->user;
 
-        if (isNotAdmin() && ($operation->status != 'N' || $operation->status != 'A')){
+        if (isNotAdmin() && $operation->status != 'N' && $operation->status != 'A'){
           $data = getMsgDeleteErrorLocked();
         } elseif ($operation->delete()){
           updateUserLevel($user);
