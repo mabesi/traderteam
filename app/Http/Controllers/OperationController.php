@@ -593,12 +593,12 @@ class OperationController extends Controller
      */
     public function destroy(Operation $operation)
     {
-      if (isAdmin() || $strategy->user_id = getUserId()){
+      if (isAdmin() || $operation->user_id == getUserId()){
 
         $directory = 'operations/'.$operation->user_id.'/'.$operation->id;
         $user = $operation->user;
 
-        if (isNotAdmin() && $operation->status != 'N' && $operation->status != 'A'){
+        if (isNotAdmin() && ($operation->status != 'N' || $operation->status != 'A')){
           $data = getMsgDeleteErrorLocked();
         } elseif ($operation->delete()){
           updateUserLevel($user);
