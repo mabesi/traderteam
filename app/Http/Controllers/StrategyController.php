@@ -106,7 +106,7 @@ class StrategyController extends Controller
                                   ->havingRaw('sum(result) > 0')
                                   ->get();
 
-      $avgStrategyResult = round($strategyResultOperations->avg('result'));
+      $avgStrategyResult = round($strategyResultOperations->avg('result'),2);
 
       $strategyTotalOperations = Operation::select(DB::raw('count(*) as operations, strategy_id'))
                                   ->groupBy('strategy_id')
