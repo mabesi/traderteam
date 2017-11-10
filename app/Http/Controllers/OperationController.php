@@ -420,7 +420,6 @@ class OperationController extends Controller
               $request->prevstop != (float) $operation->prevstop
               ){
 
-            $operation->preanalysis = "|||";
             $operation->preimage = "|||";
             $operation->status = 'A';
           }
