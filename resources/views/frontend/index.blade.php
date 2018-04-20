@@ -1,5 +1,31 @@
 @extends('frontend.model')
 
+@push('css')
+<style>
+.circle-content {
+  border: solid 0px #000;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
+.circle-content li {
+  padding: 2%;
+  margin: 0 5px;
+  border-radius: 30%;
+  -moz-border-radius: 30%; 
+  -webkit-border-radius: 30%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  width: 200px;
+  height: 200px;
+  background-color: #8fd361;
+  color: #314920;
+}
+</style>
+@endpush
+
 @section('content')
 
 @include('layouts.errors')
@@ -226,11 +252,11 @@
                       <!-- /.download title -->
                       <h2 class="wow fadeInRight">O QUE MAIS HÁ?</h2>
                       <p class="wow fadeInLeft font-20">Além das análises de operações compartilhadas pela comunidade você terá acesso a:</p>
-                      <ul class="wow fadeInLeft font-14">
-                        <li>Painel de controle do usuário, para acompanhar sua evolução a partir do registro de suas operações</li>
-                        <li>As melhores estratégias, baseadas na estatística de sucesso das operações publicadas</li>
-                        <li>Notícias sobre o mercado financeiro e avisos da equipe de administração</li>
-                        <li>Gráficos e cotações dos principais índices do mercado mundial</li>
+                      <ul class="circle-content wow fadeInLeft font-16">
+                        <li><strong>PAINEL DE CONTROLE</strong><br />Para acompanhar sua evolução a partir do registro de suas operações</li>
+                        <li><strong>AS MELHORES ESTRATÉGIAS</strong><br />Baseadas na estatística de sucesso das operações publicadas</li>
+                        <li><strong>NOTÍCIAS E AVISOS</strong><br />Notícias obre o mercado financeiro e avisos da equipe de administração</li>
+                        <li><strong>GRÁFICOS E COTAÇÕES</strong><br />Veja os gráficos e cotações dos principais índices do mercado mundial</li>
                       </ul>
 
                       <p class="wow fadeInLeft font-12">O registro no TraderTeam é gratuito. Você não paga nenhum tipo de taxa ou assinatura.</p>
