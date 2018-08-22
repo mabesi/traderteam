@@ -11,9 +11,9 @@
 
 .circle-content li {
   padding: 2%;
-  margin: 0 5px;
+  margin: 0 5px 5px 5px;
   border-radius: 30%;
-  -moz-border-radius: 30%; 
+  -moz-border-radius: 30%;
   -webkit-border-radius: 30%;
   display: inline-block;
   vertical-align: middle;

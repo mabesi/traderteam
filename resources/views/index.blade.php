@@ -10,12 +10,12 @@
 <div class="row">
 
   <div class="col-sm-6 col-lg-3">
-    <div class="box box-solid bg-gray">
+    <div class="box box-solid bg-white">
       <div class="box-header with-border bg-tt-gray">
         <span class="font-20">Evolução de Resultados</span>
       </div>
       <div class="box-body">
-        @include('operation.resultinfo')
+        @include('operation.chartjs')
       </div>
       <div class="box-footer">
         <a href="{{ url('myoperations') }}">Minhas Operações</a>

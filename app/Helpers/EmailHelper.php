@@ -7,7 +7,7 @@ function getAdminEmails()
 
 function sendRawEmail($to,$fromEmail,$fromName,$subject,$message)
 {
-  Mail::raw($message, function ($message) use ($to,$fromEmail, $fromName,$to,$subject){
+  Mail::raw($message, function ($message) use ($to,$fromEmail, $fromName,$subject){
       $message->from($fromEmail, $fromName)
               ->to($to)
               ->subject($subject);
@@ -30,7 +30,7 @@ function sendBasicEmail($to,$fromEmail,$fromName,$subject,$message,$title=Null)
     $data['title'] = $title;
   }
 
-  Mail::send('emails.basic', $data, function ($message) use ($to,$fromEmail, $fromName,$to,$subject){
+  Mail::send('emails.basic', $data, function ($message) use ($to,$fromEmail,$fromName,$subject){
       $message->from($fromEmail, $fromName)
               ->to($to)
               ->subject($subject);
