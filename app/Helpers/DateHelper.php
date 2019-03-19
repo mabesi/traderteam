@@ -22,6 +22,7 @@ if (! function_exists('humanPastTime')) {
     *  r - Sign "-" when negative, empty when positive
     */
 
+    $humanInterval = '';
     $pastDateTime = new DateTime($dateTime);
     $yearPastDateTime = (int) $pastDateTime->format('Y');
     $monthPastDateTime = (int) $pastDateTime->format('m');
@@ -48,9 +49,11 @@ if (! function_exists('humanPastTime')) {
         if ($popularTime) {
           if ($yearNow == $yearPastDateTime + 1) {
             return 'Ano passado';
+          } else {
+              $humanInterval = '1 ano';
           }
         } else {
-          $humanInterval = $years.' ano';
+          $humanInterval = '1 ano';
         }
       }
 
